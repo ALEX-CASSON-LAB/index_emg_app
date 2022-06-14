@@ -182,6 +182,7 @@ namespace AndroidSample
             }
 
             ConfigurePipeline();
+            await Task.Delay(5000);
             StreamButton.Enabled = true;
             ArmButton.Enabled = false;
             ScanButton.Enabled = true;
