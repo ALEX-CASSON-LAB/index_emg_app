@@ -75,13 +75,13 @@ namespace AndroidSample
             SetSupportActionBar(toolbar);
 
             ScanButton = FindViewById<Button>(Resource.Id.btn_Scan);
-            ScanButton.Click += clk_Scan;
+            //ScanButton.Click += clk_Scan;
 
             ArmButton = FindViewById<Button>(Resource.Id.btn_Arm);
-            ArmButton.Click += clk_Arm;
+            //ArmButton.Click += clk_Arm;
 
             StreamButton = FindViewById<Button>(Resource.Id.btn_Stream);
-            StreamButton.Click += clk_Start;
+            //StreamButton.Click += clk_Start;
 
             StopButton = FindViewById<Button>(Resource.Id.btn_Stop);
             //StopButton.Click += clk_Stop;
@@ -100,7 +100,7 @@ namespace AndroidSample
         {
             base.OnStart();
 
-            //await somethingAsync();
+            await somethingAsync();
 
         }
 
@@ -111,13 +111,13 @@ namespace AndroidSample
         /// <returns></returns>
         private async Task somethingAsync()
         {
-            //clk_Scan();
+            clk_Scan();
             await Task.Delay(15000);
 
-            //clk_Arm();
+            clk_Arm();
             await Task.Delay(5000);
 
-            //clk_Start();
+            clk_Start();
             await Task.Delay(30000);
 
             clk_Stop();
@@ -161,7 +161,7 @@ namespace AndroidSample
             }
         }
 
-        public void clk_Start(object sender, EventArgs e)
+        public void clk_Start()
         {
             // The pipeline must be reconfigured before it can be started again.
             ConfigurePipeline();
@@ -172,12 +172,11 @@ namespace AndroidSample
             StopButton.Enabled = true;
         }
 
-        public void clk_Arm(object sender, EventArgs e)
+        public void clk_Arm()
         {
             // Select every component we found and didn't filter out.
             foreach (var component in BTPipeline.TrignoBtManager.Components)
             {
-                Console.WriteLine("onehere");
                 BTPipeline.TrignoBtManager.SelectComponentAsync(component);
             }
 
@@ -188,7 +187,7 @@ namespace AndroidSample
             StopButton.Enabled = false;
         }
 
-        public async void clk_Scan(object sender, EventArgs e)
+        public void clk_Scan()
         {
             StreamButton.Enabled = false;
             ArmButton.Enabled = false;
@@ -196,7 +195,6 @@ namespace AndroidSample
             StopButton.Enabled = false;
 
             BTPipeline.Scan();
-            
         }
 
         public void clk_Stop()
@@ -343,8 +341,6 @@ namespace AndroidSample
             }
             TotalLostPackets += lostPackets;
             TotalDataPoints += dataPoints;
-
-            Console.WriteLine(TotalDataPoints);
         }
 
         private void CollectionStarted(object sender, DelsysAPI.Events.CollectionStartedEvent e)
