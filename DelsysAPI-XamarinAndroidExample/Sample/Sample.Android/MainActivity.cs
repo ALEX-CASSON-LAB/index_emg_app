@@ -75,16 +75,16 @@ namespace AndroidSample
             SetSupportActionBar(toolbar);
 
             ScanButton = FindViewById<Button>(Resource.Id.btn_Scan);
-            //ScanButton.Click += clk_Scan;
+            ScanButton.Click += clk_Scan;
 
             ArmButton = FindViewById<Button>(Resource.Id.btn_Arm);
-            //ArmButton.Click += clk_Arm;
+            ArmButton.Click += clk_Arm;
 
             StreamButton = FindViewById<Button>(Resource.Id.btn_Stream);
-            //StreamButton.Click += clk_Start;
+            StreamButton.Click += clk_Start;
 
             StopButton = FindViewById<Button>(Resource.Id.btn_Stop);
-            //StopButton.Click += clk_Stop;
+            StopButton.Click += clk_Stop;
 
             StreamButton.Enabled = false;
             ArmButton.Enabled = false;
@@ -96,32 +96,32 @@ namespace AndroidSample
             InitializeDataSource();
         }
 
-        protected async override void OnStart()
-        {
-            base.OnStart();
+        //protected async override void OnStart()
+        //{
+        //    base.OnStart();
 
-            await somethingAsync();
+        //    //await somethingAsync();
 
-        }
+        //}
 
         /// <summary>
         /// Method to create automation of scanning, arming and streaming of sensors.
         /// Delays are set to mimic human delay.
         /// </summary>
         /// <returns></returns>
-        private async Task somethingAsync()
-        {
-            clk_Scan();
-            await Task.Delay(15000);
+        //private async Task somethingAsync()
+        //{
+        //    //clk_Scan();
+        //    //await Task.Delay(15000);
 
-            clk_Arm();
-            await Task.Delay(5000);
+        //    //clk_Arm();
+        //    //await Task.Delay(5000);
 
-            clk_Start();
-            await Task.Delay(30000);
+        //    //clk_Start();
+        //    //await Task.Delay(30000);
 
-            clk_Stop();
-        }
+        //    //clk_Stop();
+        //}
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
@@ -161,23 +161,24 @@ namespace AndroidSample
             }
         }
 
-        public void clk_Start()
+        public async void clk_Start(object sender, EventArgs e)
         {
             // The pipeline must be reconfigured before it can be started again.
             ConfigurePipeline();
-            BTPipeline.Start();
+            await BTPipeline.Start();
             StreamButton.Enabled = false;
             ArmButton.Enabled = false;
             ScanButton.Enabled = false;
             StopButton.Enabled = true;
+            await Task.Delay(30000);
         }
 
-        public void clk_Arm()
+        public async void clk_Arm(object sender, EventArgs e)
         {
             // Select every component we found and didn't filter out.
             foreach (var component in BTPipeline.TrignoBtManager.Components)
             {
-                BTPipeline.TrignoBtManager.SelectComponentAsync(component);
+                await BTPipeline.TrignoBtManager.SelectComponentAsync(component);
             }
 
             ConfigurePipeline();
@@ -185,19 +186,21 @@ namespace AndroidSample
             ArmButton.Enabled = false;
             ScanButton.Enabled = true;
             StopButton.Enabled = false;
+            await Task.Delay(5000);
         }
 
-        public void clk_Scan()
+        public async void clk_Scan(object sender, EventArgs e)
         {
             StreamButton.Enabled = false;
             ArmButton.Enabled = false;
             ScanButton.Enabled = false;
             StopButton.Enabled = false;
 
-            BTPipeline.Scan();
+            await BTPipeline.Scan();
+            await Task.Delay(15000);
         }
 
-        public void clk_Stop()
+        public void clk_Stop(object sender, EventArgs e)
         {
             BTPipeline.Stop();
             StreamButton.Enabled = true;
