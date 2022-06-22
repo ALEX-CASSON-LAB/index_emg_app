@@ -75,16 +75,28 @@ namespace AndroidSample
             SetSupportActionBar(toolbar);
 
             ScanButton = FindViewById<Button>(Resource.Id.btn_Scan);
-            ScanButton.Click += clk_Scan;
+            ScanButton.Click += (s, e) =>
+            {
+                clk_Scan();
+            };
 
             ArmButton = FindViewById<Button>(Resource.Id.btn_Arm);
-            ArmButton.Click += clk_Arm;
+            ArmButton.Click += (s, e) =>
+            {
+                clk_Arm();
+            };
 
             StreamButton = FindViewById<Button>(Resource.Id.btn_Stream);
-            StreamButton.Click += clk_Start;
+            StreamButton.Click += (s, e) =>
+            {
+                clk_Start();
+            };
 
             StopButton = FindViewById<Button>(Resource.Id.btn_Stop);
-            StopButton.Click += clk_Stop;
+            StopButton.Click += (s, e) =>
+            {
+                clk_Stop();
+            };
 
             StreamButton.Enabled = false;
             ArmButton.Enabled = false;
@@ -161,47 +173,44 @@ namespace AndroidSample
             }
         }
 
-        public async void clk_Start(object sender, EventArgs e)
+        public  void clk_Start()
         {
             // The pipeline must be reconfigured before it can be started again.
             ConfigurePipeline();
-            await BTPipeline.Start();
+            BTPipeline.Start();
             StreamButton.Enabled = false;
             ArmButton.Enabled = false;
             ScanButton.Enabled = false;
             StopButton.Enabled = true;
-            await Task.Delay(30000);
+
         }
 
-        public async void clk_Arm(object sender, EventArgs e)
+        public void clk_Arm()
         {
             // Select every component we found and didn't filter out.
             foreach (var component in BTPipeline.TrignoBtManager.Components)
             {
-                await BTPipeline.TrignoBtManager.SelectComponentAsync(component);
+               BTPipeline.TrignoBtManager.SelectComponentAsync(component);
             }
 
             ConfigurePipeline();
-            await Task.Delay(5000);
             StreamButton.Enabled = true;
             ArmButton.Enabled = false;
             ScanButton.Enabled = true;
             StopButton.Enabled = false;
-            await Task.Delay(5000);
         }
 
-        public async void clk_Scan(object sender, EventArgs e)
+        public void clk_Scan()
         {
             StreamButton.Enabled = false;
             ArmButton.Enabled = false;
             ScanButton.Enabled = false;
             StopButton.Enabled = false;
-
-            await BTPipeline.Scan();
-            await Task.Delay(15000);
+            BTPipeline.Scan();
+            
         }
 
-        public void clk_Stop(object sender, EventArgs e)
+        public void clk_Stop()
         {
             BTPipeline.Stop();
             StreamButton.Enabled = true;
@@ -399,6 +408,7 @@ namespace AndroidSample
         /// <param name="e"></param>
         private void CollectionComplete(object sender, DelsysAPI.Events.CollectionCompleteEvent e)
         {
+            Console.WriteLine("cc: collection complete");
             string path = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads);
             for (int i = 0; i < Data.Count; i++)
             {
@@ -412,7 +422,7 @@ namespace AndroidSample
                 }
             }
             // If you do not disarm the pipeline, then upon stopping you may begin streaming again.
-            BTPipeline.DisarmPipeline().Wait();
+            //BTPipeline.DisarmPipeline().Wait();
         }
 
         #endregion
