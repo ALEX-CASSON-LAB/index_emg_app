@@ -108,33 +108,6 @@ namespace AndroidSample
             InitializeDataSource();
         }
 
-        //protected async override void OnStart()
-        //{
-        //    base.OnStart();
-
-        //    //await somethingAsync();
-
-        //}
-
-        /// <summary>
-        /// Method to create automation of scanning, arming and streaming of sensors.
-        /// Delays are set to mimic human delay.
-        /// </summary>
-        /// <returns></returns>
-        //private async Task somethingAsync()
-        //{
-        //    //clk_Scan();
-        //    //await Task.Delay(15000);
-
-        //    //clk_Arm();
-        //    //await Task.Delay(5000);
-
-        //    //clk_Start();
-        //    //await Task.Delay(30000);
-
-        //    //clk_Stop();
-        //}
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);
@@ -173,16 +146,15 @@ namespace AndroidSample
             }
         }
 
-        public  void clk_Start()
+        public void clk_Start()
         {
             // The pipeline must be reconfigured before it can be started again.
-            ConfigurePipeline();
+            //ConfigurePipeline(); // Alex said remove
             BTPipeline.Start();
             StreamButton.Enabled = false;
             ArmButton.Enabled = false;
             ScanButton.Enabled = false;
             StopButton.Enabled = true;
-
         }
 
         public void clk_Arm()
@@ -190,7 +162,7 @@ namespace AndroidSample
             // Select every component we found and didn't filter out.
             foreach (var component in BTPipeline.TrignoBtManager.Components)
             {
-               BTPipeline.TrignoBtManager.SelectComponentAsync(component);
+                BTPipeline.TrignoBtManager.SelectComponentAsync(component);
             }
 
             ConfigurePipeline();
@@ -206,8 +178,8 @@ namespace AndroidSample
             ArmButton.Enabled = false;
             ScanButton.Enabled = false;
             StopButton.Enabled = false;
+
             BTPipeline.Scan();
-            
         }
 
         public void clk_Stop()
@@ -408,7 +380,6 @@ namespace AndroidSample
         /// <param name="e"></param>
         private void CollectionComplete(object sender, DelsysAPI.Events.CollectionCompleteEvent e)
         {
-            Console.WriteLine("cc: collection complete");
             string path = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads);
             for (int i = 0; i < Data.Count; i++)
             {
@@ -423,6 +394,9 @@ namespace AndroidSample
             }
             // If you do not disarm the pipeline, then upon stopping you may begin streaming again.
             //BTPipeline.DisarmPipeline().Wait();
+
+            StopButton.Enabled = false;
+            StreamButton.Enabled = true;
         }
 
         #endregion
