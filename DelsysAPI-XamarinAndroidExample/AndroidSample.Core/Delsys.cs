@@ -1,17 +1,9 @@
 ﻿using System;
-
-using Android.App;
-using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.OS;
 using DelsysAPI.Pipelines;
 using DelsysAPI.Contracts;
 using System.Collections.Generic;
 using DelsysAPI.DelsysDevices;
-using Android.Support.V4.App;
-using Android;
+
 using DelsysAPI.Events;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,192 +18,80 @@ using DelsysAPI.Transforms;
 using DelsysAPI.Channels.Transform;
 using System.Reflection;
 
-namespace AndroidSample
-
+namespace AndroidSample.Core
 {
-
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
-    public class MainActivity : Android.Support.V7.App.AppCompatActivity
+    public class Delsys
     {
-        // Defining buttons for UI
-        public Button ScanButton;
-        public Button ArmButton;
-        public Button StreamButton;
-        public Button StopButton;
-
-
         Pipeline BTPipeline;
         ITransformManager TransformManager;
-        /// <summary>
-        /// If there are no device filters, the central will connect to every Avanti sensor
-        /// it detects.
-        /// </summary>
+        public List<List<double>> Data = new List<List<double>>();
+
+        IDelsysDevice DeviceSource = null;
         string[] DeviceFilters = new string[]
         {
         };
-
-        /// <summary>
-        /// Data structure for recording every channel of data.
-        /// </summary>
-        List<List<double>> Data = new List<List<double>>();
-
-        IDelsysDevice DeviceSource = null;
-
-        int TotalLostPackets = 0;
+        int TotalLostPackets = 0; //todo check if these are useful
         int TotalDataPoints = 0;
-
-        /// <summary>
-        /// Buttons on device are only a visual representation of automation.
-        /// If buttons are needed, uncomment and insert (object sender, EventArgs e) into the commeneted out methods parameters.
-        /// </summary>
-        /// <param name="savedInstanceState"></param>
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-
-            SetContentView(Resource.Layout.activity_main);
-
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
-
-            ScanButton = FindViewById<Button>(Resource.Id.btn_Scan);
-            ScanButton.Click += (s, e) =>
+        public Delsys(){
+            if (BTPipeline != null)
+                Console.WriteLine(BTPipeline.CurrentState);
+            if (BTPipeline == null || BTPipeline.CurrentState != Pipeline.ProcessState.Off)
             {
-                clk_Scan();
-            };
+                
 
-            ArmButton = FindViewById<Button>(Resource.Id.btn_Arm);
-            ArmButton.Click += (s, e) =>
-            {
-                clk_Arm();
-            };
-
-            StreamButton = FindViewById<Button>(Resource.Id.btn_Stream);
-            StreamButton.Click += (s, e) =>
-            {
-                clk_Start();
-            };
-
-            StopButton = FindViewById<Button>(Resource.Id.btn_Stop);
-            StopButton.Click += (s, e) =>
-            {
-                clk_Stop();
-            };
-
-            StreamButton.Enabled = false;
-            ArmButton.Enabled = false;
-            ScanButton.Enabled = true;
-            StopButton.Enabled = false;
-
-            CheckAppPermissions();
-
-            InitializeDataSource();
-        }
-
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Menu.menu_main, menu);
-            return true;
-        }
-
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            int id = item.ItemId;
-            if (id == Resource.Id.action_settings)
-            {
-                return true;
+                InitializeDataSource();
             }
 
-            return base.OnOptionsItemSelected(item);
         }
 
-        #region Button Events (Scan, Start, and Stop)
 
-        // Check and request permissions
-        private void CheckAppPermissions()
+        #region Scan,Arm,Stream,Stop
+        public void SensorScan()
         {
-            if ((int)Build.VERSION.SdkInt < 23)
-            {
-                return;
-            }
-            else
-            {
-                if (PackageManager.CheckPermission(Manifest.Permission.ReadExternalStorage, PackageName) != Permission.Granted
-                    && PackageManager.CheckPermission(Manifest.Permission.WriteExternalStorage, PackageName) != Permission.Granted)
-                {
-                    var permissions = new string[] { Manifest.Permission.ReadExternalStorage, Manifest.Permission.WriteExternalStorage, Manifest.Permission.AccessCoarseLocation, Manifest.Permission.AccessFineLocation };
-                    RequestPermissions(permissions, 1);
-                }
-            }
+            BTPipeline.Scan();
         }
-
-        public void clk_Start()
-        {
-            // The pipeline must be reconfigured before it can be started again.
-            //ConfigurePipeline(); // Alex said remove
-            BTPipeline.Start();
-            StreamButton.Enabled = false;
-            ArmButton.Enabled = false;
-            ScanButton.Enabled = false;
-            StopButton.Enabled = true;
-        }
-
-        public void clk_Arm()
+        public void SensorArm()
         {
             // Select every component we found and didn't filter out.
-            foreach (var component in BTPipeline.TrignoBtManager.Components)
+            foreach (var component in BTPipeline.TrignoBtManager.Components) //TODO change this so it displays this on the screen and user can select the sensors
             {
                 BTPipeline.TrignoBtManager.SelectComponentAsync(component);
             }
 
             ConfigurePipeline();
-            StreamButton.Enabled = true;
-            ArmButton.Enabled = false;
-            ScanButton.Enabled = true;
-            StopButton.Enabled = false;
         }
-
-        public void clk_Scan()
+        public Task<bool> SensorStream()
         {
-            StreamButton.Enabled = false;
-            ArmButton.Enabled = false;
-            ScanButton.Enabled = false;
-            StopButton.Enabled = false;
-
-            BTPipeline.Scan();
+            return BTPipeline.Start();
         }
-
-        public void clk_Stop()
+        public Task<bool> SensorStop()
         {
-            BTPipeline.Stop();
-            StreamButton.Enabled = true;
-            ArmButton.Enabled = false;
-            ScanButton.Enabled = false;
-            StopButton.Enabled = false;
+            return BTPipeline.Stop();
         }
-
         #endregion
 
-        #region Initialization
-
-        public void InitializeDataSource()
+        public Task<bool> PipelineDisarm()
         {
-            int SUCCESS = 0;
-            ActivityCompat.RequestPermissions(this, new String[] { Manifest.Permission.AccessCoarseLocation }, SUCCESS);
+            return BTPipeline.DisarmPipeline();
+        }
+
+        #region Initialisation
+        private void InitializeDataSource()
+        {
+            
 
             // Load your license and key files
             // This tutorial assumes you have them contained in embedded resources named PublicKey.lic and License.lic, as part of
             // a solution with an output executable called AndroidSample.
             var assembly = Assembly.GetExecutingAssembly();
             string key;
-            using (Stream stream = assembly.GetManifestResourceStream("AndroidSample.PublicKey.lic")) // Change the name of the .lic file accordingly
+            using (Stream stream = assembly.GetManifestResourceStream("AndroidSample.Core.PublicKey.lic")) // Change the name of the .lic file accordingly
             {
                 StreamReader sr = new StreamReader(stream);
                 key = sr.ReadLine();
             }
             string lic;
-            using (Stream stream = assembly.GetManifestResourceStream("AndroidSample.Carolina.lic")) // Change the name of the .lic file accordingly
+            using (Stream stream = assembly.GetManifestResourceStream("AndroidSample.Core.Carolina.lic")) // Change the name of the .lic file accordingly
             {
                 StreamReader sr = new StreamReader(stream);
                 lic = sr.ReadToEnd();
@@ -250,8 +130,9 @@ namespace AndroidSample
             // a reference to it will shorten a lot of calls.
             var ComponentManager = PipelineController.Instance.PipelineIds[0].TrignoBtManager;
         }
-
-        public void LoadDataSource(IDelsysDevice ds)
+        
+        
+        private void LoadDataSource(IDelsysDevice ds)
         {
             PipelineController.Instance.AddPipeline(ds);
 
@@ -270,17 +151,16 @@ namespace AndroidSample
 
             BTPipeline.TrignoBtManager.ComponentScanComplete += ComponentScanComplete;
         }
-
         #endregion
 
         #region Componenet Callbacks -- Component Added, Scan Complete
 
         private void ComponentScanComplete(object sender, DelsysAPI.Events.ComponentScanCompletedEventArgs e)
         {
-            StreamButton.Enabled = false;
-            ArmButton.Enabled = true;
-            ScanButton.Enabled = true;
-            StopButton.Enabled = false;
+            //StreamButton.Enabled = false;
+            //ArmButton.Enabled = true;
+            //ScanButton.Enabled = true;
+            //StopButton.Enabled = false;
         }
 
         #endregion
@@ -302,7 +182,6 @@ namespace AndroidSample
         }
 
         #endregion
-
 
         #region Collection Callbacks -- Data Ready, Colleciton Started, and Collection Complete
         public void CollectionDataReady(object sender, ComponentDataReadyEventArgs e)
@@ -343,7 +222,7 @@ namespace AndroidSample
                 for (int j = 0; j < comps[i].BtChannels.Count; j++)
                 {
                     if (Data.Count <= totalChannels)
-                    {         
+                    {
                         Data.Add(new List<double>());
                     }
                     else
@@ -380,23 +259,20 @@ namespace AndroidSample
         /// <param name="e"></param>
         private void CollectionComplete(object sender, DelsysAPI.Events.CollectionCompleteEvent e)
         {
-            string path = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads);
-            for (int i = 0; i < Data.Count; i++)
-            {
-                string filename = Path.Combine(path, "sensor" + i + "_data.csv");
-                using (StreamWriter channelOutputFile = new StreamWriter(filename, true))
-                {
-                    foreach (var pt in Data[i])
-                    {
-                        channelOutputFile.WriteLine(pt.ToString());
-                    }
-                }
-            }
+            //string path = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads);
+            //for (int i = 0; i < Data.Count; i++)
+            //{
+            //    string filename = Path.Combine(path, "sensor" + i + "_data.csv");
+            //    using (StreamWriter channelOutputFile = new StreamWriter(filename, true))
+            //    {
+            //        foreach (var pt in Data[i])
+            //        {
+            //            channelOutputFile.WriteLine(pt.ToString());
+            //        }
+            //    }
+            //}
             // If you do not disarm the pipeline, then upon stopping you may begin streaming again.
             //BTPipeline.DisarmPipeline().Wait();
-
-            StopButton.Enabled = false;
-            StreamButton.Enabled = true;
         }
 
         #endregion

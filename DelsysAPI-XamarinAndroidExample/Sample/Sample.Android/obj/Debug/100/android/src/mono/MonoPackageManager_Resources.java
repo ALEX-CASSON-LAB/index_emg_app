@@ -4,9 +4,12 @@ public class MonoPackageManager_Resources {
 		/* We need to ensure that "Sample.Android.dll" comes first in this list. */
 		"Sample.Android.dll",
 		"Portable.Licensing.dll",
+		"AndroidSample.Core.dll",
 		"DelsysApi.Android.dll",
 		"DelsysAPI.dll",
 		"MathNet.Numerics.dll",
+		"Microsoft.Toolkit.Mvvm.dll",
+		"Newtonsoft.Json.dll",
 		"Plugin.BLE.Abstractions.dll",
 		"Plugin.BLE.Android.dll",
 		"Plugin.BLE.dll",

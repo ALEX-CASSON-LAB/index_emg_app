@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <TextView
+        android:id="@+id/txv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Information page"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/btn_start"
+        android:text="Start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txv_title" />
+
+    <Button
+        android:id="@+id/btn_scan"
+        android:text="Scan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:layout_below="@+id/btn_start" />
+    <Button
+        android:id="@+id/btn_arm"
+        android:text="Arm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:layout_below="@id/btn_scan" />
+    <Button
+        android:id="@+id/btn_mvc"
+        android:text="MVC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_arm" />
+
+</RelativeLayout>

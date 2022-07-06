@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Carolina.lic" />
+    <None Remove="PublicKey.lic" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Carolina.lic" />
+    <EmbeddedResource Include="PublicKey.lic" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DelsysAPI.Android" Version="1.7.1.876" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+  </ItemGroup>
+
+</Project>

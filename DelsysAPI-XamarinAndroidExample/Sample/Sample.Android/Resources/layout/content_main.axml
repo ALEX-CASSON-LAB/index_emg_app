@@ -6,42 +6,28 @@
     android:layout_height="match_parent"
     android:gravity="center">
     <TextView
-        android:id="@+id/txt_Title"
+        android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delsys API Basic Example"
+        android:text="INDEX APP"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true" />
+    <TextView
+        android:id="@+id/txv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Created by Carolina Costa Lopes"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txv_title" />
     <Button
-        android:id="@+id/btn_Scan"
-        android:text="Scan"
+        android:id="@+id/btn_begin"
+        android:text="Begin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txt_Title" />
-    <Button
-        android:id="@+id/btn_Arm"
-        android:text="Arm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btn_Scan" />
-    <Button
-        android:id="@+id/btn_Stream"
-        android:text="Stream"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btn_Arm" />
-    <Button
-        android:id="@+id/btn_Stop"
-        android:text="Stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btn_Stream" />
+        android:layout_below="@+id/txv_subtitle" />
+        
+    
 </RelativeLayout>
