@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AndroidSample.Views
 {
-    [Activity(Label = "@string/exercise_title", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/exercise_title", Theme = "@style/AppTheme")]
     public class ExerciseActivity : Android.Support.V7.App.AppCompatActivity
     {
         Button StartButton;

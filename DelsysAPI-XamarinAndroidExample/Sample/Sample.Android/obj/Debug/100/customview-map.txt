@@ -30,13 +30,13 @@ RelativeLayout;obj\Debug\100\res\layout\content_exercise.xml
 RelativeLayout;obj\Debug\100\res\layout\content_info.xml
 RelativeLayout;obj\Debug\100\res\layout\content_main.xml
 RelativeLayout;obj\Debug\100\res\layout\content_mvc.xml
-resources;C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\Sample\Sample.Android\obj\Debug\100\lp\0\jl\res\values\strings.xml
+resources;D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\Sample\Sample.Android\obj\Debug\100\lp\0\jl\res\values\strings.xml
 resources;obj\Debug\100\res\values\colors.xml
 resources;obj\Debug\100\res\values\dimens.xml
 resources;obj\Debug\100\res\values\ic_launcher_background.xml
 resources;obj\Debug\100\res\values\strings.xml
 resources;obj\Debug\100\res\values\styles.xml
-string;C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\Sample\Sample.Android\obj\Debug\100\lp\0\jl\res\values\strings.xml
+string;D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\Sample\Sample.Android\obj\Debug\100\lp\0\jl\res\values\strings.xml
 string;obj\Debug\100\res\values\strings.xml
 style;obj\Debug\100\res\values\styles.xml
 TextView;obj\Debug\100\res\layout\content_exercise.xml

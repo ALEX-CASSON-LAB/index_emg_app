@@ -10,10 +10,16 @@ public class MainModel
     #endregion
     // TODO add user details and sql connections
     private Delsys _del;
+    private double[][] _data;
     public double mvc { get; set; }
     public Delsys del
     {
         get { return _del; }
         set { _del = value; }
+    }
+    public double[][] data
+    {
+        get { return _data; }
+        set { _data = value; }
     }
 }

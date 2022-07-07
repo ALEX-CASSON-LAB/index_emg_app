@@ -14,7 +14,7 @@ using AndroidSample.Views;
 
 namespace AndroidSample
 {
-    [Activity(Label = "MVC", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "MVC", Theme = "@style/AppTheme.NoActionBar")]
     public class MVCActivity : Android.Support.V7.App.AppCompatActivity
     {
         Button StartButton;
@@ -36,6 +36,8 @@ namespace AndroidSample
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_mvc);
 
+            
+
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
             {
@@ -56,6 +58,8 @@ namespace AndroidSample
                 //Calculate MVC
                 _model.mvc = calculate_MVC(del.Data);
                 Console.WriteLine("mvc is {0}", _model.mvc);
+
+                allowStart();
             };
 
             NextButton = FindViewById<Button>(Resource.Id.btn_next);
@@ -64,6 +68,14 @@ namespace AndroidSample
                 StartActivity(typeof(ExerciseActivity));
             };
 
+            allowStart();
+
+        }
+        // Must delay the start to avoid crashing. Delsys API requirements.
+        public async void allowStart()
+        {
+            await Task.Delay(5000); // WAIT BEFORE ALLOWING TO CLICK
+            StartButton.Enabled = true;
         }
 
         public double calculate_MVC(List<List<double>> data) // whats the datatpe of data
