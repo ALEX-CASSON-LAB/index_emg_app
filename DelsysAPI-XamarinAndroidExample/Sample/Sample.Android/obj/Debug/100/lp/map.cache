@@ -1,5 +1,6 @@
 DelsysApi.Android.dll
 Plugin.BLE.Android.dll
+SQLitePCLRaw.lib.e_sqlite3.android.dll
 Xamarin.Android.Arch.Core.Common.dll
 Xamarin.Android.Arch.Core.Runtime.dll
 Xamarin.Android.Arch.Lifecycle.Common.dll

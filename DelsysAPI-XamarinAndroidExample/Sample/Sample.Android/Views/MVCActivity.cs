@@ -21,13 +21,13 @@ namespace AndroidSample
         Button StopButton;
         Button NextButton;
 
-        MainModel _model;
+        private MainModel _myModel;
 
         Delsys del;
         public MVCActivity()
         {
-            _model = MainModel.Instance;
-            del = _model.del;
+            _myModel = MainModel.Instance;
+            del = _myModel.del;
         }
        
 
@@ -56,8 +56,8 @@ namespace AndroidSample
                 StopButton.Visibility = ViewStates.Invisible;
 
                 //Calculate MVC
-                _model.mvc = calculate_MVC(del.Data);
-                Console.WriteLine("mvc is {0}", _model.mvc);
+                _myModel.mvc = calculate_MVC(del.Data);
+                Console.WriteLine("mvc is {0}", _myModel.mvc);
 
                 allowStart();
             };

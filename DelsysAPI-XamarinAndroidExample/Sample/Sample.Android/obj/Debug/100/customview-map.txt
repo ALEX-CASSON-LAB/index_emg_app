@@ -19,6 +19,7 @@ Button;obj\Debug\100\res\layout\content_mvc.xml
 color;obj\Debug\100\res\values\colors.xml
 color;obj\Debug\100\res\values\ic_launcher_background.xml
 dimen;obj\Debug\100\res\values\dimens.xml
+ImageView;obj\Debug\100\res\layout\content_exercise.xml
 include;obj\Debug\100\res\layout\activity_exercise.xml
 include;obj\Debug\100\res\layout\activity_info.xml
 include;obj\Debug\100\res\layout\activity_main.xml
