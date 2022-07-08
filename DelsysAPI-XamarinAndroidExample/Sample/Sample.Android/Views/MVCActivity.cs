@@ -22,8 +22,8 @@ namespace AndroidSample
         Button NextButton;
 
         private MainModel _myModel;
-
         Delsys del;
+
         public MVCActivity()
         {
             _myModel = MainModel.Instance;
@@ -33,11 +33,12 @@ namespace AndroidSample
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            // view set-up
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_mvc);
 
-            
 
+            // button set-up
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
             {
@@ -65,13 +66,15 @@ namespace AndroidSample
             NextButton = FindViewById<Button>(Resource.Id.btn_next);
             NextButton.Click += (s, e) =>
             {
-                StartActivity(typeof(ExerciseActivity));
+                //StartActivity(typeof(ExerciseActivity));
+                StartActivity(typeof(ExerciseSelectionActivity));
             };
 
             allowStart();
 
         }
-        // Must delay the start to avoid crashing. Delsys API requirements.
+        // Delays the start button appearing for 5 seconds. This is a clean up for the Delsys API.
+        // Without waiting a couple of seconds, the connection may crash
         public async void allowStart()
         {
             await Task.Delay(5000); // WAIT BEFORE ALLOWING TO CLICK

@@ -209,7 +209,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\CustomGridViewAdapter.cs" />
     <Compile Include="Views\ExerciseActivity.cs" />
+    <Compile Include="Views\ExerciseSelectionActivity.cs" />
     <Compile Include="Views\MainActivity.cs" />
     <Compile Include="Views\MVCActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -254,7 +256,6 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
-    <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\mipmap-anydpi-v26\" />
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +308,22 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_exercise.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\content_exerciseSelection.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\va_hamstring.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\va_legraise.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_exerciseSelection.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
