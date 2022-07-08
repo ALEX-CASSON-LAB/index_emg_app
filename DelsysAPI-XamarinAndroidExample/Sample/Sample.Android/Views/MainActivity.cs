@@ -6,6 +6,7 @@ using Android.Widget;
 using Android.OS;
 using Android.Support.V4.App;
 using Android;
+using System.IO;
 
 namespace AndroidSample
 
@@ -15,25 +16,41 @@ namespace AndroidSample
     public class MainActivity : Android.Support.V7.App.AppCompatActivity
     {
         Button InfoActivityButton;
-
+        MainModel myModel;
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            // View set up
             base.OnCreate(savedInstanceState);
-
             SetContentView(Resource.Layout.activity_main);
-
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
+            CheckAppPermissions();
 
+            // Model set up
+            myModel = MainModel.Instance;
+
+            // Button set up
             InfoActivityButton = FindViewById<Button>(Resource.Id.btn_begin);
             InfoActivityButton.Click += delegate
             {
                 StartActivity(typeof(InformationActivity));
             };
 
-            CheckAppPermissions();
+
+            //Data set up
+            getDatabasePath();
+
+            myModel.setupDatabase();
+            myModel.accessDatabase();
+            
         }
 
+        private void getDatabasePath()
+        {
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),"database.db3");
+            // dbPath contains a valid file path for the database file to be stored
+            MainModel.Instance.dbPath = dbPath;
+        }
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Menu.menu_main, menu);

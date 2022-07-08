@@ -20,14 +20,17 @@ namespace AndroidSample.Views
         Button StopButton;
         Button NextButton;
 
-        MainModel _model;
+        private MainModel _myModel;
 
         Delsys del;
 
+        private List<Exercise> _exerciseList; //holds all the exercises available in the exercise database
+
         public ExerciseActivity()
         {
-            _model = MainModel.Instance;
-            del = _model.del;
+            _myModel = MainModel.Instance;
+            del = _myModel.del;
+            _exerciseList = _myModel.getExercises();
         }
 
         protected override void OnCreate(Bundle savedInstanceState)

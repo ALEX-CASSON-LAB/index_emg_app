@@ -21,23 +21,24 @@ namespace AndroidSample
         Button StopButton;
         Button NextButton;
 
-        MainModel _model;
-
+        private MainModel _myModel;
         Delsys del;
+
         public MVCActivity()
         {
-            _model = MainModel.Instance;
-            del = _model.del;
+            _myModel = MainModel.Instance;
+            del = _myModel.del;
         }
        
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            // view set-up
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_mvc);
 
-            
 
+            // button set-up
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
             {
@@ -56,8 +57,8 @@ namespace AndroidSample
                 StopButton.Visibility = ViewStates.Invisible;
 
                 //Calculate MVC
-                _model.mvc = calculate_MVC(del.Data);
-                Console.WriteLine("mvc is {0}", _model.mvc);
+                _myModel.mvc = calculate_MVC(del.Data);
+                Console.WriteLine("mvc is {0}", _myModel.mvc);
 
                 allowStart();
             };
@@ -65,13 +66,15 @@ namespace AndroidSample
             NextButton = FindViewById<Button>(Resource.Id.btn_next);
             NextButton.Click += (s, e) =>
             {
-                StartActivity(typeof(ExerciseActivity));
+                //StartActivity(typeof(ExerciseActivity));
+                StartActivity(typeof(ExerciseSelectionActivity));
             };
 
             allowStart();
 
         }
-        // Must delay the start to avoid crashing. Delsys API requirements.
+        // Delays the start button appearing for 5 seconds. This is a clean up for the Delsys API.
+        // Without waiting a couple of seconds, the connection may crash
         public async void allowStart()
         {
             await Task.Delay(5000); // WAIT BEFORE ALLOWING TO CLICK
