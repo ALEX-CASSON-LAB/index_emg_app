@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AndroidSample
 {
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class InformationActivity : Android.Support.V7.App.AppCompatActivity
     {
         // Defining buttons for UI
@@ -26,9 +26,13 @@ namespace AndroidSample
         }
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            // View set up
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_info);
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            SetSupportActionBar(toolbar);
 
+            //Button set up
             MVCButton = FindViewById<Button>(Resource.Id.btn_mvc);
             MVCButton.Click += delegate {
                 StartActivity(typeof(MVCActivity));
@@ -50,15 +54,15 @@ namespace AndroidSample
             ScanButton.Click += (s, e) =>
             {
                 del.SensorScan(); //todo display sensors and select them
-                ArmButton.Visibility = ViewStates.Visible;
                 ScanButton.Visibility = ViewStates.Gone;
-
+                ArmButton.Visibility = ViewStates.Visible; //this needs to be called by an event within the delsys completescan thingy
             };
 
             ArmButton = FindViewById<Button>(Resource.Id.btn_arm);
             ArmButton.Click += (s, e) =>
             {
-                del.SensorArm(); 
+                del.SensorArm();
+                MVCButton.Visibility = ViewStates.Visible;
                 //TODO join this with the scan / show sensors and arm
             };
 

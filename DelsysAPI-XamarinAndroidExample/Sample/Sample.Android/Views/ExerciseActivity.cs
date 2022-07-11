@@ -13,28 +13,36 @@ using System.Threading.Tasks;
 
 namespace AndroidSample.Views
 {
-    [Activity(Label = "@string/exercise_title", Theme = "@style/AppTheme", MainLauncher = true)]
+    [Activity(Label = "@string/exercise_title", Theme = "@style/AppTheme.NoActionBar")]
     public class ExerciseActivity : Android.Support.V7.App.AppCompatActivity
     {
         Button StartButton;
         Button StopButton;
         Button NextButton;
+        TextView TitleText;
 
-        MainModel _model;
+        private MainModel _myModel;
 
         Delsys del;
 
+        private List<Exercise> _exerciseList; //holds all the exercises available in the exercise database
+
         public ExerciseActivity()
         {
-            _model = MainModel.Instance;
-            del = _model.del;
+            _myModel = MainModel.Instance;
+            del = _myModel.del;
+            _exerciseList = _myModel.getExercises();
         }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            // view set up
             base.OnCreate(savedInstanceState);
-
             SetContentView(Resource.Layout.activity_exercise);
+            string exercise_name = Intent.GetStringExtra("exercise_name");
+            TitleText = FindViewById<TextView>(Resource.Id.txv_title);
+            TitleText.Text = exercise_name;
+
 
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
@@ -53,6 +61,8 @@ namespace AndroidSample.Views
                 Task.Delay(3000).Wait();
                 StopButton.Visibility = ViewStates.Invisible;
 
+                List<List<double>> Data = new List<List<double>>(); 
+                Data = del.Normalise(_myModel.mvc);
             };
 
             NextButton = FindViewById<Button>(Resource.Id.btn_next);
@@ -61,6 +71,13 @@ namespace AndroidSample.Views
                 StartActivity(typeof(ExerciseActivity));
                 Console.WriteLine("TODO next add exercises");
             };
+
+            allowStart();
+        }
+        public async void allowStart()
+        {
+            await Task.Delay(5000); // WAIT BEFORE ALLOWING TO CLICK
+            StartButton.Enabled = true;
         }
     }
 }
