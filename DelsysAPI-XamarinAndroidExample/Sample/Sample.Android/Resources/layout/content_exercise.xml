@@ -6,26 +6,23 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <TextView
+    <ImageView
+        android:id="@+id/im_exercise1"
+        
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="description" />
+        
+     <TextView
         android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exercise"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="20px" />
-
-
-
-    <!--<ImageView
-        android:id="@+id/im_exercise"
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txv_title"
-        android:contentDescription="description" />/>-->
-
+        android:paddingBottom="20px" 
+        android:layout_below="@id/im_exercise1"/>
     
     <Button
         android:id="@+id/btn_start"

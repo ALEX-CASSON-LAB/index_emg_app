@@ -20,6 +20,7 @@ namespace AndroidSample.Views
         Button StopButton;
         Button NextButton;
         Button EndSessionButton;
+        ImageView ExerciseImage;
 
         TextView TitleText;
 
@@ -36,7 +37,7 @@ namespace AndroidSample.Views
         {
             _myModel = MainModel.Instance;
             del = _myModel.del;
-            _exerciseList = _myModel.getExercises();
+            _exerciseList = _myModel.getExercises(); //TODO do something with this, also cant be used whilst not adding exercises properly
         }
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -45,6 +46,7 @@ namespace AndroidSample.Views
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_exercise);
             string exercise_name = Intent.GetStringExtra("exercise_name");
+            int exercise_id = Int32.Parse(Intent.GetStringExtra("exercise_id")); //theres a tryparse for it if it fails
             TitleText = FindViewById<TextView>(Resource.Id.txv_title);
             TitleText.Text = exercise_name;
 
@@ -53,6 +55,8 @@ namespace AndroidSample.Views
             _currentExercise.name = exercise_name;
             _currentExercise.reps = 1;
 
+            ExerciseImage = FindViewById<ImageView>(Resource.Id.im_exercise1);
+            ExerciseImage.SetImageResource(exercise_id);
 
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
@@ -90,6 +94,9 @@ namespace AndroidSample.Views
             };
 
             allowStart();
+
+            del.clearData();// clear the previous data to get only this exercises data
+            //TODO do this when you finish a set?
         }
         public async void allowStart()
         {

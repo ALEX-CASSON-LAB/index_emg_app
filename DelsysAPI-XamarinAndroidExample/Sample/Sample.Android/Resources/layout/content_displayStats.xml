@@ -34,7 +34,8 @@
         android:text=""
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="20px" />
+        android:paddingBottom="20px"
+        android:layout_below="@+id/txv_title"/>
 
     <TextView
         android:id="@+id/txv_stats"
@@ -44,7 +45,6 @@
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         android:paddingBottom="20px" 
-        
         android:layout_below="@+id/txv_names"/>
   
 

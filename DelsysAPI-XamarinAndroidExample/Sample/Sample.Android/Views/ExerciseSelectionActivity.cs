@@ -37,6 +37,7 @@ namespace AndroidSample.Views
                 Toast.MakeText(this, "GridView Item:" + gridViewString[e.Position], ToastLength.Short).Show(); //TODO remove
                 Intent intent = new Intent(this, typeof(ExerciseActivity));
                 intent.PutExtra("exercise_name", gridViewString[e.Position]);
+                intent.PutExtra("exercise_id", imageId[e.Position].ToString());
                 StartActivity(intent);
             };
 

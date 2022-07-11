@@ -47,9 +47,9 @@ namespace AndroidSample.Core
         }
 
         #region Scan,Arm,Stream,Stop
-        public void SensorScan()
+        public async Task<bool> SensorScan()
         {
-            BTPipeline.Scan();
+            return await BTPipeline.Scan();
         }
         public void SensorArm()
         {
@@ -514,7 +514,13 @@ namespace AndroidSample.Core
             Console.WriteLine(Data[0][400]);
             Console.WriteLine(normData[0][400]);
             return normData;
-        } 
+        }
+
+        // Clear the variable holding the data. This can be called at the end of an exercise for example.
+        public void clearData()
+        {
+            Data = new List<List<double>>();
+        }
 
         # endregion
     }

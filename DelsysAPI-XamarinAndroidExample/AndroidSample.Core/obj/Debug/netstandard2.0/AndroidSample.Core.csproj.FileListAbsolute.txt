@@ -8,3 +8,12 @@ C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\o
 C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.csproj.CoreCompileInputs.cache
 C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.dll
 C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.pdb
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\bin\Debug\netstandard2.0\AndroidSample.Core.deps.json
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\bin\Debug\netstandard2.0\AndroidSample.Core.dll
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\bin\Debug\netstandard2.0\AndroidSample.Core.pdb
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.AssemblyInfoInputs.cache
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.AssemblyInfo.cs
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.csproj.CoreCompileInputs.cache
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.dll
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.pdb

@@ -49,9 +49,9 @@ namespace AndroidSample
             };
 
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
-            ScanButton.Click += (s, e) =>
+            ScanButton.Click += async (s, e) =>
             {
-                del.SensorScan(); //todo display sensors and select them
+                await del.SensorScan(); //todo display sensors and select them
                 ScanButton.Visibility = ViewStates.Gone;
                 ArmButton.Visibility = ViewStates.Visible; //this needs to be called by an event within the delsys completescan thingy
             };
