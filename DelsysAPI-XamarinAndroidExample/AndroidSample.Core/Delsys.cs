@@ -498,5 +498,24 @@ namespace AndroidSample.Core
         }
 
         #endregion
+
+        #region Helper classes
+
+        public List<List<double>> Normalise(double mvc)
+        {
+            List<List<double>> normData = new List<List<double>>();
+
+            foreach (List<double> channel in Data)
+            {
+                IEnumerable<double> normP = channel.Select(i => (i / mvc) * 100);
+                normData.Add(normP.ToList()) ;
+            }
+
+            Console.WriteLine(Data[0][400]);
+            Console.WriteLine(normData[0][400]);
+            return normData;
+        } 
+
+        # endregion
     }
 }

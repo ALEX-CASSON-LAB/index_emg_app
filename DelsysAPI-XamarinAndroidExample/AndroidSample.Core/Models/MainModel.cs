@@ -1,5 +1,6 @@
 ﻿using AndroidSample.Core;
 using SQLite;
+using System;
 using System.Collections.Generic;
 
 public class MainModel
@@ -8,8 +9,6 @@ public class MainModel
     private MainModel()
     {
         mvc = 1; //default value for mvc, wouldnt change the data
-
-
     }
     public static MainModel Instance { get; } = new MainModel();
     #endregion
@@ -40,9 +39,16 @@ public class MainModel
         {
             _database = new SQLiteConnection(dbPath);
             _database.CreateTable<Session>();
-            //TODO add try catch or soemthing idk
+            //TODO add try catch or soemthing idk for the sql connection
             // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
             // clause is kept simple and does not call out to other methods that may also take a lock!
+        }
+        lock (locker)
+        {
+            _database = new SQLiteConnection(dbPath);
+            _database.CreateTable<Exercise>();
+            addExercise("Hamstring",1);
+            addExercise("Legraise",2);
         }
     }
 
@@ -86,18 +92,27 @@ public class MainModel
 
     public List<Exercise> getExercises()
     {
-        lock (locker)
+
+        List<Exercise> exercises = new List<Exercise>();
+        try
         {
-            var table = _database.Table<Exercise>();
-            List<Exercise> exercises = new List<Exercise>();
-            foreach (var e in table)
+            lock (locker)
             {
-                exercises.Add(e);
+                var table = _database.Table<Exercise>();
+                foreach (var e in table)
+                {
+                    exercises.Add(e);
+                }
+                return exercises;
+                // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
+                // clause is kept simple and does not call out to other methods that may also take a lock!
             }
-            return exercises;
-            // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
-            // clause is kept simple and does not call out to other methods that may also take a lock!
         }
+        catch (Exception e ){
+            System.Console.WriteLine("Error: check that exercises table exists");
+            return exercises;
+        }
+        
     }
-    
+   
 }

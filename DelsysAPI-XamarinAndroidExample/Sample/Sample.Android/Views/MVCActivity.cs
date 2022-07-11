@@ -54,7 +54,7 @@ namespace AndroidSample
             {
                 await del.SensorStop();
                 Task.Delay(3000).Wait();
-                StopButton.Visibility = ViewStates.Invisible;
+                StopButton.Visibility = ViewStates.Invisible; //TODO bit dramatic remove
 
                 //Calculate MVC
                 _myModel.mvc = calculate_MVC(del.Data);

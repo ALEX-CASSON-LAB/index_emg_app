@@ -1,13 +1,7 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace AndroidSample.Views
 {
@@ -17,7 +11,7 @@ namespace AndroidSample.Views
         GridView gridView;
         string[] gridViewString =
         {
-            "Hamstring","Legraise"
+            "Hamstring","Legraise" //TODO chnage to get from database
         };
         int[] imageId =
         {
@@ -39,7 +33,13 @@ namespace AndroidSample.Views
             gridView.ItemClick += (s, e) =>
             {
                 Toast.MakeText(this, "GridView Item:" + gridViewString[e.Position], ToastLength.Short).Show();
+                Intent intent = new Intent(this, typeof(ExerciseActivity));
+                intent.PutExtra("exercise_name", gridViewString[e.Position]);
+                //StartActivity(typeof(ExerciseActivity));
+                StartActivity(intent);
             };
+
+
         }
     }
 }
