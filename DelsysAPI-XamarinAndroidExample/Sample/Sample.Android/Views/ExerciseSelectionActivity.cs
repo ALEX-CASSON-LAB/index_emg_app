@@ -1,19 +1,53 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Content.Res;
 using Android.OS;
 using Android.Widget;
+using System.Collections.Generic;
 
 namespace AndroidSample.Views
 {
     [Activity(Label = "ExerciseSelectionActivity",Theme = "@style/AppTheme.NoActionBar")]
     public class ExerciseSelectionActivity : Android.Support.V7.App.AppCompatActivity
     {
+        private MainModel _myModel;
         GridView gridView;
-        string[] gridViewString =
+        List<string>[] exerciseInfo;
+        string[] gridViewString;
+        string[] gridViewImg;
+        int[] imageId;
+
+        public ExerciseSelectionActivity()
         {
-            "Hamstring","Legraise" //TODO chnage to get from database
-        };
-        int[] imageId =
+            _myModel = MainModel.Instance;
+            exerciseInfo = _myModel.getExerciseInfo();
+            gridViewString = exerciseInfo[0].ToArray();
+            gridViewImg = exerciseInfo[1].ToArray();
+            convertImageLocation();
+        }
+
+        private void convertImageLocation()
+        {
+           
+            //string name = "va_hamstring";
+            //int id = Resources.GetIdentifier(name,null,getPackageName());
+            
+            imageId = new int[exerciseInfo[1].Count];
+            for (int i = 0; i < gridViewImg.Length;i++)
+            {
+                string imL = gridViewImg[i];
+                var resourceId = (int)typeof(Resource.Drawable).GetField(imL).GetValue(null);
+                imageId[i] = resourceId;
+            }
+        }
+        
+
+        
+        //string[] gridViewString =
+        //{
+        //    "Hamstring","Legraise" //TODO chnage to get from database
+        //};
+         int[] imageid=
         {
             Resource.Drawable.va_hamstring,Resource.Drawable.va_legraise
         };

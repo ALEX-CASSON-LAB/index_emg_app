@@ -36,6 +36,7 @@ namespace AndroidSample
                 StartActivity(typeof(InformationActivity));
             };
 
+            myModel.readExerciseJSON();
 
             //Data set up
             getDatabasePath();

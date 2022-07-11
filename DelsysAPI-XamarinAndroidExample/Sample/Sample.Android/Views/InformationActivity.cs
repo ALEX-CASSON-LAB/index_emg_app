@@ -33,8 +33,6 @@ namespace AndroidSample
             SetSupportActionBar(toolbar);
 
             //Button set up
-            
-
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
             {

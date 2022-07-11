@@ -17,3 +17,4 @@ D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\
 D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.csproj.CoreCompileInputs.cache
 D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.dll
 D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.pdb
+D:\Users\carol\UoM\index\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\AndroidSample.Core.csproj.AssemblyReference.cache

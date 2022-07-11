@@ -3024,10 +3024,40 @@ namespace AndroidSample
 			public const int tooltip_frame_light = 2131165301;
 			
 			// aapt resource value: 0x7F070076
-			public const int va_hamstring = 2131165302;
+			public const int va_armraise = 2131165302;
 			
 			// aapt resource value: 0x7F070077
-			public const int va_legraise = 2131165303;
+			public const int va_backstabaliser = 2131165303;
+			
+			// aapt resource value: 0x7F070078
+			public const int va_buttocktone = 2131165304;
+			
+			// aapt resource value: 0x7F070079
+			public const int va_deeplunge = 2131165305;
+			
+			// aapt resource value: 0x7F07007A
+			public const int va_deepstomach = 2131165306;
+			
+			// aapt resource value: 0x7F07007B
+			public const int va_hamstring = 2131165307;
+			
+			// aapt resource value: 0x7F07007C
+			public const int va_kneerolls = 2131165308;
+			
+			// aapt resource value: 0x7F07007D
+			public const int va_kneestochest = 2131165309;
+			
+			// aapt resource value: 0x7F07007E
+			public const int va_legraise = 2131165310;
+			
+			// aapt resource value: 0x7F07007F
+			public const int va_onelegstand = 2131165311;
+			
+			// aapt resource value: 0x7F070080
+			public const int va_pelvic = 2131165312;
+			
+			// aapt resource value: 0x7F070081
+			public const int va_stomach = 2131165313;
 			
 			static Drawable()
 			{

@@ -70,8 +70,6 @@ namespace AndroidSample.Core
         [MaxLength(8)]
         public string name { get; set; } //date of the session
         public int reps { get; set; } //how many reps
-        public int img_id { get; set; } //id of image for the exercise
-
-        
+        public string img_name {get; set ; } //name of image for the exercise
     }
 }

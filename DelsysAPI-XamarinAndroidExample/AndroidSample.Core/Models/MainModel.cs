@@ -1,7 +1,11 @@
 ﻿using AndroidSample.Core;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 public class MainModel
 {
@@ -24,6 +28,8 @@ public class MainModel
     public const SQLite.SQLiteOpenFlags Flags = SQLiteOpenFlags.ProtectionComplete;
 
     public Session currentSession;
+
+    public List<Exercise> availableExercises;
     public Delsys del
     {
         get { return _del; }
@@ -49,8 +55,8 @@ public class MainModel
         {
             _database = new SQLiteConnection(dbPath);
             _database.CreateTable<Exercise>();
-            addExercise("Hamstring",1);
-            addExercise("Legraise",2);
+            addExercise("Hamstring", 1);
+            addExercise("Legraise", 2);
         }
     }
     public void deleteSessionTable()
@@ -67,7 +73,7 @@ public class MainModel
     public void accessDatabase()
     {
         /*****use this for database stuff****/
-        
+
         lock (locker)
         {
             var table = _database.Table<Session>();
@@ -85,7 +91,7 @@ public class MainModel
     public void addExercise(string exercise_name, int reps)
     {
         lock (locker)
-        { 
+        {
             var newExercise = new Exercise();
             newExercise.name = exercise_name;
             newExercise.reps = reps;
@@ -120,11 +126,12 @@ public class MainModel
                 // clause is kept simple and does not call out to other methods that may also take a lock!
             }
         }
-        catch (Exception e ){
+        catch (Exception e)
+        {
             System.Console.WriteLine("Error: check that exercises table exists");
             return exercises;
         }
-        
+
     }
 
     public void recordCurrentSession()
@@ -139,10 +146,50 @@ public class MainModel
     {
         return currentSession;
     }
-      
+
     public string getExerciseNameById(string id)
     {
-        var exercise = _database.Get<Exercise>(id); //primary key id of 0
-        return exercise.name;
+        foreach (Exercise e in availableExercises)
+        {
+            if (e.Id == Int32.Parse(id))
+            {
+                return e.name;
+            }
+        }
+        //var exercise = _database.Get<Exercise>(id); //primary key id of 0
+        //return exercise.name;
+        return "";
+    }
+
+    public void readExerciseJSON()
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+
+        using (Stream stream = assembly.GetManifestResourceStream("AndroidSample.Core.exerciseInfo.json")) // Change the name of the .lic file accordingly
+        {
+            StreamReader sr = new StreamReader(stream);
+            string json = sr.ReadToEnd();
+            availableExercises = JsonConvert.DeserializeObject<List<Exercise>>(json);
+        } 
+    }
+
+    public List<string>[] getExerciseInfo()
+    {
+        List<string>[] returnArr= new List<string>[2];
+
+        List<string> names = new List<string>();
+        List<string> ids = new List<string>();
+
+        
+        foreach (Exercise e in availableExercises)
+        {
+            names.Add(e.name);
+            ids.Add(e.img_name);
+        }
+
+        returnArr[0] = names;
+        returnArr[1] = ids;
+
+        return returnArr;
     }
 }

@@ -6,17 +6,20 @@
 
   <ItemGroup>
     <None Remove="Carolina.lic" />
+    <None Remove="exerciseInfo.json" />
     <None Remove="PublicKey.lic" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Carolina.lic" />
+    <EmbeddedResource Include="exerciseInfo.json" />
     <EmbeddedResource Include="PublicKey.lic" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DelsysAPI.Android" Version="1.7.1.876" />
     <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.1.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
   </ItemGroup>
 
