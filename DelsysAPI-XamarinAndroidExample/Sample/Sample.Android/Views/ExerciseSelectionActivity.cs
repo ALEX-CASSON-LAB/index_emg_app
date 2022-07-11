@@ -27,15 +27,16 @@ namespace AndroidSample.Views
             SetSupportActionBar(toolbar);
             SupportActionBar.Title = "Exercises available";
 
+            //TODO display exercises already done differently
+
             CustomGridViewAdapter adapter = new CustomGridViewAdapter(this, gridViewString, imageId);
             gridView = FindViewById<GridView>(Resource.Id.grid_view_image_text);
             gridView.Adapter = adapter;
             gridView.ItemClick += (s, e) =>
             {
-                Toast.MakeText(this, "GridView Item:" + gridViewString[e.Position], ToastLength.Short).Show();
+                Toast.MakeText(this, "GridView Item:" + gridViewString[e.Position], ToastLength.Short).Show(); //TODO remove
                 Intent intent = new Intent(this, typeof(ExerciseActivity));
                 intent.PutExtra("exercise_name", gridViewString[e.Position]);
-                //StartActivity(typeof(ExerciseActivity));
                 StartActivity(intent);
             };
 

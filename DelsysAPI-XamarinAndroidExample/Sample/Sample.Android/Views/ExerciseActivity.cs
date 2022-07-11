@@ -19,13 +19,18 @@ namespace AndroidSample.Views
         Button StartButton;
         Button StopButton;
         Button NextButton;
+        Button EndSessionButton;
+
         TextView TitleText;
+
 
         private MainModel _myModel;
 
         Delsys del;
 
         private List<Exercise> _exerciseList; //holds all the exercises available in the exercise database
+        private Exercise _currentExercise;
+        List<List<double>> exerciseData = new List<List<double>>();
 
         public ExerciseActivity()
         {
@@ -42,6 +47,11 @@ namespace AndroidSample.Views
             string exercise_name = Intent.GetStringExtra("exercise_name");
             TitleText = FindViewById<TextView>(Resource.Id.txv_title);
             TitleText.Text = exercise_name;
+
+            // make exercise by id TODO using database info
+            _currentExercise = new Exercise();
+            _currentExercise.name = exercise_name;
+            _currentExercise.reps = 1;
 
 
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
@@ -61,15 +71,22 @@ namespace AndroidSample.Views
                 Task.Delay(3000).Wait();
                 StopButton.Visibility = ViewStates.Invisible;
 
-                List<List<double>> Data = new List<List<double>>(); 
-                Data = del.Normalise(_myModel.mvc);
+                exerciseData = del.Normalise(_myModel.mvc);
             };
 
             NextButton = FindViewById<Button>(Resource.Id.btn_next);
             NextButton.Click += (s, e) =>
             {
-                StartActivity(typeof(ExerciseActivity));
-                Console.WriteLine("TODO next add exercises");
+                storeResult();
+                StartActivity(typeof(ExerciseSelectionActivity));
+            };
+
+            EndSessionButton = FindViewById<Button>(Resource.Id.btn_end);
+            EndSessionButton.Click += (s, e) =>
+            {
+                storeResult();
+                _myModel.recordCurrentSession();
+                StartActivity(typeof(DisplayStatsActivity));
             };
 
             allowStart();
@@ -78,6 +95,19 @@ namespace AndroidSample.Views
         {
             await Task.Delay(5000); // WAIT BEFORE ALLOWING TO CLICK
             StartButton.Enabled = true;
+        }
+
+        public void storeResult()
+        {
+            double maxValue = 0; //store the highest value in the exercise data
+            foreach (List<double> channel in exerciseData)
+            {
+                maxValue = channel.Max(z=>z);
+                //TODO make this work with more than one channel
+                // list of max percents?
+            }
+
+            _myModel.currentSession.addExerciseStat(_currentExercise, maxValue);
         }
     }
 }

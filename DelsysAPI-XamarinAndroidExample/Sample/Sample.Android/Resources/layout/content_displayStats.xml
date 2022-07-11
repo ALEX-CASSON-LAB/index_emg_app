@@ -10,7 +10,7 @@
         android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exercise"
+        android:text="Session stats"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         android:paddingBottom="20px" />
@@ -27,41 +27,43 @@
         android:contentDescription="description" />/>-->
 
     
-    <Button
-        android:id="@+id/btn_start"
-        android:text="Start"
+    <TextView
+        android:id="@+id/txv_names"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text=""
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/txv_title" 
-        android:enabled="false"/>
+        android:paddingBottom="20px" />
 
-    <Button
-        android:id="@+id/btn_stop"
-        android:text="Stop"
+    <TextView
+        android:id="@+id/txv_stats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text=""
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/btn_start"  />
+        android:paddingBottom="20px" 
+        
+        android:layout_below="@+id/txv_names"/>
+  
 
     <Button
-        android:id="@+id/btn_next"
-        android:text="Next exercise"
+        android:id="@+id/btn_notes"
+        android:text="Add notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btn_stop" />
+        android:layout_below="@+id/txv_stats" />
 
     <Button
-        android:id="@+id/btn_end"
-        android:text="End session"
+        android:id="@+id/btn_home"
+        android:text="Home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btn_next" />
+        android:layout_below="@+id/btn_notes" />
     
 </RelativeLayout>

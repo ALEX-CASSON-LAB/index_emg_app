@@ -5,6 +5,7 @@ using SQLite;
 
 namespace AndroidSample.Core
 {
+
     [Table("Sessions")]
     public class Session
     {
@@ -12,31 +13,56 @@ namespace AndroidSample.Core
         public int Id { get; set; }
         [MaxLength(8)]
         public DateTime date { get; set; } //date of the session
-        private List<Exercise> _exercises = new List<Exercise>();
-        private Dictionary<string, List<double>> _exerciseStats = new Dictionary<string, List<double>>(); // exercise id, maximum percentage achieved in each rep
+        private string _exerciseIds;
+        ///*private Dictionary<string, List<double>> _exerciseStats = new Dictionary<string, List<double>>()*/; // exercise id, maximum percentage achieved in each rep
+        private string _exerciseStats;
 
         public void addExercise(Exercise exer)
         {
-            _exercises.Add(exer);
+            _exerciseIds += "[ " + exer.Id + "] ";
         }
-        public void addExerciseStat(string exerciseId, double maxPercent)
-        {
-            List<double> percents = new List<double>();
+        //public void addExerciseStat(int exerId, double maxPercent)
+        //{
+        //    string exerciseId = exerId.ToString(); 
+        //    List<double> percents = new List<double>();
 
-            if (_exerciseStats.ContainsKey(exerciseId)){
-                percents = _exerciseStats[exerciseId];
-                percents.Add(maxPercent);
-                _exerciseStats[exerciseId] = percents;
-            }
-            else
-            {
-                percents.Add(maxPercent);
-                _exerciseStats.Add(exerciseId, percents);
-            }
+        //    if (_exerciseStats.ContainsKey(exerciseId)){
+        //        percents = _exerciseStats[exerciseId];
+        //        percents.Add(maxPercent);
+        //        _exerciseStats[exerciseId] = percents;
+        //    }
+        //    else
+        //    {
+        //        percents.Add(maxPercent);
+        //        _exerciseStats.Add(exerciseId, percents);
+        //    }
+        //}
+
+        //public Dictionary<string, List<double>> exerciseStats
+        //{
+        //    get { return _exerciseStats; }
+        //    set { _exerciseStats = value; }
+        //}
+
+        public void addExerciseStat (Exercise e , double maxPercent)
+        {
+            addExercise(e);
+            _exerciseStats += "[ " + maxPercent + "]";
+        }
+
+        public string exerciseStats {
+            get { return _exerciseStats; }
+            set { _exerciseStats = value; }
+        }
+
+        public string exerciseIds
+        {
+            get { return _exerciseIds; }
+            set { _exerciseIds = value; }
         }
     }
 
-    [Table("Exercises")]
+        [Table("Exercises")]
     public class Exercise
     {
         [PrimaryKey, AutoIncrement, Column("_id")]
@@ -44,7 +70,7 @@ namespace AndroidSample.Core
         [MaxLength(8)]
         public string name { get; set; } //date of the session
         public int reps { get; set; } //how many reps
-        public string img_id { get; set; } //id of image for the exercise
+        public int img_id { get; set; } //id of image for the exercise
 
         
     }

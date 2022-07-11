@@ -33,10 +33,7 @@ namespace AndroidSample
             SetSupportActionBar(toolbar);
 
             //Button set up
-            MVCButton = FindViewById<Button>(Resource.Id.btn_mvc);
-            MVCButton.Click += delegate {
-                StartActivity(typeof(MVCActivity));
-            };
+            
 
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
@@ -46,8 +43,9 @@ namespace AndroidSample
                     _model.del = new Delsys();
                     del = _model.del;
                 }
-                    
                 ScanButton.Visibility =ViewStates.Visible;
+
+                _model.startSession();
             };
 
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
@@ -66,6 +64,10 @@ namespace AndroidSample
                 //TODO join this with the scan / show sensors and arm
             };
 
+            MVCButton = FindViewById<Button>(Resource.Id.btn_mvc);
+            MVCButton.Click += delegate {
+                StartActivity(typeof(MVCActivity));
+            };
         }
 
         #region Activity functions

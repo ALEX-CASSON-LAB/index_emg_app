@@ -21,7 +21,9 @@ public class MainModel
 
     public string dbPath { get; set; }
     private SQLiteConnection _database;
-    Session currentSession;
+    public const SQLite.SQLiteOpenFlags Flags = SQLiteOpenFlags.ProtectionComplete;
+
+    public Session currentSession;
     public Delsys del
     {
         get { return _del; }
@@ -51,7 +53,17 @@ public class MainModel
             addExercise("Legraise",2);
         }
     }
-
+    public void deleteSessionTable()
+    {
+        lock (locker)
+        {
+            _database = new SQLiteConnection(dbPath);
+            SQLiteCommand cmd = _database.CreateCommand("DROP Table 'Sessions'");
+            //cmd.CommandText = "DROP Table 'Sessions'";
+            cmd.ExecuteNonQuery();
+            _database.Close();
+        }
+    }
     public void accessDatabase()
     {
         /*****use this for database stuff****/
@@ -83,11 +95,11 @@ public class MainModel
         }
     }
 
-    public void addSession()
+    public void startSession()
     {
         currentSession = new Session();
         currentSession.date = System.DateTime.Now.ToLocalTime();
-        _database.Insert(currentSession);
+        //_database.Insert(currentSession);
     }
 
     public List<Exercise> getExercises()
@@ -114,5 +126,23 @@ public class MainModel
         }
         
     }
-   
+
+    public void recordCurrentSession()
+    {
+        lock (locker)
+        {
+            _database.Insert(currentSession);
+        }
+    }
+
+    public Session getSessionStats()
+    {
+        return currentSession;
+    }
+      
+    public string getExerciseNameById(string id)
+    {
+        var exercise = _database.Get<Exercise>(id); //primary key id of 0
+        return exercise.name;
+    }
 }

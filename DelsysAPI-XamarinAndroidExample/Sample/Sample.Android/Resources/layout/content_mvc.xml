@@ -21,7 +21,7 @@
 		android:layout_margin="20px"
         android:enabled="false"
 		android:layout_centerHorizontal="true"
-		android:layout_below="@+id/txt_title" />
+		android:layout_below="@+id/txv_title" />
 	
 	<Button
         android:id="@+id/btn_stop"
