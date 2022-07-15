@@ -5,13 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
+
+    
+
     <TextView
         android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="INDEX APP"
         android:layout_margin="20px"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/im_uomlogo"/>
     <TextView
         android:id="@+id/txv_subtitle"
         android:layout_width="wrap_content"
@@ -20,6 +24,16 @@
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/txv_title" />
+
+    <TextView
+        android:id="@+id/txv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_info"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txv_subtitle" />
+
     <Button
         android:id="@+id/btn_begin"
         android:text="Begin"
@@ -27,7 +41,16 @@
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txv_subtitle" />
+        android:layout_below="@+id/txv_info" />
+
+    <Button
+        android:id="@+id/btn_shortcut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_begin"
+        android:text="shortcut"
+        android:layout_centerInParent="true" 
+    />
         
     
 </RelativeLayout>

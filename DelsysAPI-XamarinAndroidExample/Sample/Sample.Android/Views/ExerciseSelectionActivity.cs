@@ -27,11 +27,7 @@ namespace AndroidSample.Views
         }
 
         private void convertImageLocation()
-        {
-           
-            //string name = "va_hamstring";
-            //int id = Resources.GetIdentifier(name,null,getPackageName());
-            
+        {          
             imageId = new int[exerciseInfo[1].Count];
             for (int i = 0; i < gridViewImg.Length;i++)
             {
@@ -41,12 +37,6 @@ namespace AndroidSample.Views
             }
         }
         
-
-        
-        //string[] gridViewString =
-        //{
-        //    "Hamstring","Legraise" //TODO chnage to get from database
-        //};
          int[] imageid=
         {
             Resource.Drawable.va_hamstring,Resource.Drawable.va_legraise
@@ -68,7 +58,6 @@ namespace AndroidSample.Views
             gridView.Adapter = adapter;
             gridView.ItemClick += (s, e) =>
             {
-                Toast.MakeText(this, "GridView Item:" + gridViewString[e.Position], ToastLength.Short).Show(); //TODO remove
                 Intent intent = new Intent(this, typeof(ExerciseActivity));
                 intent.PutExtra("exercise_name", gridViewString[e.Position]);
                 intent.PutExtra("exercise_id", imageId[e.Position].ToString());

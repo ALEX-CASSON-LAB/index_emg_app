@@ -55,9 +55,20 @@ namespace AndroidSample.Views
             _currentExercise.name = exercise_name;
             _currentExercise.reps = 1;
 
+            //set up image 
             ExerciseImage = FindViewById<ImageView>(Resource.Id.im_exercise1);
             ExerciseImage.SetImageResource(exercise_id);
 
+            //todo understand and maybe fix idk
+            //RelativeLayout lay = FindViewById<RelativeLayout>(Resource.Id.exercise_layout);
+            //var w = lay.LayoutParameters.Width;
+            ////var h = lay.LayoutParameters.Height;
+            //var h = ExerciseImage.LayoutParameters.Width;
+            
+            //ExerciseImage.LayoutParameters.Width = w/4;
+            //ExerciseImage.LayoutParameters.Height = h;
+
+            //set up buttons
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
             {
@@ -95,7 +106,8 @@ namespace AndroidSample.Views
 
             allowStart();
 
-            del.clearData();// clear the previous data to get only this exercises data
+            if (del != null)
+                del.clearData();// clear the previous data to get only this exercises data
             //TODO do this when you finish a set?
         }
         public async void allowStart()

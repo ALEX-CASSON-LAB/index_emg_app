@@ -12,7 +12,7 @@ namespace AndroidSample
 
 {
 
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true)]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, Icon ="@drawable/uom_logo")]
     public class MainActivity : Android.Support.V7.App.AppCompatActivity
     {
         Button InfoActivityButton;
@@ -23,6 +23,7 @@ namespace AndroidSample
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            toolbar.SetLogo(Resource.Drawable.uom_logo);
             SetSupportActionBar(toolbar);
             CheckAppPermissions();
 
@@ -35,6 +36,14 @@ namespace AndroidSample
             {
                 StartActivity(typeof(InformationActivity));
             };
+
+            /********SHORTCUT****/
+            Button shortcutButton = FindViewById<Button>(Resource.Id.btn_shortcut);
+            shortcutButton.Click += delegate
+            {
+                StartActivity(typeof(Views.ExerciseSelectionActivity));
+            };
+            /***********************/
 
             myModel.readExerciseJSON();
 
@@ -65,6 +74,12 @@ namespace AndroidSample
             if (id == Resource.Id.action_settings)
             {
                 return true;
+                // TODO add a settings page
+            }
+            else if (id == Resource.Id.action_profile)
+            {
+                return true;
+                //TODO add a profile page
             }
 
             return base.OnOptionsItemSelected(item);

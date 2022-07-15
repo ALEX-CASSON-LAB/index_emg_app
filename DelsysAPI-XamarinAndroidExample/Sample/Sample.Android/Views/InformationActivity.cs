@@ -81,6 +81,7 @@ namespace AndroidSample
             int id = item.ItemId;
             if (id == Resource.Id.action_settings)
             {
+                //TODO add settings page here
                 return true;
             }
 

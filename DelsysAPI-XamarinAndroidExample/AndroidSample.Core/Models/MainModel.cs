@@ -65,15 +65,12 @@ public class MainModel
         {
             _database = new SQLiteConnection(dbPath);
             SQLiteCommand cmd = _database.CreateCommand("DROP Table 'Sessions'");
-            //cmd.CommandText = "DROP Table 'Sessions'";
             cmd.ExecuteNonQuery();
             _database.Close();
         }
     }
     public void accessDatabase()
     {
-        /*****use this for database stuff****/
-
         lock (locker)
         {
             var table = _database.Table<Session>();
@@ -81,7 +78,6 @@ public class MainModel
             {
                 System.Console.WriteLine(s.Id + " " + s.date.ToString());
             }
-            //var stock = _database.Get<Stock>(0); //primary key id of 0
             // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
             // clause is kept simple and does not call out to other methods that may also take a lock!
         }
@@ -101,13 +97,26 @@ public class MainModel
         }
     }
 
+    #region Session methods
     public void startSession()
     {
         currentSession = new Session();
         currentSession.date = System.DateTime.Now.ToLocalTime();
-        //_database.Insert(currentSession);
     }
+    public void recordCurrentSession()
+    {
+        lock (locker)
+        {
+            _database.Insert(currentSession);
+        }
+    }
+    public Session getSessionStats()
+    {
+        return currentSession;
+    }
+    #endregion
 
+    #region Exercise methods
     public List<Exercise> getExercises()
     {
 
@@ -134,19 +143,6 @@ public class MainModel
 
     }
 
-    public void recordCurrentSession()
-    {
-        lock (locker)
-        {
-            _database.Insert(currentSession);
-        }
-    }
-
-    public Session getSessionStats()
-    {
-        return currentSession;
-    }
-
     public string getExerciseNameById(string id)
     {
         foreach (Exercise e in availableExercises)
@@ -156,11 +152,11 @@ public class MainModel
                 return e.name;
             }
         }
-        //var exercise = _database.Get<Exercise>(id); //primary key id of 0
-        //return exercise.name;
-        return "";
+        return ""; //todo ERROR
     }
 
+    // Retrieve information from JSON file for exercises
+    // Add this to the available exercises
     public void readExerciseJSON()
     {
         var assembly = Assembly.GetExecutingAssembly();
@@ -192,4 +188,5 @@ public class MainModel
 
         return returnArr;
     }
+    #endregion
 }

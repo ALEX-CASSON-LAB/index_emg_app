@@ -318,12 +318,6 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_hamstring.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_legraise.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_exerciseSelection.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -341,34 +335,43 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_armraise.jpg" />
+    <AndroidResource Include="Resources\drawable\uom_logo.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_backstabaliser.jpg" />
+    <AndroidResource Include="Resources\drawable\va_armraise.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_buttocktone.jpg" />
+    <AndroidResource Include="Resources\drawable\va_backstabaliser.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_deeplunge.jpg" />
+    <AndroidResource Include="Resources\drawable\va_buttocktone.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_deepstomach.jpg" />
+    <AndroidResource Include="Resources\drawable\va_deeplunge.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_kneerolls.jpg" />
+    <AndroidResource Include="Resources\drawable\va_deepstomach.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_kneestochest.jpg" />
+    <AndroidResource Include="Resources\drawable\va_hamstring.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_onelegstand.jpg" />
+    <AndroidResource Include="Resources\drawable\va_kneerolls.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_pelvic.jpg" />
+    <AndroidResource Include="Resources\drawable\va_kneestochest.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\va_stomach.jpg" />
+    <AndroidResource Include="Resources\drawable\va_legraise.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\va_onelegstand.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\va_pelvic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\va_stomach.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

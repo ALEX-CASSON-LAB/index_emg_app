@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    >
+    <RelativeLayout
+        android:id="@+id/exercise_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/im_exercise1"
-        
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="description" />
-        
-     <TextView
+        <ImageView
+            android:id="@+id/im_exercise1"
+            android:layout_width="300dp"
+            android:contentDescription="description"
+            android:layout_height="300dp"/>
+
+    <TextView
         android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exercise"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="20px" 
+        android:paddingBottom="20px"
         android:layout_below="@id/im_exercise1"/>
-    
+
     <Button
         android:id="@+id/btn_start"
         android:text="Start"
@@ -31,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/txv_title" 
+        android:layout_below="@id/txv_title"
         android:enabled="false"/>
 
     <Button
@@ -60,5 +64,6 @@
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/btn_next" />
-    
 </RelativeLayout>
+</ScrollView>
+
