@@ -10,11 +10,13 @@ namespace AndroidSample
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class InformationActivity : Android.Support.V7.App.AppCompatActivity
     {
-        // Defining buttons for UI
-        public Button StartButton;
+        // Defining buttons/labels for UI
         public Button ScanButton;
         public Button ArmButton;
         public Button MVCButton;
+        public TextView SensorsText;
+
+
 
         // Delsys trigno emg pipeline class
         private Delsys del;
@@ -32,27 +34,42 @@ namespace AndroidSample
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
-            //Button set up
-            StartButton = FindViewById<Button>(Resource.Id.btn_start);
-            StartButton.Click += (s, e) =>
+            // Button set up
+            ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
+            ScanButton.Click += async (s, e) =>
             {
+
+                ScanButton.Text = "Scanning...";
                 if (del == null)
                 {
                     _model.del = new Delsys();
                     del = _model.del;
+
+                    del.ScanFinished += (object sender, Delsys.ScanResultsEventArgs e)
+                        => {
+                            SensorsText = FindViewById<TextView>(Resource.Id.txv_sensors);
+                            SensorsText.Visibility = ViewStates.Visible;
+                            foreach (var sensor in del.sensors)
+                            {
+                                SensorsText.Text = SensorsText.Text + sensor;
+                            }
+                        };
                 }
-                ScanButton.Visibility =ViewStates.Visible;
-
                 _model.startSession();
-            };
-
-            ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
-            ScanButton.Click += async (s, e) =>
-            {
                 await del.SensorScan(); //todo display sensors and select them
                 ScanButton.Visibility = ViewStates.Gone;
-                ArmButton.Visibility = ViewStates.Visible; //this needs to be called by an event within the delsys completescan thingy
+
+                //Display buttons found
+                //SensorsText = FindViewById<TextView>(Resource.Id.txv_sensors);
+                //SensorsText.Visibility = ViewStates.Visible;
+                //foreach (var sensor in del.sensors)
+                //{
+                //    SensorsText.Text = SensorsText.Text + sensor;
+                //}
+                ArmButton.Visibility = ViewStates.Visible;
             };
+
+            
 
             ArmButton = FindViewById<Button>(Resource.Id.btn_arm);
             ArmButton.Click += (s, e) =>

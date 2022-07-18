@@ -28,6 +28,7 @@ namespace AndroidSample.Core
         ITransformManager TransformManager;
         public List<List<double>> Data = new List<List<double>>();
 
+
         IDelsysDevice DeviceSource = null;
         string[] DeviceFilters = new string[] {};
         int TotalLostPackets = 0; //todo check if these are useful
@@ -37,6 +38,12 @@ namespace AndroidSample.Core
         private Dictionary<Guid, string> _guidToSensor = new Dictionary<Guid, string>();
         private Dictionary<string, int> _sensorToChannel = new Dictionary<string, int>();
         /****************/
+
+        public List<string> sensors
+        {
+            get { return _sensors.Keys.ToList(); }
+        }
+
         public Delsys(){
             if (BTPipeline != null)
                 Console.WriteLine(BTPipeline.CurrentState);
@@ -46,10 +53,12 @@ namespace AndroidSample.Core
             }
         }
 
+
         #region Scan,Arm,Stream,Stop
         public async Task<bool> SensorScan()
         {
             return await BTPipeline.Scan();
+
         }
         public void SensorArm()
         {
@@ -157,17 +166,33 @@ namespace AndroidSample.Core
 
         #region Componenet Callbacks -- Component Added, Scan Complete
 
-        private void ComponentScanComplete(object sender, DelsysAPI.Events.ComponentScanCompletedEventArgs e)
+        public void ComponentScanComplete(object sender, DelsysAPI.Events.ComponentScanCompletedEventArgs e)
         {
             for (int i = 0; i < BTPipeline.TrignoBtManager.Components.Count; i++)
                 _sensors.Add(BTPipeline.TrignoBtManager.Components[i].Properties.SerialNumber.ToString(), BTPipeline.TrignoBtManager.Components[i]);
 
-            //TODO Show these sensors on screen
-            
-            //ArmButton.Enabled = true;
-            
+            OnScanFinished(_sensors.Keys);
         }
 
+        public event EventHandler<ScanResultsEventArgs> ScanFinished;
+        private void OnScanFinished(ICollection<string> sensors)
+        {
+            if (ScanFinished != null)
+            {
+                ScanFinished(this, new ScanResultsEventArgs(sensors));
+            }
+        }
+
+        public class ScanResultsEventArgs : EventArgs
+        {
+            private ICollection<string> _devices;
+            public ICollection<string> Devices { get { return _devices; } }
+
+            public ScanResultsEventArgs(ICollection<string> devices)
+            {
+                _devices = devices;
+            }
+        }
         #endregion
 
         #region Component Callbacks -- Found, Lost, Removed

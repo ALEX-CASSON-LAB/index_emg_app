@@ -6,17 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:layout_weight="1"
     >
     <RelativeLayout
         android:id="@+id/exercise_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/im_exercise1"
             android:layout_width="300dp"
             android:contentDescription="description"
-            android:layout_height="300dp"/>
+            android:layout_height="300dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:paddingTop="100dp"/>
 
     <TextView
         android:id="@+id/txv_title"
