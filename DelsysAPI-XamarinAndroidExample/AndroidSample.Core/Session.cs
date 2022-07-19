@@ -16,10 +16,11 @@ namespace AndroidSample.Core
         private string _exerciseIds;
         ///*private Dictionary<string, List<double>> _exerciseStats = new Dictionary<string, List<double>>()*/; // exercise id, maximum percentage achieved in each rep
         private string _exerciseStats;
+        private string _notes;
 
         public void addExercise(Exercise exer)
         {
-            _exerciseIds += "[ " + exer.Id + "] ";
+            _exerciseIds += exer.Id + ",";
         }
         //public void addExerciseStat(int exerId, double maxPercent)
         //{
@@ -59,6 +60,12 @@ namespace AndroidSample.Core
         {
             get { return _exerciseIds; }
             set { _exerciseIds = value; }
+        }
+        public string notes
+        {
+            get { return notes; }
+            set { _notes = value; //TODO add some sort of formatting
+                                 }
         }
     }
 

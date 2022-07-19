@@ -16,6 +16,7 @@ namespace AndroidSample.Views
         string[] gridViewString;
         string[] gridViewImg;
         int[] imageId;
+        List<int> exercisesDone;
 
         public ExerciseSelectionActivity()
         {
@@ -52,8 +53,9 @@ namespace AndroidSample.Views
             SupportActionBar.Title = "Exercises available";
 
             //TODO display exercises already done differently
+            exercisesDone = _myModel.getExercisesDone();
 
-            CustomGridViewAdapter adapter = new CustomGridViewAdapter(this, gridViewString, imageId);
+            CustomGridViewAdapter adapter = new CustomGridViewAdapter(this, gridViewString, imageId, exercisesDone);
             gridView = FindViewById<GridView>(Resource.Id.grid_view_image_text);
             gridView.Adapter = adapter;
             gridView.ItemClick += (s, e) =>

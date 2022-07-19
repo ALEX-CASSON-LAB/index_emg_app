@@ -51,16 +51,18 @@
     <Button
         android:id="@+id/btn_notes"
         android:text="Add notes"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/icon_add"
         android:layout_below="@+id/txv_stats" />
 
     <Button
         android:id="@+id/btn_home"
-        android:text="Home"
-        android:layout_width="match_parent"
+        android:text="Home"        
+        android:drawableLeft="@drawable/icon_home"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"

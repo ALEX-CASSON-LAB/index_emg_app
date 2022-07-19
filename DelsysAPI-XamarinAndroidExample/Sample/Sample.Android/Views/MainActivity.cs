@@ -12,7 +12,7 @@ namespace AndroidSample
 
 {
 
-    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar", MainLauncher = true, Icon ="@drawable/uom_logo")]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.NoActionBar")]
     public class MainActivity : Android.Support.V7.App.AppCompatActivity
     {
         Button InfoActivityButton;

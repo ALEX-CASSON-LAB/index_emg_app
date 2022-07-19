@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:layout_weight="1"
+    >
+    <RelativeLayout 
+        android:paddingTop="50dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"        
+    android:layout_centerVertical="true" >
+
     <TextView
         android:id="@+id/txv_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Connect your sensors"
@@ -19,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txv_title" />
+        android:layout_below="@+id/txv_title" 
+        android:drawableLeft="@drawable/icon_bluetooth_searching"/>
 
     <Button
         android:id="@+id/btn_arm"
@@ -30,16 +42,46 @@
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
         android:layout_below="@id/txv_sensors" />
+
     <TextView
         android:id="@+id/txv_sensors"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sensor name"
-        android:layout_margin="20px"
+        android:text="Sensors found:"
         android:layout_centerHorizontal="true"
-        
-        android:visibility="invisible"
-        android:layout_below="@id/txv_title"/>
+        android:visibility="gone"
+        android:layout_below="@id/txv_title"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:layout_below="@id/txv_sensors"
+        android:id="@+id/txv_wipe"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="Image of cleaning skin with alcohol wipe 2"
+        android:drawableTop="@drawable/instruc_wipe"
+        android:padding="200dp"
+        android:text="1. Wipe the area where you will apply the sensors" />
+
+        <TextView
+            android:layout_below="@id/txv_wipe"
+            android:id="@+id/txv_stickers"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:padding="200dp"
+            android:scaleType="centerInside"
+            android:contentDescription="Textview 2"
+            android:drawableTop="@drawable/instruc_sticker"
+            android:text="2. Apply the stickers to the sensors"
+            />
+    
+    
     <Button
         android:id="@+id/btn_mvc"
         android:text="MVC"
@@ -48,6 +90,7 @@
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
-        android:layout_below="@id/txv_sensors" />
+        android:layout_below="@id/txv_stickers" />
 
 </RelativeLayout>
+</ScrollView>

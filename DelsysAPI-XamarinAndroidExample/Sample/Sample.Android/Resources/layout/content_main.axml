@@ -25,14 +25,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/txv_title" />
 
-    <TextView
-        android:id="@+id/txv_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_info"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txv_subtitle" />
+
 
     <Button
         android:id="@+id/btn_begin"
@@ -41,7 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txv_info" />
+        android:drawableRight="@drawable/icon_arrow_forward"
+        android:layout_below="@id/txv_subtitle" />
 
     <Button
         android:id="@+id/btn_shortcut"
@@ -51,6 +45,14 @@
         android:text="shortcut"
         android:layout_centerInParent="true" 
     />
+        <TextView
+        android:id="@+id/txv_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_info"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btn_shortcut" />
         
     
 </RelativeLayout>

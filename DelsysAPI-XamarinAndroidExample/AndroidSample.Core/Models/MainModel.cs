@@ -5,6 +5,7 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 public class MainModel
@@ -187,6 +188,29 @@ public class MainModel
         returnArr[1] = ids;
 
         return returnArr;
+    }
+
+    public List<int> getExercisesDone()
+    {
+        List<int> exercisesDone = new List<int>();
+        if (currentSession != null)
+        {
+            //todo remove this once not using shortcut button
+
+            if (currentSession.exerciseIds != null)
+            {
+                var lst = currentSession.exerciseIds.Split(',').ToList();
+                foreach (var val in lst)
+                {
+                    int id;
+                    bool isint = int.TryParse(val, out id);
+                    if (isint == true)
+                        exercisesDone.Add(id);
+                }
+            }
+        }
+        
+        return exercisesDone;   
     }
     #endregion
 }

@@ -45,27 +45,22 @@ namespace AndroidSample
                     _model.del = new Delsys();
                     del = _model.del;
 
+                    //Display buttons found event
                     del.ScanFinished += (object sender, Delsys.ScanResultsEventArgs e)
                         => {
                             SensorsText = FindViewById<TextView>(Resource.Id.txv_sensors);
                             SensorsText.Visibility = ViewStates.Visible;
                             foreach (var sensor in del.sensors)
                             {
-                                SensorsText.Text = SensorsText.Text + sensor;
+                                SensorsText.Text = SensorsText.Text + "\n" + sensor;
+                                //TODO add some sort of selection of the sensors, make sure there are two displayed etc.
                             }
                         };
                 }
                 _model.startSession();
-                await del.SensorScan(); //todo display sensors and select them
+                await del.SensorScan();
                 ScanButton.Visibility = ViewStates.Gone;
 
-                //Display buttons found
-                //SensorsText = FindViewById<TextView>(Resource.Id.txv_sensors);
-                //SensorsText.Visibility = ViewStates.Visible;
-                //foreach (var sensor in del.sensors)
-                //{
-                //    SensorsText.Text = SensorsText.Text + sensor;
-                //}
                 ArmButton.Visibility = ViewStates.Visible;
             };
 
@@ -75,14 +70,26 @@ namespace AndroidSample
             ArmButton.Click += (s, e) =>
             {
                 del.SensorArm();
+
+                ArmButton.Visibility = ViewStates.Invisible;
                 MVCButton.Visibility = ViewStates.Visible;
-                //TODO join this with the scan / show sensors and arm
+                showInstructions();
             };
 
             MVCButton = FindViewById<Button>(Resource.Id.btn_mvc);
             MVCButton.Click += delegate {
                 StartActivity(typeof(MVCActivity));
             };
+        }
+
+        public void showInstructions()
+        {
+            TextView TitleText = FindViewById<TextView>(Resource.Id.txv_title);
+            TitleText.Text = "Follow theese intructions";
+            TextView WipeText = FindViewById<TextView>(Resource.Id.txv_wipe);
+            WipeText.Visibility = ViewStates.Visible;
+            TextView StickerText = FindViewById<TextView>(Resource.Id.txv_stickers);
+            StickerText.Visibility = ViewStates.Visible;
         }
 
         #region Activity functions

@@ -13,31 +13,50 @@
         android:layout_margin="20px"
         android:layout_centerHorizontal="true" />
 
-	<Button
-		android:id="@+id/btn_start"
-		android:text="Start"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_margin="20px"
-        android:enabled="false"
-		android:layout_centerHorizontal="true"
-		android:layout_below="@+id/txv_title" />
+      <Button
+                android:layout_centerHorizontal="true"
+            android:layout_width="200dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="@drawable/abc_btn_colored_material"
+            android:drawablePadding="6dp"
+            android:gravity="center"
+            android:height="80dp"
+            android:padding="20dp"
+            android:text="Start      "
+            android:textColor="#000"
+            android:textStyle="bold" 
+            android:layout_below="@+id/txv_title"
+            android:drawableLeft="@drawable/icon_play_arrow"
+            android:id="@+id/btn_start"
+        />
 	
 	<Button
         android:id="@+id/btn_stop"
-        android:text="Stop"
-        android:layout_width="wrap_content"
+        android:text="Stop         "
+            android:textColor="#000"
+            android:textStyle="bold" 
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/btn_start" />
+        android:layout_below="@+id/btn_start"
+        android:drawableLeft="@drawable/icon_stop"
+        android:background="@drawable/abc_btn_colored_material"
+            android:drawablePadding="6dp"
+            />
 
 	<Button
         android:id="@+id/btn_next"
         android:text="Next"
-        android:layout_width="wrap_content"
+            android:textColor="#000"
+            android:textStyle="bold" 
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
+        android:drawableRight="@drawable/icon_arrow_forward"
+        android:background="@drawable/abc_btn_colored_material"
+            android:drawablePadding="6dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/btn_stop" />
 	

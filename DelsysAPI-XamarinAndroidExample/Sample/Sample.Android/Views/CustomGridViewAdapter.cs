@@ -16,12 +16,14 @@ namespace AndroidSample.Views
         private Context context;
         private string[] gridViewString;
         private int[] gridViewImage;
+        private List<int> exercisesDone;
 
-        public CustomGridViewAdapter(Context context, string[] gridViewstr, int[] gridViewImage)
+        public CustomGridViewAdapter(Context context, string[] gridViewstr, int[] gridViewImage, List<int> exercisesDone)
         {
             this.context = context;
             gridViewString = gridViewstr;
             this.gridViewImage = gridViewImage;
+            this.exercisesDone = exercisesDone;
         }
         public override int Count
         {
@@ -51,8 +53,13 @@ namespace AndroidSample.Views
                 view = inflater.Inflate(Resource.Layout.content_exerciseSelection, null);
                 TextView txtView = view.FindViewById<TextView>(Resource.Id.textView);
                 ImageView imgView = view.FindViewById<ImageView>(Resource.Id.imageView);
+                ImageView imgCheckmark = view.FindViewById<ImageView>(Resource.Id.img_checkbox);
                 txtView.Text = gridViewString[position];
                 imgView.SetImageResource(gridViewImage[position]);
+
+                if (exercisesDone.Contains(position)){
+                    imgCheckmark.Visibility = ViewStates.Visible;
+                }
             }
             else
             {
