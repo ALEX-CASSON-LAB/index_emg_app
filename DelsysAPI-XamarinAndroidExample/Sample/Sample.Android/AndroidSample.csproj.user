@@ -3,7 +3,7 @@
   <PropertyGroup>
     <SelectedDevice>Samsung SM-T220</SelectedDevice>
     <DefaultDevice>pixel_2_pie_9_0_-_api_28</DefaultDevice>
-    <ProjectView>ProjectFiles</ProjectView>
+    <ProjectView>ShowAllFiles</ProjectView>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
     <ActiveDebugProfile>Samsung SM-T220</ActiveDebugProfile>
     <AndroidDesignerPreferredTheme>AppTheme</AndroidDesignerPreferredTheme>

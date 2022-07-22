@@ -374,12 +374,6 @@
     <AndroidResource Include="Resources\drawable\va_stomach.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\instruc_wipe.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\instruc_sticker.PNG" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\icon_add.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -447,6 +441,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\textinputborder.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\apply_sensor.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\wipe.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

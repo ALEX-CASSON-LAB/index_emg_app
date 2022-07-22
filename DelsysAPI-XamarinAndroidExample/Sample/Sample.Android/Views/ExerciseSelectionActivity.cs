@@ -38,10 +38,6 @@ namespace AndroidSample.Views
             }
         }
         
-         int[] imageid=
-        {
-            Resource.Drawable.va_hamstring,Resource.Drawable.va_legraise
-        };
 
         protected override void OnCreate(Bundle savedInstanceState)
         {

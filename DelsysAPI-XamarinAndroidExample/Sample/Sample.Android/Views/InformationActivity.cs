@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidSample.Core;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AndroidSample
@@ -14,7 +15,9 @@ namespace AndroidSample
         public Button ScanButton;
         public Button ArmButton;
         public Button MVCButton;
+        public Button NextImageButton;
         public TextView SensorsText;
+        FrameLayout imageFrame;
 
 
 
@@ -34,7 +37,9 @@ namespace AndroidSample
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             SetSupportActionBar(toolbar);
 
-            // Button set up
+            // UI set up
+            imageFrame = FindViewById<FrameLayout>(Resource.Id.frame_image);
+
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
             ScanButton.Click += async (s, e) =>
             {
@@ -72,7 +77,6 @@ namespace AndroidSample
                 del.SensorArm();
 
                 ArmButton.Visibility = ViewStates.Invisible;
-                MVCButton.Visibility = ViewStates.Visible;
                 showInstructions();
             };
 
@@ -80,16 +84,54 @@ namespace AndroidSample
             MVCButton.Click += delegate {
                 StartActivity(typeof(MVCActivity));
             };
+
+            NextImageButton = FindViewById<Button>(Resource.Id.btn_next);
+            NextImageButton.Click += (s, e) =>
+            {
+                updateInstruction();
+            };
+
         }
 
         public void showInstructions()
         {
+            
+            imageFrame.Visibility = ViewStates.Visible;
             TextView TitleText = FindViewById<TextView>(Resource.Id.txv_title);
-            TitleText.Text = "Follow theese intructions";
-            TextView WipeText = FindViewById<TextView>(Resource.Id.txv_wipe);
-            WipeText.Visibility = ViewStates.Visible;
-            TextView StickerText = FindViewById<TextView>(Resource.Id.txv_stickers);
-            StickerText.Visibility = ViewStates.Visible;
+            TitleText.Text = "Follow these intructions";
+            getImageLocations();
+            updateInstruction();
+        }
+
+        public string[] imageNames =  {"apply_sensor","wipe"};
+        public int[] imageIds;
+        public int counter = 0;
+        private void getImageLocations()
+        {
+            imageIds = new int[imageNames.Length];
+            for (int i = 0; i < imageNames.Length; i++)
+            {
+                string imL = imageNames[i];
+                var resourceId = (int)typeof(Resource.Drawable).GetField(imL).GetValue(null);
+                imageIds[i] = resourceId;
+            }
+        }
+
+        public void updateInstruction()
+        {
+            ImageView image = FindViewById<ImageView>(Resource.Id.imageView);
+            if (counter < imageIds.Length)
+            {
+                image.SetImageResource(imageIds[counter]);
+                counter++;
+                //todo add imagedescription for each one?
+            }
+            else
+            {
+                imageFrame.Visibility = ViewStates.Gone;
+                MVCButton.Visibility = ViewStates.Visible;
+            }
+
         }
 
         #region Activity functions

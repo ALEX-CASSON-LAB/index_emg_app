@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:layout_weight="1"
-    >
-    <RelativeLayout 
-        android:paddingTop="50dp"
+    android:paddingTop="50dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"        
@@ -54,32 +48,32 @@
         android:layout_below="@id/txv_title"
         android:textStyle="bold" />
 
-
-    <TextView
-        android:layout_below="@id/txv_sensors"
-        android:id="@+id/txv_wipe"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+    <!--Images-->
+    <FrameLayout
+        android:id="@+id/frame_image"
+        android:layout_below="@id/txv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
-        android:contentDescription="Image of cleaning skin with alcohol wipe 2"
-        android:drawableTop="@drawable/instruc_wipe"
-        android:padding="200dp"
-        android:text="1. Wipe the area where you will apply the sensors" />
-
-        <TextView
-            android:layout_below="@id/txv_wipe"
-            android:id="@+id/txv_stickers"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+        android:visibility="invisible">
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:padding="200dp"
             android:scaleType="centerInside"
-            android:contentDescription="Textview 2"
-            android:drawableTop="@drawable/instruc_sticker"
-            android:text="2. Apply the stickers to the sensors"
-            />
+            android:padding="20dp"
+            android:id="@+id/imageView"
+            android:contentDescription="image of person applying sensor to their back"
+            android:src="@drawable/apply_sensor"
+            android:layout_gravity="top|right" />
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:contentDescription="Next button"
+            android:src="@drawable/icon_arrow_forward"
+            android:id="@+id/btn_next"
+            android:layout_gravity="bottom|right" />
+    </FrameLayout>
     
     
     <Button
@@ -91,7 +85,6 @@
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         android:visibility="invisible"
-        android:layout_below="@id/txv_stickers" />
+        android:layout_below="@id/frame_image" />
 
 </RelativeLayout>
-</ScrollView>
