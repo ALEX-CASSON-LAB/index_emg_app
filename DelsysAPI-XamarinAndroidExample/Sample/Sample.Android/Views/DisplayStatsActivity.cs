@@ -39,7 +39,15 @@ namespace AndroidSample.Views
             exerciseName = FindViewById<TextView>(Resource.Id.txv_names);
             exerciseStats = FindViewById<TextView>(Resource.Id.txv_stats);
             NotesButton = FindViewById<Button>(Resource.Id.btn_notes);
+            NotesButton.Click += (s, e) =>
+            {
+                StartActivity(typeof(NotesActivity));
+            };
             HomeButton = FindViewById<Button>(Resource.Id.btn_home);
+            HomeButton.Click += (s, e) =>
+            {
+                StartActivity(typeof(MainActivity));
+            };
 
             displayStats();
 
@@ -49,18 +57,6 @@ namespace AndroidSample.Views
             Session displaySession = _myModel.getSessionStats();
 
             string names = displaySession.exerciseIds;
-            //string stats = "[";
-
-            ////foreach (KeyValuePair<string, List<double>> exer in displaySession.exerciseStats)
-            ////{
-            ////    names = names + "],[" + _myModel.getExerciseNameById(exer.Key);
-            ////    stats = stats + "] [" + exer.Value.ToString();
-            ////}
-
-            //names = names + "]";
-            //stats += "]";
-
-            
 
             string stats = displaySession.exerciseStats;
 

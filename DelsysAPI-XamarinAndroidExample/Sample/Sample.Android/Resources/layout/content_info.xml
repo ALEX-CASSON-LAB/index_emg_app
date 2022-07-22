@@ -35,7 +35,7 @@
 
     <Button
         android:id="@+id/btn_arm"
-        android:text="Arm"
+        android:text="Connect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
@@ -84,7 +84,8 @@
     
     <Button
         android:id="@+id/btn_mvc"
-        android:text="MVC"
+        android:text="Start exercising"
+            android:drawableRight="@drawable/icon_arrow_forward"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20px"

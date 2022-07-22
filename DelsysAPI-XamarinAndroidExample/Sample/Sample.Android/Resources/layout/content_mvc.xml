@@ -9,7 +9,7 @@
         android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Maximum Voluntary Contraction Recording"
+        android:text="Maximum Voluntary Contraction Recording \n Complete this exercise to the best of your ability"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true" />
 
@@ -39,6 +39,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
+        android:visibility="invisible"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/btn_start"
         android:drawableLeft="@drawable/icon_stop"

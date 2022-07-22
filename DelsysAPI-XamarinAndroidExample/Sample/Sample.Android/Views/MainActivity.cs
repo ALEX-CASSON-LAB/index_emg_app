@@ -49,7 +49,6 @@ namespace AndroidSample
 
             //Data set up
             getDatabasePath();
-
             myModel.setupDatabase();
             myModel.accessDatabase();
             

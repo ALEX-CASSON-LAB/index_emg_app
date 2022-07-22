@@ -22,28 +22,6 @@ namespace AndroidSample.Core
         {
             _exerciseIds += exer.Id + ",";
         }
-        //public void addExerciseStat(int exerId, double maxPercent)
-        //{
-        //    string exerciseId = exerId.ToString(); 
-        //    List<double> percents = new List<double>();
-
-        //    if (_exerciseStats.ContainsKey(exerciseId)){
-        //        percents = _exerciseStats[exerciseId];
-        //        percents.Add(maxPercent);
-        //        _exerciseStats[exerciseId] = percents;
-        //    }
-        //    else
-        //    {
-        //        percents.Add(maxPercent);
-        //        _exerciseStats.Add(exerciseId, percents);
-        //    }
-        //}
-
-        //public Dictionary<string, List<double>> exerciseStats
-        //{
-        //    get { return _exerciseStats; }
-        //    set { _exerciseStats = value; }
-        //}
 
         public void addExerciseStat (Exercise e , double maxPercent)
         {
@@ -63,7 +41,7 @@ namespace AndroidSample.Core
         }
         public string notes
         {
-            get { return notes; }
+            get { return _notes; }
             set { _notes = value; //TODO add some sort of formatting
                                  }
         }
