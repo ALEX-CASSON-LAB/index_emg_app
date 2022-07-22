@@ -21,21 +21,23 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="50dp"
         android:inputType="text" 
         android:id="@+id/edt_notes"
         android:layout_below="@id/txv_title"
+        android:background="@drawable/textinputborder"
+        android:hint="Write any notes about this exercise session here."
         />
 
     <Button
         android:id="@+id/btn_add"
-        android:text="Begin"
+        android:text="Add note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         android:drawableRight="@drawable/icon_arrow_forward"
-        android:layout_below="@id/txv_subtitle" />
+        android:layout_below="@id/edt_notes" />
 
     <Button
         android:id="@+id/btn_end"

@@ -56,8 +56,6 @@ public class MainModel
         {
             _database = new SQLiteConnection(dbPath);
             _database.CreateTable<Exercise>();
-            addExercise("Hamstring", 1);
-            addExercise("Legraise", 2);
         }
     }
     public void deleteSessionTable()
