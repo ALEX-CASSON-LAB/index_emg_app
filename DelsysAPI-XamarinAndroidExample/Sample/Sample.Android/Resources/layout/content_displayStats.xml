@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-        android:paddingTop="?attr/actionBarSize"
+    android:paddingTop="?attr/actionBarSize"
     android:layout_height="match_parent"
     android:gravity="center">
 
@@ -13,41 +13,21 @@
         android:layout_height="wrap_content"
         android:text="Session stats"
         android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="20px" />
-
-
-
-    <!--<ImageView
-        android:id="@+id/im_exercise"
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txv_title"
-        android:contentDescription="description" />/>-->
-
-    
-    <TextView
-        android:id="@+id/txv_names"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_margin="20px"
+        android:paddingTop="20dp"
         android:layout_centerHorizontal="true"
         android:paddingBottom="20px"
-        android:layout_below="@+id/txv_title"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txv_stats"
-        android:layout_width="wrap_content"
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:paddingBottom="20px" 
-        android:layout_below="@+id/txv_names"/>
-  
+        android:id="@+id/view_stats_list"
+        android:layout_below="@+id/txv_title"
+        />
+
 
     <Button
         android:id="@+id/btn_notes"
@@ -58,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:drawableLeft="@drawable/icon_add"
-        android:layout_below="@+id/txv_stats" />
+        android:drawableLeft="@drawable/icon_note_add"
+        android:layout_below="@id/view_stats_list" />
 
     <Button
         android:id="@+id/btn_home"

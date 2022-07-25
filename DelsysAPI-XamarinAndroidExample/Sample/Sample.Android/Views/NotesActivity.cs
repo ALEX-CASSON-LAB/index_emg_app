@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -39,6 +40,10 @@ namespace AndroidSample.Views
             AddButton.Click += (s, e) =>
             {
                 _myModel.currentSession.notes = NotesText.Text;
+                Drawable img = GetDrawable(Resource.Drawable.icon_edit_note);
+                AddButton.SetCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
+                AddButton.Text = "Edit notes";
+                
             };
 
         }

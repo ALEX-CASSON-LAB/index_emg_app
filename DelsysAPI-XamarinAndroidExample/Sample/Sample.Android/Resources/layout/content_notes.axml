@@ -17,6 +17,7 @@
         android:text="Add any notes for this session"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
+        android:textStyle="bold"
         android:layout_below="@+id/im_uomlogo"/>
 
 
@@ -37,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/icon_arrow_forward"
+        android:drawableRight="@drawable/icon_task"
         android:layout_below="@id/edt_notes" />
 
     <Button

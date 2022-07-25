@@ -23,6 +23,10 @@ namespace AndroidSample.Views
         Button NotesButton;
         Button HomeButton;
 
+        private ListView lv;
+        private CustomListAdapter adapter;
+        private JavaList<Exercise> exercises;
+
         public DisplayStatsActivity()
         {
             _myModel = MainModel.Instance;
@@ -36,8 +40,14 @@ namespace AndroidSample.Views
             SetSupportActionBar(toolbar);
             SupportActionBar.Title = "Session statistics";
 
-            exerciseName = FindViewById<TextView>(Resource.Id.txv_names);
-            exerciseStats = FindViewById<TextView>(Resource.Id.txv_stats);
+
+            lv = FindViewById<ListView>(Resource.Id.view_stats_list);
+
+            adapter = new CustomListAdapter(this, getExercises());
+
+            lv.Adapter = adapter;
+
+
             NotesButton = FindViewById<Button>(Resource.Id.btn_notes);
             NotesButton.Click += (s, e) =>
             {
@@ -49,20 +59,50 @@ namespace AndroidSample.Views
                 StartActivity(typeof(MainActivity));
             };
 
-            displayStats();
+            //displayStats();
 
         }
-        public void displayStats()
+        //public void displayStats()
+        //{
+        //    Session displaySession = _myModel.getSessionStats();
+
+        //    string names = displaySession.exerciseIds;
+
+        //    string stats = displaySession.exerciseStats;
+
+        //    exerciseName.Text = names;
+        //    exerciseStats.Text = stats;
+        //}
+
+        private JavaList<Exercise> getExercises()
         {
-            Session displaySession = _myModel.getSessionStats();
+            var exercises = new JavaList<Exercise>();
 
-            string names = displaySession.exerciseIds;
+            Exercise s;
 
-            string stats = displaySession.exerciseStats;
+            s = new Exercise(); // TODO get from the current session
+            s.name = "Pelvic tilt";
+            s.reps = 5;
+            s.img_name = "icon_good_review";
+            // TODO calculate what the performance was
+            exercises.Add(s);
 
-            exerciseName.Text = names;
-            exerciseStats.Text = stats;
+            s = new Exercise(); // TODO get from the current session
+            s.name = "Stomach tone";
+            s.reps = 3;
+            s.img_name = "icon_ranking";
+            // TODO calculate what the performance was
+            exercises.Add(s);
+
+            s = new Exercise(); // TODO get from the current session
+            s.name = "Buttock tone";
+            s.reps = 5;
+            s.img_name = "icon_star_color";
+            // TODO calculate what the performance was
+            exercises.Add(s);
+
+            return exercises;
         }
+
     }
-    
 }

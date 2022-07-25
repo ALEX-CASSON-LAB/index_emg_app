@@ -7,6 +7,7 @@ using Android.OS;
 using Android.Support.V4.App;
 using Android;
 using System.IO;
+using AndroidSample.Views;
 
 namespace AndroidSample
 
@@ -34,7 +35,7 @@ namespace AndroidSample
             InfoActivityButton = FindViewById<Button>(Resource.Id.btn_begin);
             InfoActivityButton.Click += delegate
             {
-                StartActivity(typeof(InformationActivity));
+                StartActivity(typeof(DisplayStatsActivity));
             };
 
             /********SHORTCUT****/
