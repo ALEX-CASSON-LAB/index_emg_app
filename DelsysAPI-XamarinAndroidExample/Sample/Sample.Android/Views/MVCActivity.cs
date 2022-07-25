@@ -11,6 +11,7 @@ using System.Text;
 using AndroidSample.Core;
 using System.Threading.Tasks;
 using AndroidSample.Views;
+using Android.Graphics.Drawables;
 
 namespace AndroidSample
 {
@@ -57,16 +58,18 @@ namespace AndroidSample
                 StopButton.Visibility = ViewStates.Invisible; //TODO bit dramatic remove
 
                 //Calculate MVC
-                _myModel.mvc = calculate_MVC(del.Data);
+                _myModel.mvc = calculate_MVC(del.Data)[0]; // todo make this per channel
                 Console.WriteLine("mvc is {0}", _myModel.mvc);
-
+                StartButton.Text = "Redo recording";
+                Drawable img = GetDrawable(Resource.Drawable.icon_restart);
+                StartButton.SetCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
+                NextButton.Text = "Next";
                 allowStart();
             };
 
             NextButton = FindViewById<Button>(Resource.Id.btn_next);
             NextButton.Click += (s, e) =>
             {
-                //StartActivity(typeof(ExerciseActivity));
                 StartActivity(typeof(ExerciseSelectionActivity));
             };
 
@@ -81,22 +84,26 @@ namespace AndroidSample
             StartButton.Enabled = true;
         }
 
-        public double calculate_MVC(List<List<double>> data) // whats the datatpe of data
+        public List<double> calculate_MVC(List<List<double>> data)
         {
-            double mvc;
+            double mvc = 1; // default 
             double sum = 0;
-            for (int i = 0; i < data.Count; i++)
+
+            List<double> mvcs = new List<double>();
+
+            for (int i = 0; i < data.Count; i++) // For each channel/sensor
             {
-                Console.WriteLine("count of data {0}", data.Count);
-                foreach (var pt in data[i])
+                foreach (var pt in data[i]) // for each data point
                 {
                     sum = sum + (pt * pt); // Add the squares of all values
                 }
+                mvc = sum / data[i].Count;
+                mvc = Math.Sqrt(mvc); // square root
+
+                mvcs.Add(mvc);
             }
 
-            mvc = sum / data[0].Count;
-            mvc = Math.Sqrt(mvc);
-            return mvc;
+            return mvcs;
         }
 
 

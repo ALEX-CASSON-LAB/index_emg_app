@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+        android:paddingTop="?attr/actionBarSize"
     android:layout_height="match_parent"
     android:gravity="center">
 
@@ -52,6 +53,8 @@
         android:id="@+id/btn_notes"
         android:text="Add notes"
         android:layout_width="200dp"
+         android:padding="10dp"
+        android:background="@color/colorButton"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
@@ -63,6 +66,8 @@
         android:text="Home"        
         android:drawableLeft="@drawable/icon_home"
         android:layout_width="200dp"
+         android:padding="10dp"
+        android:background="@color/colorButton"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"

@@ -77,6 +77,8 @@ namespace AndroidSample.Views
                 else
                     Console.WriteLine("DELSYS object not initialised"); // TODO add check
                 StopButton.Visibility = ViewStates.Visible;
+                StartButton.Enabled = false;
+                NextButton.Text = "Next Exercise";
             };
 
             StopButton = FindViewById<Button>(Resource.Id.btn_stop);
@@ -85,8 +87,9 @@ namespace AndroidSample.Views
                 await del.SensorStop();
                 Task.Delay(3000).Wait();
                 StopButton.Visibility = ViewStates.Invisible;
-
+                //todo add one to the rep
                 exerciseData = del.Normalise(_myModel.mvc);
+                StartButton.Enabled = true;
             };
 
             NextButton = FindViewById<Button>(Resource.Id.btn_next);

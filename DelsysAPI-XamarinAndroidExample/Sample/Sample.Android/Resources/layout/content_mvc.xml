@@ -4,60 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="?attr/actionBarSize"
     android:gravity="center">
+
+    
+
 	<TextView
         android:id="@+id/txv_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Maximum Voluntary Contraction Recording \n Complete this exercise to the best of your ability"
+        android:text="Maximum Voluntary Contraction Recording"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true" />
 
+    <ImageView
+        android:id="@+id/img_mvc"
+        android:layout_width="300dp"
+        android:contentDescription="description"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/mvc_img2"
+        android:layout_below="@+id/txv_title"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Complete this exercise to the best of your ability"
+        android:layout_below="@id/img_mvc"
+        android:id="@+id/txv_howto"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/icon_info"
+        android:padding="10dp"    
+        android:background="#CCCC"
+        />
+    
       <Button
-                android:layout_centerHorizontal="true"
+            android:layout_centerHorizontal="true"
             android:layout_width="200dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="@drawable/abc_btn_colored_material"
-            android:drawablePadding="6dp"
             android:gravity="center"
-            android:height="80dp"
-            android:padding="20dp"
-            android:text="Start      "
-            android:textColor="#000"
-            android:textStyle="bold" 
-            android:layout_below="@+id/txv_title"
+            android:text="Start"        
+            android:padding="10dp"
+            android:background="@color/colorButton"
+            android:layout_below="@+id/txv_howto"
             android:drawableLeft="@drawable/icon_play_arrow"
+            android:drawablePadding="6dp"
             android:id="@+id/btn_start"
         />
 	
 	<Button
         android:id="@+id/btn_stop"
-        android:text="Stop         "
-            android:textColor="#000"
-            android:textStyle="bold" 
+        android:text="Stop"
+        android:padding="10dp"
+        android:background="@color/colorButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
-        android:visibility="invisible"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/btn_start"
+        android:visibility="invisible"
+        android:drawablePadding="6dp"
         android:drawableLeft="@drawable/icon_stop"
-        android:background="@drawable/abc_btn_colored_material"
-            android:drawablePadding="6dp"
             />
 
 	<Button
         android:id="@+id/btn_next"
-        android:text="Next"
-            android:textColor="#000"
-            android:textStyle="bold" 
+        android:text="Skip MVC recording"
+        android:padding="10dp"
+        android:background="@color/colorButton"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:drawableRight="@drawable/icon_arrow_forward"
-        android:background="@drawable/abc_btn_colored_material"
-            android:drawablePadding="6dp"
+        android:drawablePadding="6dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/btn_stop" />
 	

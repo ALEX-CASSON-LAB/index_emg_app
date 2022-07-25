@@ -1,11 +1,11 @@
 [
     {
-        "name": "Arm raise",
+        "name": "Arm Raise",
         "img_name": "va_armraise",
         "reps": 2
     },
     {
-        "name": "Back stabiliser",
+        "name": "Back Stabiliser",
         "img_name": "va_backstabaliser",
         "reps": 2
     },
@@ -20,12 +20,12 @@
         "reps": 2
     },
     {
-        "name": "Deep Stomach",
+        "name": "Deep Stomach Muscle Tone",
         "img_name": "va_deepstomach",
         "reps": 2
     },
     {
-        "name": "Hamstring",
+        "name": "Hamstring Stretch",
         "img_name": "va_hamstring",
         "reps": 2
     },
@@ -45,17 +45,17 @@
         "reps": 2
     },
     {
-        "name": "One leg stand",
+        "name": "One-leg stand",
         "img_name": "va_onelegstand",
         "reps": 2
     },
     {
-        "name": "Pelvic",
+        "name": "Pelvic tilt",
         "img_name": "va_pelvic",
         "reps": 2
     },
     {
-        "name": "Stomach",
+        "name": "Stomach tone",
         "img_name": "va_stomach",
         "reps": 2
     }

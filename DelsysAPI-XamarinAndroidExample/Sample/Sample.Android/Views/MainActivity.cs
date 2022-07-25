@@ -38,11 +38,11 @@ namespace AndroidSample
             };
 
             /********SHORTCUT****/
-            Button shortcutButton = FindViewById<Button>(Resource.Id.btn_shortcut);
-            shortcutButton.Click += delegate
-            {
-                StartActivity(typeof(Views.ExerciseSelectionActivity));
-            };
+            //Button shortcutButton = FindViewById<Button>(Resource.Id.btn_shortcut);
+            //shortcutButton.Click += delegate
+            //{
+            //    StartActivity(typeof(Views.ExerciseSelectionActivity));
+            //};
             /***********************/
 
             myModel.readExerciseJSON();

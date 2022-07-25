@@ -1,8 +1,10 @@
 ﻿using Android.App;
 using Android.OS;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
 using AndroidSample.Core;
+using AndroidSample.Views;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,12 +14,14 @@ namespace AndroidSample
     public class InformationActivity : Android.Support.V7.App.AppCompatActivity
     {
         // Defining buttons/labels for UI
+        public TextView TitleText;
         public Button ScanButton;
         public Button ArmButton;
         public Button MVCButton;
         public Button NextImageButton;
         public TextView SensorsText;
-        FrameLayout imageFrame;
+        public FrameLayout imageFrame;
+        public TextView instrucText;
 
 
 
@@ -40,11 +44,15 @@ namespace AndroidSample
             // UI set up
             imageFrame = FindViewById<FrameLayout>(Resource.Id.frame_image);
 
+            TitleText = FindViewById<TextView>(Resource.Id.txv_title);
+
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
             ScanButton.Click += async (s, e) =>
             {
-
-                ScanButton.Text = "Scanning...";
+                FindViewById<CardView>(Resource.Id.view_sensor).Visibility = ViewStates.Gone;
+                FindViewById<TextView>(Resource.Id.txv_subtitle).Visibility = ViewStates.Gone;
+                TitleText.Text = "Searching for your sensors ...";
+                ScanButton.Visibility = ViewStates.Gone;
                 if (del == null)
                 {
                     _model.del = new Delsys();
@@ -54,19 +62,20 @@ namespace AndroidSample
                     del.ScanFinished += (object sender, Delsys.ScanResultsEventArgs e)
                         => {
                             SensorsText = FindViewById<TextView>(Resource.Id.txv_sensors);
+                            TitleText.Text = "Sensors found: ";
                             SensorsText.Visibility = ViewStates.Visible;
                             foreach (var sensor in del.sensors)
                             {
                                 SensorsText.Text = SensorsText.Text + "\n" + sensor;
                                 //TODO add some sort of selection of the sensors, make sure there are two displayed etc.
                             }
+
+                            ArmButton.Visibility = ViewStates.Visible;
                         };
                 }
                 _model.startSession();
                 await del.SensorScan();
-                ScanButton.Visibility = ViewStates.Gone;
 
-                ArmButton.Visibility = ViewStates.Visible;
             };
 
             
@@ -76,19 +85,22 @@ namespace AndroidSample
             {
                 del.SensorArm();
 
-                ArmButton.Visibility = ViewStates.Invisible;
+                ArmButton.Visibility = ViewStates.Gone;
                 showInstructions();
             };
 
-            MVCButton = FindViewById<Button>(Resource.Id.btn_mvc);
-            MVCButton.Click += delegate {
-                StartActivity(typeof(MVCActivity));
-            };
+            //MVCButton = FindViewById<Button>(Resource.Id.btn_mvc);
+            //MVCButton.Click += delegate {
+            //    StartActivity(typeof(MVCActivity));
+            //};
 
             NextImageButton = FindViewById<Button>(Resource.Id.btn_next);
             NextImageButton.Click += (s, e) =>
             {
-                updateInstruction();
+                if (counter < imageIds.Length)
+                    updateInstruction();
+                else
+                    StartActivity(typeof(MVCActivity));
             };
 
         }
@@ -97,15 +109,15 @@ namespace AndroidSample
         {
             
             imageFrame.Visibility = ViewStates.Visible;
-            TextView TitleText = FindViewById<TextView>(Resource.Id.txv_title);
-            TitleText.Text = "Follow these intructions";
-            TextView instrucText = FindViewById<TextView>(Resource.Id.txv_instruction);
+            TitleText.Text = "Follow these instructions";
+            instrucText = FindViewById<TextView>(Resource.Id.txv_instruction);
             instrucText.Visibility = ViewStates.Visible;
             getImageLocations();
             updateInstruction();
         }
 
-        public string[] imageNames =  {"apply_sensor","wipe"};
+        public string[] imageNames =  {"info_wipe","info_stick","info_peel","info_apply"};
+        public string[] imageDescriptions = { "1. Wipe the area with an alcohol wipe and let dry", "2. Add a sticker to each sensor", "3. Peel the backing off the stickers", "4. Apply firmly to the skin" };
         public int[] imageIds;
         public int counter = 0;
         private void getImageLocations()
@@ -122,17 +134,19 @@ namespace AndroidSample
         public void updateInstruction()
         {
             ImageView image = FindViewById<ImageView>(Resource.Id.imageView);
+            TextView description = FindViewById<TextView>(Resource.Id.txv_instruction);
+            if (counter == imageIds.Length - 1)
+            {
+                NextImageButton.Text = "Start exercising";
+            }
             if (counter < imageIds.Length)
             {
                 image.SetImageResource(imageIds[counter]);
+                description.Text = imageDescriptions[counter];
                 counter++;
                 //todo add imagedescription for each one?
             }
-            else
-            {
-                imageFrame.Visibility = ViewStates.Gone; // maybe make it like grey or something idk
-                MVCButton.Visibility = ViewStates.Visible;
-            }
+            
 
         }
 
