@@ -3763,43 +3763,46 @@ namespace AndroidSample
 			public const int txv_info = 2131230927;
 			
 			// aapt resource value: 0x7F0800D0
-			public const int txv_names = 2131230928;
+			public const int txv_instruction = 2131230928;
 			
 			// aapt resource value: 0x7F0800D1
-			public const int txv_sensors = 2131230929;
+			public const int txv_names = 2131230929;
 			
 			// aapt resource value: 0x7F0800D2
-			public const int txv_stats = 2131230930;
+			public const int txv_sensors = 2131230930;
 			
 			// aapt resource value: 0x7F0800D3
-			public const int txv_subtitle = 2131230931;
+			public const int txv_stats = 2131230931;
 			
 			// aapt resource value: 0x7F0800D4
-			public const int txv_title = 2131230932;
+			public const int txv_subtitle = 2131230932;
 			
 			// aapt resource value: 0x7F0800D5
-			public const int uniform = 2131230933;
+			public const int txv_title = 2131230933;
 			
 			// aapt resource value: 0x7F0800D6
-			public const int unlabeled = 2131230934;
+			public const int uniform = 2131230934;
 			
 			// aapt resource value: 0x7F0800D7
-			public const int up = 2131230935;
+			public const int unlabeled = 2131230935;
 			
 			// aapt resource value: 0x7F0800D8
-			public const int useLogo = 2131230936;
+			public const int up = 2131230936;
 			
 			// aapt resource value: 0x7F0800D9
-			public const int view_offset_helper = 2131230937;
+			public const int useLogo = 2131230937;
 			
 			// aapt resource value: 0x7F0800DA
-			public const int visible = 2131230938;
+			public const int view_offset_helper = 2131230938;
 			
 			// aapt resource value: 0x7F0800DB
-			public const int withText = 2131230939;
+			public const int visible = 2131230939;
 			
 			// aapt resource value: 0x7F0800DC
-			public const int wrap_content = 2131230940;
+			public const int withText = 2131230940;
+			
+			// aapt resource value: 0x7F0800DD
+			public const int wrap_content = 2131230941;
 			
 			static Id()
 			{

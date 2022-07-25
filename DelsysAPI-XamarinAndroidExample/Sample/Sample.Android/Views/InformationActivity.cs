@@ -99,6 +99,8 @@ namespace AndroidSample
             imageFrame.Visibility = ViewStates.Visible;
             TextView TitleText = FindViewById<TextView>(Resource.Id.txv_title);
             TitleText.Text = "Follow these intructions";
+            TextView instrucText = FindViewById<TextView>(Resource.Id.txv_instruction);
+            instrucText.Visibility = ViewStates.Visible;
             getImageLocations();
             updateInstruction();
         }
@@ -128,7 +130,7 @@ namespace AndroidSample
             }
             else
             {
-                imageFrame.Visibility = ViewStates.Gone;
+                imageFrame.Visibility = ViewStates.Gone; // maybe make it like grey or something idk
                 MVCButton.Visibility = ViewStates.Visible;
             }
 
