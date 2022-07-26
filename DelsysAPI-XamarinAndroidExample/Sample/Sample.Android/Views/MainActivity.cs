@@ -35,7 +35,7 @@ namespace AndroidSample
             InfoActivityButton = FindViewById<Button>(Resource.Id.btn_begin);
             InfoActivityButton.Click += delegate
             {
-                StartActivity(typeof(DisplayStatsActivity));
+                StartActivity(typeof(InformationActivity));
             };
 
             /********SHORTCUT****/
