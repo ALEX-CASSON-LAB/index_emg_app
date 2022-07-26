@@ -38,7 +38,7 @@ namespace AndroidSample
                 StartActivity(typeof(InformationActivity));
             };
 
-            /********SHORTCUT****/
+            /********SHORTCUT********/
             //Button shortcutButton = FindViewById<Button>(Resource.Id.btn_shortcut);
             //shortcutButton.Click += delegate
             //{
