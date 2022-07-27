@@ -4,7 +4,7 @@
     <SelectedDevice>Samsung SM-T220</SelectedDevice>
     <DefaultDevice>pixel_2_pie_9_0_-_api_28</DefaultDevice>
     <ProjectView>ShowAllFiles</ProjectView>
-    <AndroidDesignerPreferredDevice>5.4in FWVGA</AndroidDesignerPreferredDevice>
+    <AndroidDesignerPreferredDevice>7in WSVGA %28Tablet%29</AndroidDesignerPreferredDevice>
     <ActiveDebugProfile>Samsung SM-T220</ActiveDebugProfile>
     <AndroidDesignerPreferredTheme>AppTheme</AndroidDesignerPreferredTheme>
   </PropertyGroup>

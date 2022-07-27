@@ -24,7 +24,7 @@ namespace AndroidSample
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
             Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            toolbar.SetLogo(Resource.Drawable.uom_logo);
+            toolbar.SetLogo(Resource.Drawable.index_logo);
             SetSupportActionBar(toolbar);
             CheckAppPermissions();
 
@@ -50,6 +50,7 @@ namespace AndroidSample
 
             //Data set up
             getDatabasePath();
+            myModel.deleteExerciseTable();
             myModel.setupDatabase();
             myModel.accessDatabase();
             
