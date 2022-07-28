@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:paddingTop="?attr/actionBarSize">
 
     
 
@@ -12,55 +12,60 @@
         android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="INDEX APP"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-
+        android:text="Welcome to the INDEX APP"
+        android:textSize="?android:attr/windowTitleSize"
+        android:layout_gravity="top|center"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/im_uomlogo"/>
+        />
     <TextView
-        android:id="@+id/txv_subtitle"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-
+        android:id="@+id/txv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Created by Carolina Costa Lopes"
+        android:text="Welcome back Anna"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txv_title" />
-
-
+        android:layout_below="@id/txv_title"
+        />
 
     <Button
         android:id="@+id/btn_begin"
-        android:text="Begin"
+        android:text="Begin session"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:padding="10dp"
+        android:layout_gravity="center"
         android:background="@color/colorButton"
         android:layout_centerHorizontal="true"
         android:drawableRight="@drawable/icon_arrow_forward"
-        android:layout_below="@id/txv_subtitle" />
+        android:layout_below="@id/txv_name" />
 
-<!--    <Button
-        android:id="@+id/btn_shortcut"
+    <Button
+        android:id="@+id/btn_data"
+        android:text="See previous sessions data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btn_begin"
-            android:padding="10dp"
-            android:background="@color/colorButton"
-        android:text="shortcut"
-        android:layout_centerInParent="true" 
-    />-->
-        <TextView
-        android:id="@+id/txv_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_info"
         android:layout_margin="20px"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:background="@color/colorButton"
         android:layout_centerHorizontal="true"
+        android:drawableRight="@drawable/icon_arrow_forward"
         android:layout_below="@id/btn_begin" />
         
+    <Button
+        android:id="@+id/btn_mvc"
+        android:text="FOR PHYSIOTHERAPIST USE \n\n MVC Recording"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:background="@color/colorButtonPhysio"
+        android:layout_centerHorizontal="true"
+        android:drawableRight="@drawable/icon_arrow_forward"
+        android:layout_below="@id/btn_data" />
     
 </RelativeLayout>

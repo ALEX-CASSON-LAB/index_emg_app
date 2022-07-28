@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace AndroidSample.Views
 {
-    [Activity(Label = "SplashActivity", Theme = "@style/AppTheme.Splash",MainLauncher = true, NoHistory = true, Icon = "@drawable/uom_logo")]
+    [Activity(Label = "@string/app_name", Theme = "@style/AppTheme.Splash",MainLauncher = true, NoHistory = true, Icon = "@drawable/index_logo")]
     
     public class SplashActivity : Android.Support.V7.App.AppCompatActivity
     {

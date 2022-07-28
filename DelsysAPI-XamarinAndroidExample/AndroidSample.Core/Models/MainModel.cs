@@ -29,6 +29,7 @@ public class MainModel
     public const SQLite.SQLiteOpenFlags Flags = SQLiteOpenFlags.ProtectionComplete;
 
     public Session currentSession;
+    public bool realTimeCollection;
 
     public List<Exercise> availableExercises;
     public Delsys del
@@ -48,14 +49,14 @@ public class MainModel
         {
             _database = new SQLiteConnection(dbPath);
             _database.CreateTable<Session>();
+            _database.Close();
             //TODO add try catch or soemthing idk for the sql connection
-            // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
-            // clause is kept simple and does not call out to other methods that may also take a lock!
         }
         lock (locker)
         {
             _database = new SQLiteConnection(dbPath);
             _database.CreateTable<Exercise>();
+            _database.Close();
         }
     }
     public void deleteSessionTable()
@@ -68,31 +69,40 @@ public class MainModel
             _database.Close();
         }
     }
+    public void deleteExerciseTable()
+    {
+        lock (locker)
+        {
+            _database = new SQLiteConnection(dbPath);
+            SQLiteCommand cmd = _database.CreateCommand("DROP Table 'Exercises'");
+            cmd.ExecuteNonQuery();
+            _database.Close();
+        }
+    }
     public void accessDatabase()
     {
         lock (locker)
         {
+            _database = new SQLiteConnection(dbPath);
             var table = _database.Table<Session>();
             foreach (var s in table)
             {
                 System.Console.WriteLine(s.Id + " " + s.date.ToString());
             }
-            // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
-            // clause is kept simple and does not call out to other methods that may also take a lock!
+            _database.Close();
         }
-        /********************************/
     }
 
     public void addExercise(string exercise_name, int reps)
     {
         lock (locker)
         {
+            _database = new SQLiteConnection(dbPath);
             var newExercise = new Exercise();
             newExercise.name = exercise_name;
             newExercise.reps = reps;
             _database.Insert(newExercise);
-            // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
-            // clause is kept simple and does not call out to other methods that may also take a lock!
+            _database.Close();
         }
     }
 
@@ -106,7 +116,9 @@ public class MainModel
     {
         lock (locker)
         {
+            _database = new SQLiteConnection(dbPath);
             _database.Insert(currentSession);
+            _database.Close();
         }
     }
     public Session getSessionStats()
@@ -124,14 +136,15 @@ public class MainModel
         {
             lock (locker)
             {
+                _database = new SQLiteConnection(dbPath);
                 var table = _database.Table<Exercise>();
                 foreach (var e in table)
                 {
                     exercises.Add(e);
                 }
+                _database.Close();
                 return exercises;
-                // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
-                // clause is kept simple and does not call out to other methods that may also take a lock!
+                
             }
         }
         catch (Exception e)
@@ -209,6 +222,16 @@ public class MainModel
         }
         
         return exercisesDone;   
+    }
+    #endregion
+
+    #region helper methods
+    public static double[] fullWaveRectification(double[] data)
+    {
+        double[] rectData = new double[data.Length];
+        for (int i = 0; i < data.Length; i++)
+            rectData[i] = Math.Abs(data[i]);
+        return rectData;
     }
     #endregion
 }
