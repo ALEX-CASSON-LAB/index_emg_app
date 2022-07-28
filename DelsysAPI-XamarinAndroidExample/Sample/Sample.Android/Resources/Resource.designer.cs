@@ -1735,19 +1735,19 @@ namespace AndroidSample
 			public const int colorAccent = 2131034154;
 			
 			// aapt resource value: 0x7F05002B
-			public const int colorButton = 2131034155;
+			public const int colorAccent2 = 2131034155;
 			
 			// aapt resource value: 0x7F05002C
-			public const int colorButtonPhysio = 2131034156;
+			public const int colorButton = 2131034156;
 			
 			// aapt resource value: 0x7F05002D
-			public const int colorPrimary = 2131034157;
+			public const int colorButtonPhysio = 2131034157;
 			
 			// aapt resource value: 0x7F05002E
-			public const int colorPrimaryDark = 2131034158;
+			public const int colorPrimary = 2131034158;
 			
 			// aapt resource value: 0x7F05002F
-			public const int colorYellow = 2131034159;
+			public const int colorPrimaryDark = 2131034159;
 			
 			// aapt resource value: 0x7F050030
 			public const int design_bottom_navigation_shadow_color = 2131034160;
