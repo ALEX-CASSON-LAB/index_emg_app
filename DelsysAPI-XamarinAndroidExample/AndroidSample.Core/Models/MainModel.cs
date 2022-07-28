@@ -50,8 +50,6 @@ public class MainModel
             _database.CreateTable<Session>();
             _database.Close();
             //TODO add try catch or soemthing idk for the sql connection
-            // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
-            // clause is kept simple and does not call out to other methods that may also take a lock!
         }
         lock (locker)
         {
@@ -143,8 +141,9 @@ public class MainModel
                 {
                     exercises.Add(e);
                 }
-                return exercises;
                 _database.Close();
+                return exercises;
+                
             }
         }
         catch (Exception e)

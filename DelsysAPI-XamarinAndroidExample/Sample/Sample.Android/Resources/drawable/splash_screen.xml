@@ -3,10 +3,14 @@
 	<item>
 		<color android:color="@color/splash_background"/>
 	</item>
-	<item>
+	<item
+		android:left="30dp"
+		android:right="30dp">
+		
 		<bitmap
-			android:src="@drawable/uom_logo"
-			android:tileMode="disabled"
-			android:gravity="center"/>
+			android:src="@drawable/index_logo"
+			android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+			android:gravity="clip_horizontal"/>
 	</item>
 </layer-list>

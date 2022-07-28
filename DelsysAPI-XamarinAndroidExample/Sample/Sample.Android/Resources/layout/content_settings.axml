@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?attr/actionBarSize"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="The University of Manchester Logo"
+        android:src="@drawable/uom_logo"
+        android:layout_centerHorizontal="true"
+        android:padding="100px"
+        android:id="@+id/img_uomlogo"/>
+
+    <TextView
+        android:id="@+id/txv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About the app"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/img_uomlogo"/>
+
+    <TextView
+        android:id="@+id/txv_info"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_info"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txv_title" />
+
+    <TextView
+        android:id="@+id/txv_image_info"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/image_info"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txv_info" />
+        
+    
+</RelativeLayout>

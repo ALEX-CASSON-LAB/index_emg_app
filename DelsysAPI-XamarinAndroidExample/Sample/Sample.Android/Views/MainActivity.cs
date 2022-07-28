@@ -74,8 +74,9 @@ namespace AndroidSample
             int id = item.ItemId;
             if (id == Resource.Id.action_settings)
             {
+                StartActivity(typeof(SettingsActivity));
                 return true;
-                // TODO add a settings page
+             
             }
             else if (id == Resource.Id.action_profile)
             {
