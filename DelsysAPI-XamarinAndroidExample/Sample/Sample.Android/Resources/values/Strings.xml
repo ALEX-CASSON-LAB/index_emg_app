@@ -2,4 +2,11 @@
     <string name="app_name">INDEX App</string>
     <string name="action_settings">Settings</string>
     <string name="exercise_title">Exercise page</string>
+	<string name="action_profile">Profile</string>
+	<string name="app_info">
+		Version 0.0
+		\n\nLast date updated 15.07.2022
+		\n\nDeveloped as part of the masters\' project at The University of Manchester for the degree of Master of Science in Advanced Computer Science: Digital Biology in the Faculty of Science and Engineering.
+		\nThis app has been designed using resources from Flaticon.com
+	</string>
 </resources>

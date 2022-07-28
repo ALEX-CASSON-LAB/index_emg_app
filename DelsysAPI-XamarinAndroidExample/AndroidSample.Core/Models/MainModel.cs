@@ -1,7 +1,12 @@
 ﻿using AndroidSample.Core;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 
 public class MainModel
 {
@@ -21,7 +26,11 @@ public class MainModel
 
     public string dbPath { get; set; }
     private SQLiteConnection _database;
-    Session currentSession;
+    public const SQLite.SQLiteOpenFlags Flags = SQLiteOpenFlags.ProtectionComplete;
+
+    public Session currentSession;
+
+    public List<Exercise> availableExercises;
     public Delsys del
     {
         get { return _del; }
@@ -47,15 +56,20 @@ public class MainModel
         {
             _database = new SQLiteConnection(dbPath);
             _database.CreateTable<Exercise>();
-            addExercise("Hamstring",1);
-            addExercise("Legraise",2);
         }
     }
-
+    public void deleteSessionTable()
+    {
+        lock (locker)
+        {
+            _database = new SQLiteConnection(dbPath);
+            SQLiteCommand cmd = _database.CreateCommand("DROP Table 'Sessions'");
+            cmd.ExecuteNonQuery();
+            _database.Close();
+        }
+    }
     public void accessDatabase()
     {
-        /*****use this for database stuff****/
-        
         lock (locker)
         {
             var table = _database.Table<Session>();
@@ -63,7 +77,6 @@ public class MainModel
             {
                 System.Console.WriteLine(s.Id + " " + s.date.ToString());
             }
-            //var stock = _database.Get<Stock>(0); //primary key id of 0
             // Care must be taken to avoid a deadlock situation by ensuring that the work inside the lock
             // clause is kept simple and does not call out to other methods that may also take a lock!
         }
@@ -73,7 +86,7 @@ public class MainModel
     public void addExercise(string exercise_name, int reps)
     {
         lock (locker)
-        { 
+        {
             var newExercise = new Exercise();
             newExercise.name = exercise_name;
             newExercise.reps = reps;
@@ -83,13 +96,26 @@ public class MainModel
         }
     }
 
-    public void addSession()
+    #region Session methods
+    public void startSession()
     {
         currentSession = new Session();
         currentSession.date = System.DateTime.Now.ToLocalTime();
-        _database.Insert(currentSession);
     }
+    public void recordCurrentSession()
+    {
+        lock (locker)
+        {
+            _database.Insert(currentSession);
+        }
+    }
+    public Session getSessionStats()
+    {
+        return currentSession;
+    }
+    #endregion
 
+    #region Exercise methods
     public List<Exercise> getExercises()
     {
 
@@ -108,11 +134,81 @@ public class MainModel
                 // clause is kept simple and does not call out to other methods that may also take a lock!
             }
         }
-        catch (Exception e ){
+        catch (Exception e)
+        {
             System.Console.WriteLine("Error: check that exercises table exists");
             return exercises;
         }
-        
+
     }
-   
+
+    public string getExerciseNameById(string id)
+    {
+        foreach (Exercise e in availableExercises)
+        {
+            if (e.Id == Int32.Parse(id))
+            {
+                return e.name;
+            }
+        }
+        return ""; //todo ERROR
+    }
+
+    // Retrieve information from JSON file for exercises
+    // Add this to the available exercises
+    public void readExerciseJSON()
+    {
+        var assembly = Assembly.GetExecutingAssembly();
+
+        using (Stream stream = assembly.GetManifestResourceStream("AndroidSample.Core.exerciseInfo.json")) // Change the name of the .lic file accordingly
+        {
+            StreamReader sr = new StreamReader(stream);
+            string json = sr.ReadToEnd();
+            availableExercises = JsonConvert.DeserializeObject<List<Exercise>>(json);
+        } 
+    }
+
+    public List<string>[] getExerciseInfo()
+    {
+        List<string>[] returnArr= new List<string>[2];
+
+        List<string> names = new List<string>();
+        List<string> ids = new List<string>();
+
+        
+        foreach (Exercise e in availableExercises)
+        {
+            names.Add(e.name);
+            ids.Add(e.img_name);
+        }
+
+        returnArr[0] = names;
+        returnArr[1] = ids;
+
+        return returnArr;
+    }
+
+    public List<int> getExercisesDone()
+    {
+        List<int> exercisesDone = new List<int>();
+        if (currentSession != null)
+        {
+            //todo remove this once not using shortcut button
+
+            if (currentSession.exerciseIds != null)
+            {
+                var lst = currentSession.exerciseIds.Split(',').ToList();
+                foreach (var val in lst)
+                {
+                    int id;
+                    bool isint = int.TryParse(val, out id);
+                    if (isint == true)
+                        exercisesDone.Add(id);
+                }
+            }
+        }
+        
+        return exercisesDone;   
+    }
+    #endregion
 }

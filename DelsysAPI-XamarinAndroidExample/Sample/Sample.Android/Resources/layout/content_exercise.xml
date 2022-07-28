@@ -1,58 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:paddingTop="?attr/actionBarSize"
+    android:id="@+id/exercise_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center">
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/im_exercise1"
+        android:layout_width="300dp"
+        android:contentDescription="description"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/txv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exercise"
-        android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:paddingBottom="20px" />
-
-
-
-    <!--<ImageView
-        android:id="@+id/im_exercise"
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="wrap_content"
+        android:layout_below="@id/im_exercise1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Lie down with your knees bent. Tighten your stomach muscles, flattening your back against the floor. Hold for five seconds. \nRepeat 5 times"
+        android:layout_below="@id/txv_title"
+        android:id="@+id/txv_howto"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txv_title"
-        android:contentDescription="description" />/>-->
+        android:drawableLeft="@drawable/icon_info"
+        android:padding="10dp"    
+        android:background="#CCCC"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remember not to push yourself more than you feel you can."
+        android:layout_below="@id/txv_howto"
+        android:id="@+id/txv_tip"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/icon_tips"
+        android:padding="10dp"    
+        android:background="#ffff"
+        />
 
-    
     <Button
         android:id="@+id/btn_start"
         android:text="Start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/txv_title" 
+        android:padding="10dp"
+        android:drawableLeft="@drawable/icon_play_arrow"
+        android:background="@color/colorButton"
+        android:layout_below="@id/txv_tip"
         android:enabled="false"/>
+
+     <TextView
+        android:id="@+id/txv_reps"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="0/5 reps completed"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@id/btn_start"
+        android:layout_below="@id/txv_tip"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"/>
 
     <Button
         android:id="@+id/btn_stop"
         android:text="Stop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:drawableLeft="@drawable/icon_stop"
+        android:background="@color/colorButton"
+        android:padding="10dp"
         android:layout_margin="20px"
+        android:visibility="invisible"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/btn_start"  />
 
     <Button
         android:id="@+id/btn_next"
-        android:text="Next"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:text="Skip"
+        android:gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:drawableRight="@drawable/icon_arrow_forward"
+        android:background="@color/colorButton"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/btn_stop" />
-    
+
+    <Button
+        android:id="@+id/btn_end"
+        android:text="End session"
+        android:gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:background="@color/colorButton"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/btn_next" />
 </RelativeLayout>
+
+
