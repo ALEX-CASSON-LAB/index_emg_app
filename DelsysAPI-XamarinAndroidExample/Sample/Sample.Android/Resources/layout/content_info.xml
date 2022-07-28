@@ -22,8 +22,7 @@
     
     <TextView
         android:id="@+id/txv_subtitle"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lift the sensor from the charging dock
@@ -34,8 +33,8 @@
         android:layout_below="@id/txv_title"
      />
     <android.support.v7.widget.CardView
-        android:layout_width="300dp"
-        android:layout_height="500dp"
+        android:layout_width="240dp"
+        android:layout_height="400dp"
         app:cardCornerRadius="10dp"
         android:layout_below="@id/txv_subtitle"
         android:layout_centerHorizontal="true"
@@ -52,6 +51,14 @@
 
     </android.support.v7.widget.CardView>
 
+    <CheckBox
+        android:text="See your results in real-time?"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chkb_realtime" 
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/view_sensor" />
+
     <Button
         android:id="@+id/btn_scan"
         android:text="Search for sensors"
@@ -60,7 +67,7 @@
         android:padding="10dp"
         android:background="@color/colorButton"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/view_sensor" 
+        android:layout_below="@id/chkb_realtime" 
         android:layout_gravity="bottom"
         android:drawableLeft="@drawable/icon_bluetooth_searching"/>
 

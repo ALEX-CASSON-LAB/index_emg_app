@@ -72,8 +72,6 @@ namespace AndroidSample.Views
             holder.Img.SetImageResource((int)typeof(Resource.Drawable).GetField(exercises[position].img_name).GetValue(null));
             holder.RepsTxt.Text = exercises[position].reps + " / " + exercises[position].reps + " reps";
 
-            //convertView.SetBackgroundColor(Color.LightBlue);
-
             return convertView;
         }
 

@@ -29,6 +29,7 @@ public class MainModel
     public const SQLite.SQLiteOpenFlags Flags = SQLiteOpenFlags.ProtectionComplete;
 
     public Session currentSession;
+    public bool realTimeCollection;
 
     public List<Exercise> availableExercises;
     public Delsys del
@@ -221,6 +222,16 @@ public class MainModel
         }
         
         return exercisesDone;   
+    }
+    #endregion
+
+    #region helper methods
+    public static double[] fullWaveRectification(double[] data)
+    {
+        double[] rectData = new double[data.Length];
+        for (int i = 0; i < data.Length; i++)
+            rectData[i] = Math.Abs(data[i]);
+        return rectData;
     }
     #endregion
 }

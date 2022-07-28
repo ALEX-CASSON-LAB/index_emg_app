@@ -25,14 +25,27 @@
         android:layout_below="@id/im_exercise1"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/txv_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/txv_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Lie down with your knees bent. Tighten your stomach muscles, flattening your back against the floor. Hold for five seconds. \nRepeat 5 times"
-        android:layout_below="@id/txv_title"
+        android:layout_below="@id/txv_data"
         android:id="@+id/txv_howto"
         android:gravity="center"
         android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:drawableLeft="@drawable/icon_info"
         android:padding="10dp"    
         android:background="#CCCC"
@@ -46,6 +59,7 @@
         android:gravity="center"
         android:layout_centerHorizontal="true"
         android:drawableLeft="@drawable/icon_tips"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:padding="10dp"    
         android:background="#ffff"
         />

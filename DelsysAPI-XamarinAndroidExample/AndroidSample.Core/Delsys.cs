@@ -213,31 +213,73 @@ namespace AndroidSample.Core
 
         #endregion
 
+        #region Extra Event handlers
+        //Realtime data collection
+        public event EventHandler<MuscleActiveEventArgs> MuscleActive;
+        private void OnMuscleActive(double[][] muscleData)
+        {
+            if (MuscleActive != null)
+            {
+                MuscleActive(this, new MuscleActiveEventArgs(muscleData));
+            }
+        }
+
+        public class MuscleActiveEventArgs : EventArgs
+        {
+            private double[][] _muscleData;
+            public double[][] MuscleData { get { return _muscleData; } }
+
+            public MuscleActiveEventArgs(double[][] muscleData)
+            {
+                _muscleData = muscleData;
+            }
+        }
+        //Realtime data collection
+        public event EventHandler<CollectionStoppedEventArgs> CollectionStopped;
+        private void OnCollectionStopped(int DataCount)
+        {
+            if (CollectionStopped != null)
+            {
+                CollectionStopped(this, new CollectionStoppedEventArgs(DataCount));
+            }
+        }
+
+        public class CollectionStoppedEventArgs : EventArgs
+        {
+            private int _dataCount;
+            public int DataCount { get { return _dataCount; } }
+
+            public CollectionStoppedEventArgs(int dataCount)
+            {
+                _dataCount = dataCount;
+            }
+        }
+        #endregion
+
+
         #region Collection Callbacks -- Data Ready, Colleciton Started, and Collection Complete
         public void CollectionDataReady(object sender, ComponentDataReadyEventArgs e)
         {
-            ///***************************/
-            //TransformData[] tData = new TransformData[e.Data.Length];
-            //foreach (TransformData td in e.Data)
-            //{
-            //    tData[_sensorToChannel[_guidToSensor[td.Id]]] = td; //for each transform data in api data, add it to tData
-            //}
-            //MainModel.Instance.data = new double[e.Data.Length][];
+            TransformData[] tData = new TransformData[e.Data.Length];
+            foreach (TransformData td in e.Data)
+            {
+                tData[_sensorToChannel[_guidToSensor[td.Id]]] = td; //for each transform data in api data, add it to tData
+            }
+            var data = new double[e.Data.Length][];
 
             ////if (tData.Length >= 2 && tData[0].Data.Count == tData[1].Data.Count)
             ////if (tData.Length >= 2 ) //if its using two sensors and has to use two sensors
             ////{
-            //    for (int channel = 0; channel < tData.Length; channel++)
-            //    {
-            //        MainModel.Instance.data[channel] = new double[tData[channel].Data.Count]; //make an array inside the data [channel] that is of size of data count
-            //        for (int sample = 0; sample < tData[channel].Data.Count; sample++)
-            //        {
-            //            MainModel.Instance.data[channel][sample] = tData[channel].Data[sample];
-            //        }
-            //        //TODO add an event here that then updates the display or something
-            //    }
+            for (int channel = 0; channel < tData.Length; channel++)
+            {
+                data[channel] = new double[tData[channel].Data.Count]; //make an array inside the data [channel] that is of size of data count
+                for (int sample = 0; sample < tData[channel].Data.Count; sample++)
+                {
+                    data[channel][sample] = tData[channel].Data[sample];
+                }
+            }
 
-            // IM PRETTY SURE THIS IS JUST COPYING THE API DATA ARRAY INTO THIS ARRAY
+            OnMuscleActive(data);
 
             //switch (_calibrationState)
             //{
@@ -263,7 +305,7 @@ namespace AndroidSample.Core
             //}
             /*******************************/
 
-
+            // DONT GET RID OF THIS, IT ADDS TO THE COUNT //
             int lostPackets = 0;
             int dataPoints = 0;
 
@@ -348,23 +390,24 @@ namespace AndroidSample.Core
                     totalChannels++;
                 }
             }
-            Task.Factory.StartNew(() => {
-                Stopwatch batteryUpdateTimer = new Stopwatch();
-                batteryUpdateTimer.Start();
-                while (BTPipeline.CurrentState == Pipeline.ProcessState.Running)
-                {
-                    if (batteryUpdateTimer.ElapsedMilliseconds >= 500)
-                    {
-                        foreach (var comp in BTPipeline.TrignoBtManager.Components)
-                        {
-                            if (comp == null)
-                                continue;
-                            Console.WriteLine("Sensor {0}: {1}% Charge", comp.Properties.SerialNumber, BTPipeline.TrignoBtManager.QueryBatteryComponentAsync(comp).Result);
-                        }
-                        batteryUpdateTimer.Restart();
-                    }
-                }
-            });
+            // CC: Commented out to avoid useless computing power - originally from the delsys sample
+            //Task.Factory.StartNew(() => {
+            //    Stopwatch batteryUpdateTimer = new Stopwatch();
+            //    batteryUpdateTimer.Start();
+            //    while (BTPipeline.CurrentState == Pipeline.ProcessState.Running)
+            //    {
+            //        if (batteryUpdateTimer.ElapsedMilliseconds >= 500)
+            //        {
+            //            foreach (var comp in BTPipeline.TrignoBtManager.Components)
+            //            {
+            //                if (comp == null)
+            //                    continue;
+            //                Console.WriteLine("Sensor {0}: {1}% Charge", comp.Properties.SerialNumber, BTPipeline.TrignoBtManager.QueryBatteryComponentAsync(comp).Result);
+            //            }
+            //            batteryUpdateTimer.Restart();
+            //        }
+            //    }
+            //});
         }
 
         /// <summary>
@@ -373,8 +416,9 @@ namespace AndroidSample.Core
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CollectionComplete(object sender, DelsysAPI.Events.CollectionCompleteEvent e)
+        public void CollectionComplete(object sender, DelsysAPI.Events.CollectionCompleteEvent e)
         {
+            OnCollectionStopped(Data[0].Count);//TODO add for both sensors
             //string path = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads);
             //for (int i = 0; i < Data.Count; i++)
             //{
@@ -450,7 +494,7 @@ namespace AndroidSample.Core
             PipelineController.Instance.PipelineIds[0].ApplyInputConfigurations(inputConfiguration);
             var transformTopology = GenerateTransforms();//For multi Sensors
             PipelineController.Instance.PipelineIds[0].ApplyOutputConfigurations(transformTopology);
-            PipelineController.Instance.PipelineIds[0].RunTime = 20;
+            PipelineController.Instance.PipelineIds[0].RunTime = double.MaxValue;
 
 
             return true;
