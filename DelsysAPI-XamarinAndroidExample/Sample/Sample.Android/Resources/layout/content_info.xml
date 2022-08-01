@@ -70,6 +70,18 @@
         android:layout_below="@id/chkb_realtime" 
         android:layout_gravity="bottom"
         android:drawableLeft="@drawable/icon_bluetooth_searching"/>
+    <Button
+        android:id="@+id/btn_rescan"
+        android:text="Search again for sensors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@color/colorButton"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/chkb_realtime" 
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        android:drawableLeft="@drawable/icon_bluetooth_searching"/>
 
     <Button
         android:id="@+id/btn_arm"

@@ -8,6 +8,8 @@ using AndroidSample.Views;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Threading;
+using Java.Lang;
 
 namespace AndroidSample
 {
@@ -18,6 +20,7 @@ namespace AndroidSample
         private TextView TitleText;
         private Button ScanButton;
         private Button ArmButton;
+        private Button RescanButton;
 
         private Button ExerciseButton;
         private Button MVCButton;
@@ -28,7 +31,8 @@ namespace AndroidSample
         private TextView instrucText;
         private CheckBox realtimeCheckBox;
 
-        private BackgroundWorker mWorker;
+        private BackgroundWorker startWorker;
+        private BackgroundWorker scanWorker;
 
 
 
@@ -42,7 +46,8 @@ namespace AndroidSample
         }
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            mWorker = new BackgroundWorker();
+            startWorker = new BackgroundWorker();
+            scanWorker = new BackgroundWorker();
 
             // View set up
             base.OnCreate(savedInstanceState);
@@ -55,17 +60,23 @@ namespace AndroidSample
             TitleText = FindViewById<TextView>(Resource.Id.txv_title);
             MVCButton = FindViewById<Button>(Resource.Id.btn_mvc);
             ExerciseButton = FindViewById<Button>(Resource.Id.btn_exercise);
+            RescanButton = FindViewById<Button>(Resource.Id.btn_rescan);
+            ArmButton = FindViewById<Button>(Resource.Id.btn_arm);
+
+
+
+
 
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
             ScanButton.Click += (s, e) =>
             {
                 FindViewById<CardView>(Resource.Id.view_sensor).Visibility = ViewStates.Gone;
                 FindViewById<TextView>(Resource.Id.txv_subtitle).Visibility = ViewStates.Gone;
-                TitleText.Text = "Searching for your sensors ...";
+                TitleText.Text = Resources.GetString(Resource.String.scan_txt);
                 ScanButton.Visibility = ViewStates.Gone;
                 realtimeCheckBox.Visibility = ViewStates.Gone;
 
-                mWorker.DoWork += (o, e) =>
+                startWorker.DoWork += (o, e) =>
                 {
                     _model.del = new Delsys();
                     del = _model.del;
@@ -76,35 +87,51 @@ namespace AndroidSample
 
                     }
                     _model.startSession();
-                    del.SensorScan().Wait();
 
-                    //Display buttons found event
+                    // Display sensors found
                     del.ScanFinished += (object sender, Delsys.ScanResultsEventArgs e)
                         =>
                     {
-                        RunOnUiThread(() =>
+                        if (del.sensors.Count == 0)
                         {
-                            SensorsText = FindViewById<TextView>(Resource.Id.txv_sensors);
-                            TitleText.Text = "Sensors found: ";
-                            SensorsText.Visibility = ViewStates.Visible;
-                            foreach (var sensor in del.sensors)
+                            displayRescanUI();
+                        }
+                        else
+                        {
+                            RunOnUiThread(() =>
                             {
-                                SensorsText.Text = SensorsText.Text + "\n" + sensor;
-                                    //TODO add some sort of selection of the sensors, make sure there are two displayed etc.
+                                SensorsText = FindViewById<TextView>(Resource.Id.txv_sensors);
+                                TitleText.Text = "Sensors found: ";
+                                SensorsText.Visibility = ViewStates.Visible;
+                                foreach (var sensor in del.sensors)
+                                {
+                                    SensorsText.Text = SensorsText.Text + "\n" + sensor;
                                 }
 
-                            ArmButton.Visibility = ViewStates.Visible;
-                        });
-
+                                ArmButton.Visibility = ViewStates.Visible;
+                            });
+                        }
                     };
-                };
-                mWorker.RunWorkerAsync();
 
+                    del.SensorScan().Wait();
+                };
+                
+                startWorker.RunWorkerAsync(); 
             };
 
-            
+            RescanButton.Click += (s, e) =>
+            {
+                TitleText.Text = Resources.GetString(Resource.String.scan_txt);
+                RescanButton.Visibility = ViewStates.Gone;
+               
+                scanWorker.DoWork += (s, o) =>
+                {
+                    del.SensorScan().Wait();
+                };
+                scanWorker.RunWorkerAsync();
+            };
+                        
 
-            ArmButton = FindViewById<Button>(Resource.Id.btn_arm);
             ArmButton.Click += (s, e) =>
             {
                 del.SensorArm();
@@ -140,6 +167,16 @@ namespace AndroidSample
             {
                 StartActivity(typeof(ExerciseSelectionActivity));
             };
+        }
+
+        public void displayRescanUI()
+        {
+            RunOnUiThread(() =>
+            {
+                TitleText.Text = Resources.GetString(Resource.String.rescan_txt);
+                RescanButton.Visibility = ViewStates.Visible;
+                RescanButton.Text = "Search again ... ";
+            });
         }
 
         public void showInstructions()

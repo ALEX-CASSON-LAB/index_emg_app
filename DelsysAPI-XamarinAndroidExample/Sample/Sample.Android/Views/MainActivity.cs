@@ -23,7 +23,7 @@ namespace AndroidSample
             // View set up
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_main);
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar1);
             toolbar.SetLogo(Resource.Drawable.index_logo);
             SetSupportActionBar(toolbar);
             CheckAppPermissions();

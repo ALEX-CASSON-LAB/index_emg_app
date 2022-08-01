@@ -166,6 +166,8 @@ namespace AndroidSample.Core
 
         #region Componenet Callbacks -- Component Added, Scan Complete
 
+        // This event is only sometimes called if no sensors were found
+        // If no sensors are found, the scanning stops and the API does not call anything sometimes
         public void ComponentScanComplete(object sender, DelsysAPI.Events.ComponentScanCompletedEventArgs e)
         {
             for (int i = 0; i < BTPipeline.TrignoBtManager.Components.Count; i++)
