@@ -18,7 +18,10 @@ namespace AndroidSample
         private TextView TitleText;
         private Button ScanButton;
         private Button ArmButton;
+
+        private Button ExerciseButton;
         private Button MVCButton;
+
         private Button NextImageButton;
         private TextView SensorsText;
         private FrameLayout imageFrame;
@@ -49,8 +52,9 @@ namespace AndroidSample
 
             // UI set up
             imageFrame = FindViewById<FrameLayout>(Resource.Id.frame_image);
-
             TitleText = FindViewById<TextView>(Resource.Id.txv_title);
+            MVCButton = FindViewById<Button>(Resource.Id.btn_mvc);
+            ExerciseButton = FindViewById<Button>(Resource.Id.btn_exercise);
 
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
             ScanButton.Click += (s, e) =>
@@ -112,10 +116,8 @@ namespace AndroidSample
             NextImageButton = FindViewById<Button>(Resource.Id.btn_next);
             NextImageButton.Click += (s, e) =>
             {
-                if (counter < imageIds.Length)
-                    updateInstruction();
-                else
-                    StartActivity(typeof(ExerciseSelectionActivity));
+               updateInstruction();
+                
             };
 
             realtimeCheckBox = FindViewById<CheckBox>(Resource.Id.chkb_realtime);
@@ -125,6 +127,18 @@ namespace AndroidSample
                     _model.realTimeCollection = true;
                 else
                     _model.realTimeCollection = false;
+            };
+
+            
+            MVCButton.Click += (s, e) =>
+            {
+                StartActivity(typeof(MVCActivity));
+            };
+
+            
+            ExerciseButton.Click += (s, e) =>
+            {
+                StartActivity(typeof(ExerciseSelectionActivity));
             };
         }
 
@@ -143,7 +157,7 @@ namespace AndroidSample
         public string[] imageDescriptions = { "1. Wipe the area with an alcohol wipe and let dry", "2. Add a sticker to each sensor", "3. Peel the backing off the stickers", "4. Apply firmly to the skin" };
         public int[] imageIds;
         public int counter = 0;
-        private void getImageLocations()
+        private void getImageLocations() //todo move this to model
         {
             imageIds = new int[imageNames.Length];
             for (int i = 0; i < imageNames.Length; i++)
@@ -160,7 +174,10 @@ namespace AndroidSample
             TextView description = FindViewById<TextView>(Resource.Id.txv_instruction);
             if (counter == imageIds.Length - 1)
             {
-                NextImageButton.Text = "Start exercising";
+                NextImageButton.Visibility = ViewStates.Gone;
+                ExerciseButton.Visibility = ViewStates.Visible;
+                MVCButton.Visibility = ViewStates.Visible;
+
             }
             if (counter < imageIds.Length)
             {
@@ -169,8 +186,6 @@ namespace AndroidSample
                 counter++;
                 //todo add imagedescription for each one?
             }
-            
-
         }
 
         #region Activity functions

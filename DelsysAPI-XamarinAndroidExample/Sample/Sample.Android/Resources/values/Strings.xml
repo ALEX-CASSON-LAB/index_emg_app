@@ -17,4 +17,8 @@
 		\nThis app has been designed using resources from Flaticon.com
 	</string>
 	
+	
+	<!--MVC-->
+	<string name="mvc_msg">Complete this with your physiotherapist</string>
+	
 </resources>

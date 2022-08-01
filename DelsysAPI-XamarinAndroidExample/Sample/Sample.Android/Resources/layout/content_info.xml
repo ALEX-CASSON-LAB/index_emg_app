@@ -145,4 +145,31 @@
         android:layout_below="@id/frame_image"
             />
 
+    <Button
+        android:id="@+id/btn_exercise"
+        android:text="Start your exercise session"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:background="@color/colorButton"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:drawableRight="@drawable/icon_arrow_forward"
+        android:layout_below="@id/txv_instruction" />
+    <Button
+        android:id="@+id/btn_mvc"
+        android:text="FOR PHYSIOTHERAPIST USE \n\n MVC Recording"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:background="@color/colorButtonPhysio"
+        android:layout_centerHorizontal="true"
+        android:drawableRight="@drawable/icon_arrow_forward"
+        android:layout_below="@id/btn_exercise" />
+
 </RelativeLayout>
