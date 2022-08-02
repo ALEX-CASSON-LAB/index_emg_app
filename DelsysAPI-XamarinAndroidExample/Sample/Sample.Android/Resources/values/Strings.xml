@@ -17,6 +17,10 @@
 		\nThis app has been designed using resources from Flaticon.com
 	</string>
 
+	<string name="logo_description">The University of Manchester Logo</string>
+	
+	<!--Main page-->
+	<string name="welcome_msg">Welcome back</string>
 	<!--Information page-->
 	<string name="scan_txt">Searching for your sensors ... \n This may take up to 20 seconds</string>
 	<string name="rescan_txt">No sensors found. Please check you have undocked your sensors and activated them correctly.</string>

@@ -115,7 +115,7 @@ namespace AndroidSample.Views
             allowStart();
 
             if (del != null)
-                del.clearData();// clear the previous data to get only this exercises data
+                del.ClearData();// clear the previous data to get only this exercises data
             //TODO do this when you finish a set?
 
             if (_myModel.realTimeCollection == true)

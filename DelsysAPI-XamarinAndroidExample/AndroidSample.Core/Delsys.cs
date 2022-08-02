@@ -30,7 +30,7 @@ namespace AndroidSample.Core
 
 
         IDelsysDevice DeviceSource = null;
-        string[] DeviceFilters = new string[] {};
+        private string[] DeviceFilters = new string[] {};
         int TotalLostPackets = 0; //todo check if these are useful
         int TotalDataPoints = 0;
         /********TODO UNDERSTAND WAHT THEESE ARE DOING*******/
@@ -588,7 +588,7 @@ namespace AndroidSample.Core
         }
 
         // Clear the variable holding the data. This can be called at the end of an exercise for example.
-        public void clearData()
+        public void ClearData()
         {
             Data = new List<List<double>>();
         }

@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/third_background">
+
+<RelativeLayout 
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="?attr/actionBarSize">
-
-    
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:id="@+id/frameLayout1">
     <TextView
         android:id="@+id/txv_title"
         android:layout_width="wrap_content"
@@ -18,42 +25,52 @@
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         />
+    
+    </FrameLayout>
+    
+    
     <TextView
         android:id="@+id/txv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome back Anna"
+        android:text="@string/welcome_msg"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/txv_title"
+        android:layout_below="@id/frameLayout1"
         />
 
     <Button
         android:id="@+id/btn_begin"
         android:text="Begin session"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:padding="10dp"
         android:layout_gravity="center"
-        android:background="@color/colorButton"
         android:layout_centerHorizontal="true"
         android:drawableRight="@drawable/icon_arrow_forward"
-        android:layout_below="@id/txv_name" />
+        android:layout_below="@id/txv_name"
+        android:background="@drawable/customButtonBorder"/>
 
     <Button
         android:id="@+id/btn_data"
         android:text="See previous sessions data"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:padding="10dp"
         android:layout_gravity="center"
-        android:background="@color/colorButton"
+        android:background="@drawable/customButtonBorder"
         android:layout_centerHorizontal="true"
         android:drawableRight="@drawable/icon_arrow_forward"
         android:layout_below="@id/btn_begin" />
-
+    
+            <Space
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_below="@id/btn_data"
+            android:id="@+id/space1" />
     
 </RelativeLayout>
+</ScrollView>

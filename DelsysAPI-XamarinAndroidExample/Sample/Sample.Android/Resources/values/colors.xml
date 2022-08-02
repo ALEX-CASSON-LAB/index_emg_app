@@ -6,5 +6,6 @@
 	<color name="colorButton">#d8d6ea</color>
 	<color name="colorAccent2">#999999</color>	<!--University grey-->
 	<color name="splash_background">#ffffff</color>
+	<color name="background">#f2eeff</color>
 	<color name="colorButtonPhysio">#e8c01e</color>	<!--University yellow-->
 </resources>

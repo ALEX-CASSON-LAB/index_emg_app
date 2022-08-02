@@ -31,6 +31,8 @@ namespace AndroidSample
         private TextView instrucText;
         private CheckBox realtimeCheckBox;
 
+        private ProgressBar searchProgBar;
+
         private BackgroundWorker startWorker;
         private BackgroundWorker scanWorker;
 
@@ -62,7 +64,7 @@ namespace AndroidSample
             ExerciseButton = FindViewById<Button>(Resource.Id.btn_exercise);
             RescanButton = FindViewById<Button>(Resource.Id.btn_rescan);
             ArmButton = FindViewById<Button>(Resource.Id.btn_arm);
-
+            searchProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_search);
 
 
 
@@ -75,6 +77,7 @@ namespace AndroidSample
                 TitleText.Text = Resources.GetString(Resource.String.scan_txt);
                 ScanButton.Visibility = ViewStates.Gone;
                 realtimeCheckBox.Visibility = ViewStates.Gone;
+                searchProgBar.Visibility = ViewStates.Visible; //TODO make the bar actually progress
 
                 startWorker.DoWork += (o, e) =>
                 {

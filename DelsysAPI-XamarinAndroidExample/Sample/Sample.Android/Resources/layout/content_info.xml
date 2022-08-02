@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout 
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"   
+    android:background="@drawable/third_background">
+<RelativeLayout 
+    
     android:paddingTop="?attr/actionBarSize"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center_horizontal">
 
    
     <TextView
@@ -20,6 +25,17 @@
         android:textStyle="bold" 
      />
     
+    <ProgressBar
+        android:id="@+id/progBar_search"
+        style="@android:style/Widget.Material.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:progress="100"
+        android:visibility="gone"
+        android:layout_below="@id/txv_title"
+        android:layout_centerHorizontal="true"
+        android:indeterminate="true"/>
+
     <TextView
         android:id="@+id/txv_subtitle"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -103,7 +119,7 @@
         android:text=""
         android:layout_centerHorizontal="true"
         android:visibility="gone"
-        android:layout_below="@id/txv_title"
+        android:layout_below="@id/progBar_search"
         android:textStyle="bold" />
 
     <!--Images-->
@@ -185,3 +201,4 @@
         android:layout_below="@id/btn_exercise" />
 
 </RelativeLayout>
+</ScrollView>

@@ -20,7 +20,7 @@
 
     <RelativeLayout
         android:padding="16dp"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         
         <TextView
@@ -38,7 +38,7 @@
             android:id="@+id/grid_view_image_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnWidth="110dp"
+            android:columnWidth="120dp"
             android:gravity="center"
             android:numColumns="auto_fit"
             android:layout_below="@id/txv_title"/>
