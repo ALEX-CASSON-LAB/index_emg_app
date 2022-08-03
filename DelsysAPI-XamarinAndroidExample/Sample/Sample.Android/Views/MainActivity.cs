@@ -50,15 +50,15 @@ namespace AndroidSample
 
             //Data set up
             getDatabasePath();
-            myModel.deleteExerciseTable();
+            //myModel.deleteExerciseTable();
             myModel.setupDatabase();
-            myModel.accessDatabase();
+            //myModel.accessDatabase();
             
         }
 
         private void getDatabasePath()
         {
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),"database.db3");
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData),"indexDatabase.db3");
             // dbPath contains a valid file path for the database file to be stored
             MainModel.Instance.dbPath = dbPath;
         }

@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 public class MainModel
 {
@@ -26,7 +28,7 @@ public class MainModel
 
     public string dbPath { get; set; }
     private SQLiteConnection _database;
-    public const SQLite.SQLiteOpenFlags Flags = SQLiteOpenFlags.ProtectionComplete;
+    public const SQLite.SQLiteOpenFlags Flags = SQLiteOpenFlags.ProtectionComplete | SQLite.SQLiteOpenFlags.ReadWrite | SQLite.SQLiteOpenFlags.SharedCache | SQLite.SQLiteOpenFlags.Create;
 
     public Session currentSession;
     public bool realTimeCollection;
@@ -43,21 +45,24 @@ public class MainModel
         set { _data = value; }
     }
 
-    public void setupDatabase()
+    public async void setupDatabase()
     {
-        lock (locker)
-        {
-            _database = new SQLiteConnection(dbPath);
-            _database.CreateTable<Session>();
-            _database.Close();
-            //TODO add try catch or soemthing idk for the sql connection
-        }
-        lock (locker)
-        {
-            _database = new SQLiteConnection(dbPath);
-            _database.CreateTable<Exercise>();
-            _database.Close();
-        }
+        IndexDatabase database = await IndexDatabase.Instance;
+        Session s = new Session();
+        await database.SaveItemAsync(s);
+        //lock (locker)
+        //{
+        //    _database = new SQLiteConnection(dbPath);
+        //    _database.CreateTable<Session>();
+        //    _database.Close();
+        //    //TODO add try catch or soemthing idk for the sql connection
+        //}
+        //lock (locker)
+        //{
+        //    _database = new SQLiteConnection(dbPath);
+        //    _database.CreateTable<Exercise>();
+        //    _database.Close();
+        //}
     }
     public void deleteSessionTable()
     {
@@ -234,4 +239,96 @@ public class MainModel
         return rectData;
     }
     #endregion
+}
+
+public class IndexDatabase
+{
+    static SQLiteAsyncConnection Database;
+
+    public static readonly AsyncLazy<IndexDatabase> Instance = new AsyncLazy<IndexDatabase>(async () =>
+    {
+        var instance = new IndexDatabase();
+        CreateTableResult result = await Database.CreateTableAsync<Session>();
+        
+        return instance;
+    });
+
+    public IndexDatabase()
+    {
+        Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
+    }
+    public Task<List<Session>> GetItemsAsync()
+    {
+        return Database.Table<Session>().ToListAsync();
+    }
+
+    public Task<List<Session>> GetItemsNotDoneAsync()
+    {
+        // SQL queries are also possible
+        return Database.QueryAsync<Session>("SELECT * FROM [Session] WHERE [Done] = 0");
+    }
+
+    public Task<Session> GetItemAsync(int id)
+    {
+        return Database.Table<Session>().Where(i => i.Id == id).FirstOrDefaultAsync();
+    }
+
+    public Task<int> SaveItemAsync(Session item)
+    {
+        if (item.Id != 0)
+        {
+            return Database.UpdateAsync(item);
+        }
+        else
+        {
+            return Database.InsertAsync(item);
+        }
+    }
+
+    public Task<int> DeleteItemAsync(Session item)
+    {
+        return Database.DeleteAsync(item);
+    }
+}
+
+public class AsyncLazy<T>
+{
+    readonly Lazy<Task<T>> instance;
+
+    public AsyncLazy(Func<T> factory)
+    {
+        instance = new Lazy<Task<T>>(() => Task.Run(factory));
+    }
+
+    public AsyncLazy(Func<Task<T>> factory)
+    {
+        instance = new Lazy<Task<T>>(() => Task.Run(factory));
+    }
+
+    public TaskAwaiter<T> GetAwaiter()
+    {
+        return instance.Value.GetAwaiter();
+    }
+}
+
+public static class Constants
+{
+    public const string DatabaseFilename = "IndexDatabase.db3";
+
+    public const SQLite.SQLiteOpenFlags Flags =
+        // open the database in read/write mode
+        SQLite.SQLiteOpenFlags.ReadWrite |
+        // create the database if it doesn't exist
+        SQLite.SQLiteOpenFlags.Create |
+        // enable multi-threaded database access
+        SQLite.SQLiteOpenFlags.SharedCache;
+
+    public static string DatabasePath
+    {
+        get
+        {
+            var basePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            return Path.Combine(basePath, DatabaseFilename);
+        }
+    }
 }
