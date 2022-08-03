@@ -65,8 +65,9 @@ namespace AndroidSample
             RescanButton = FindViewById<Button>(Resource.Id.btn_rescan);
             ArmButton = FindViewById<Button>(Resource.Id.btn_arm);
             searchProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_search);
-
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
+
+
             ScanButton.Click += (s, e) =>
             {
                 FindViewById<CardView>(Resource.Id.view_sensor).Visibility = ViewStates.Gone;

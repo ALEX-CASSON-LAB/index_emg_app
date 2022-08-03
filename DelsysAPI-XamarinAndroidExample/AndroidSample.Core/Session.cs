@@ -16,6 +16,7 @@ namespace AndroidSample.Core
         private string _exerciseIds;
         private string _exerciseStats;
         private string _notes;
+        private string _mvcs;
 
         public void addExercise(Exercise exer)
         {
@@ -44,6 +45,21 @@ namespace AndroidSample.Core
             set { _notes = value; //TODO add some sort of formatting
                                  }
         }
+
+        public string mvcs
+        {
+            get { return _mvcs; }
+        }
+
+        public void setMvcs(List<double> mvcLst)
+        {
+            _mvcs = "";
+            foreach (int m in mvcLst)
+            {
+                _mvcs += m.ToString() + ",";
+            }
+        }
+       
     }
 
     public class Exercise

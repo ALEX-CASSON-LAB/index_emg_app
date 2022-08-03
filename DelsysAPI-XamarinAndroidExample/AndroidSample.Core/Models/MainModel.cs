@@ -46,20 +46,11 @@ public class MainModel
         _database = await IndexDatabase.Instance;
     }
 
-    //TODO check if needed
-    public void deleteSessionTable()
-    {
-        
-        //_database = new SQLiteConnection(dbPath);
-        //SQLiteCommand cmd = _database.CreateCommand("DROP Table 'Sessions'");
-        //cmd.ExecuteNonQuery();
-        //_database.Close();
-        
-    }
-
     #region Session methods
     public void startSession()
     {
+        setUpMvcs();
+
         currentSession = new Session();
         currentSession.date = System.DateTime.Now.ToLocalTime();
         _database.SaveItemAsync(currentSession).Wait();
@@ -185,6 +176,34 @@ public class MainModel
         for (int i = 0; i < data.Length; i++)
             rectData[i] = Math.Abs(data[i]);
         return rectData;
+    }
+    
+    /// <summary>
+    /// Retrieves the mvc string from the most recent session
+    /// sets it as the current sessions mvc
+    /// this becomes the default. The user can update the mvc values 
+    /// in the MVC activity
+    /// </summary>
+    private void setUpMvcs()
+    {
+        List<double> prevMvcs = new List<double>();
+
+        Session prevSession = _database.GetItemsAsync().Result[-1]; // get last one
+        var lst = prevSession.mvcs.Split(',').ToList();
+        foreach (var val in lst)
+        {
+            bool isint = int.TryParse(val, out int mvc);
+            if (isint == true)
+                prevMvcs.Add(mvc);
+        }
+        currentSession.setMvcs(prevMvcs);
+    }
+    /// <summary>
+    /// Update the mvc values to the ones collected in this session
+    /// </summary>
+    public void UpdateMvcs(List<double> newMvcs)
+    {
+        currentSession.setMvcs(newMvcs);
     }
     #endregion
 }

@@ -58,11 +58,12 @@ namespace AndroidSample
                 StopButton.Visibility = ViewStates.Invisible; //TODO bit dramatic remove
 
                 //Calculate MVC
-                _myModel.mvc = calculate_MVC(del.Data)[0]; // todo make this per channel
-                Console.WriteLine("mvc is {0}", _myModel.mvc);
+                _myModel.UpdateMvcs(calculate_MVC(del.Data));
+                
                 StartButton.Text = "Redo recording";
                 Drawable img = GetDrawable(Resource.Drawable.icon_restart);
                 StartButton.SetCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
+                
                 NextButton.Text = "Next";
                 allowStart();
             };
@@ -76,11 +77,13 @@ namespace AndroidSample
             allowStart();
 
         }
-        // Delays the start button appearing for 5 seconds. This is a clean up for the Delsys API.
-        // Without waiting a couple of seconds, the connection may crash
+
+        /// <summary>
+        /// Delays the start button appearing for 5 seconds. This is a clean up for the Delsys API.
+        /// Without waiting a couple of seconds, the connection may crash
         public async void allowStart()
         {
-            await Task.Delay(5000); // WAIT BEFORE ALLOWING TO CLICK
+            await Task.Delay(5000);
             StartButton.Enabled = true;
         }
 
@@ -105,7 +108,6 @@ namespace AndroidSample
 
             return mvcs;
         }
-
 
     }
 }
