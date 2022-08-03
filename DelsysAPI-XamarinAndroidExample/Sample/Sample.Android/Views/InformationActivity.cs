@@ -66,9 +66,6 @@ namespace AndroidSample
             ArmButton = FindViewById<Button>(Resource.Id.btn_arm);
             searchProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_search);
 
-
-
-
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
             ScanButton.Click += (s, e) =>
             {

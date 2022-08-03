@@ -4,7 +4,7 @@
 		<color android:color="@color/background"></color>
 	</item>
 	<item
-		android:height="300dp">
+		android:height="200dp">
 		<color android:color="@color/colorPrimary"></color>
 	</item>
 </layer-list>

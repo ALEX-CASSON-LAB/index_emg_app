@@ -11,6 +11,7 @@ using System.Text;
 using AndroidSample.Core;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Android.Support.V4.Content;
 
 namespace AndroidSample.Views
 {
@@ -27,6 +28,8 @@ namespace AndroidSample.Views
         TextView DataText;
         TextView ExerciseDescriptionText;
 
+        BackgroundWorker startWorker;
+        BackgroundWorker stopWorker;
 
         private MainModel _myModel;
 
@@ -45,6 +48,10 @@ namespace AndroidSample.Views
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            startWorker = new BackgroundWorker();
+            stopWorker = new BackgroundWorker();
+
+
             // view set up
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_exercise);
@@ -80,25 +87,28 @@ namespace AndroidSample.Views
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
             {
-                //if (del != null)
-                //    del.SensorStream();
-                //else
-                //    Console.WriteLine("DELSYS object not initialised"); // TODO add check
-                //StopButton.Visibility = ViewStates.Visible;
-                //StartButton.Enabled = false;
-                //NextButton.Text = "Next Exercise";
+                StartButton.SetBackgroundColor(Android.Graphics.Color.Green);
+                StartButton.Text = "Recording";
+                StartButton.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
                 startCollection();
             };
-
+            startWorker.DoWork += async (o, e) =>
+            {
+                if (del != null)
+                    await del.SensorStream();
+                else
+                    Console.WriteLine("DELSYS object not initialised"); // TODO add check
+            };
             StopButton = FindViewById<Button>(Resource.Id.btn_stop);
             StopButton.Click += async (s, e) =>
             {
+                StopButton.Visibility = ViewStates.Invisible;
                 await del.SensorStop();
-                //Task.Delay(3000).Wait();
-                //StopButton.Visibility = ViewStates.Invisible;
-                ////todo add one to the rep
-                //exerciseData = del.Normalise(_myModel.mvc);
-                //StartButton.Enabled = true;
+            };
+            stopWorker.DoWork += (o, e) =>
+            {
+                Task.Delay(3000).Wait();
+                exerciseData = del.Normalise(_myModel.mvc); //TODO add to list 
             };
 
             NextButton = FindViewById<Button>(Resource.Id.btn_next);
@@ -140,26 +150,34 @@ namespace AndroidSample.Views
         }
         public async void allowStart()
         {
-            await Task.Delay(5000); // WAIT BEFORE ALLOWING TO CLICK
+            await Task.Delay(5000); // Wait 5 seconds before enabling button - this is necessary to ensure that the sensors are ready
+            StartButton.Text = "Start recording";
+            var draw = ContextCompat.GetDrawable(this, Resource.Drawable.icon_play_arrow);
+            StartButton.SetCompoundDrawablesWithIntrinsicBounds(draw, null, null, null);
             StartButton.Enabled = true;
         }
-        public async void startCollection()
+        public void startCollection()
         {
-            StopButton.Visibility = ViewStates.Visible;
-            //StartButton.Enabled = false;
-            NextButton.Text = "Next Exercise";
-            if (del != null)
-                await del.SensorStream();
-            else
-                Console.WriteLine("DELSYS object not initialised"); // TODO add check
-
+            RunOnUiThread(() =>
+            {
+                StartButton.Enabled = false;
+                NextButton.Text = "Next Exercise";
+            });
+            startWorker.RunWorkerAsync();
+            RunOnUiThread(() =>
+            {
+                Task.Delay(3000).Wait();
+                StopButton.Visibility = ViewStates.Visible;
+            });
         }
         public void stopCollection()
         {
-            Task.Delay(3000).Wait();
-            StopButton.Visibility = ViewStates.Invisible;
-            exerciseData = del.Normalise(_myModel.mvc);
+            stopWorker.RunWorkerAsync();
             StartButton.Enabled = true;
+            StartButton.SetBackgroundResource(Resource.Drawable.customButtonBorder);
+            StartButton.Text = "Start Recording";
+            var draw = ContextCompat.GetDrawable(this, Resource.Drawable.icon_play_arrow);
+            StartButton.SetCompoundDrawablesWithIntrinsicBounds(draw, null, null, null);
         }
         public void storeResult()
         {
@@ -188,7 +206,6 @@ namespace AndroidSample.Views
             }
             else
             {
-
                 stopCollection();
             }
 

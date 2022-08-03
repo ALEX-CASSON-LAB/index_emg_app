@@ -70,14 +70,13 @@
 
     <Button
         android:id="@+id/btn_start"
-        android:text="Start"
+        android:text="    Setting up ...    "
         android:gravity="center"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
         android:padding="10dp"
-        android:drawableLeft="@drawable/icon_play_arrow"
         android:background="@color/colorButton"
         android:layout_below="@id/txv_tip"
         android:enabled="false"/>
