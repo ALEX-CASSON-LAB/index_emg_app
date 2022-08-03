@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Threading;
 using Java.Lang;
+using System.Reflection;
+using Android.Media;
 
 namespace AndroidSample
 {
@@ -36,12 +38,15 @@ namespace AndroidSample
         private BackgroundWorker startWorker;
         private BackgroundWorker scanWorker;
 
-
+        private VideoView SetupVideo;
+        private VideoView ApplyVideo;
 
         // Delsys trigno emg pipeline class
         private Delsys del;
         private MainModel _model;
 
+        string setup_path;
+        string apply_path;
         public InformationActivity()
         {
             _model = MainModel.Instance;
@@ -67,10 +72,26 @@ namespace AndroidSample
             searchProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_search);
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
 
+            // Video setup
+            SetupVideo = FindViewById<VideoView>(Resource.Id.video_sensor);
+            ApplyVideo = FindViewById<VideoView>(Resource.Id.video_apply);
+
+            MediaController mController = new Android.Widget.MediaController(this);
+
+            mController.SetAnchorView(SetupVideo);
+
+            setup_path = string.Format("android.resource://{0}/{1}", PackageName, Resource.Raw.avideo);
+            apply_path = string.Format("android.resource://{0}/{1}", PackageName, Resource.Raw.avideo);
+            
+            SetupVideo.SetVideoPath(setup_path); // Path of your saved video file.
+            SetupVideo.SetMediaController(mController);
+            SetupVideo.Start();
+            SetupVideo.SetOnPreparedListener(new VideoLoop());
+
 
             ScanButton.Click += (s, e) =>
             {
-                FindViewById<CardView>(Resource.Id.view_sensor).Visibility = ViewStates.Gone;
+                FindViewById<CardView>(Resource.Id.card_sensor).Visibility = ViewStates.Gone;
                 FindViewById<TextView>(Resource.Id.txv_subtitle).Visibility = ViewStates.Gone;
                 TitleText.Text = Resources.GetString(Resource.String.scan_txt);
                 ScanButton.Visibility = ViewStates.Gone;
@@ -177,6 +198,13 @@ namespace AndroidSample
             System.Console.WriteLine("CC: " + all.Count);
         }
 
+        public class VideoLoop : Java.Lang.Object, MediaPlayer.IOnPreparedListener
+        {
+            public void OnPrepared(MediaPlayer mp)
+            {
+                mp.Looping = true;
+            }
+        }
         public void displayRescanUI()
         {
             RunOnUiThread(() =>
@@ -196,6 +224,15 @@ namespace AndroidSample
             instrucText.Visibility = ViewStates.Visible;
             getImageLocations();
             updateInstruction();
+
+            MediaController mController = new Android.Widget.MediaController(this);
+
+            mController.SetAnchorView(ApplyVideo);
+
+            ApplyVideo.SetVideoPath(setup_path); // Path of your saved video file.
+            ApplyVideo.SetMediaController(mController);
+            ApplyVideo.Start();
+            ApplyVideo.SetOnPreparedListener(new VideoLoop());
         }
 
         public string[] imageNames =  {"info_wipe","info_stick","info_peel","info_apply"};

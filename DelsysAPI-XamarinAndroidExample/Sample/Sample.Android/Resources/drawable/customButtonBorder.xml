@@ -3,7 +3,12 @@
 	<corners android:radius="10dp"/>
 	<padding android:left="10dp" android:right="10dp" android:top="10dp" android:bottom="10dp"/>
 	<stroke android:width="1dp" android:color="#CCCCCC"/>
-	<solid android:color="@color/colorButton" />
+	<!--<solid android:color="@color/colorButton" />-->
+	<gradient
+    android:type="linear"
+    android:angle="135"
+    android:startColor="#f6ee19"
+    android:endColor="#115ede" />
 </shape>
 
 <!--https://stackoverflow.com/questions/15111402/how-can-i-create-a-border-around-an-android-linearlayout-->
