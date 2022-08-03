@@ -259,11 +259,12 @@ public class IndexDatabase
     public Task<int> SaveItemAsync(Session item)
     {
         Session s = GetItemAsync(item.Id).Result;
-        //if (item.Id != 0)
         if (s != null) //if item already exists
         {
             s.mvcs = item.mvcs;
-            //s.update(item);
+            s.notes = item.notes;
+            s.exerciseStats = item.exerciseStats;
+            s.exerciseIds = item.exerciseIds;
             return Database.UpdateAsync(s);
         }
         else
