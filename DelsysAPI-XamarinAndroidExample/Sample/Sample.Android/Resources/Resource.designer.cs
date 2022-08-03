@@ -3868,64 +3868,67 @@ namespace AndroidSample
 			public const int txv_data = 2131230938;
 			
 			// aapt resource value: 0x7F0800DB
-			public const int txv_howto = 2131230939;
+			public const int txv_description = 2131230939;
 			
 			// aapt resource value: 0x7F0800DC
-			public const int txv_image_info = 2131230940;
+			public const int txv_howto = 2131230940;
 			
 			// aapt resource value: 0x7F0800DD
-			public const int txv_info = 2131230941;
+			public const int txv_image_info = 2131230941;
 			
 			// aapt resource value: 0x7F0800DE
-			public const int txv_instruction = 2131230942;
+			public const int txv_info = 2131230942;
 			
 			// aapt resource value: 0x7F0800DF
-			public const int txv_name = 2131230943;
+			public const int txv_instruction = 2131230943;
 			
 			// aapt resource value: 0x7F0800E0
-			public const int txv_reps = 2131230944;
+			public const int txv_name = 2131230944;
 			
 			// aapt resource value: 0x7F0800E1
-			public const int txv_sensors = 2131230945;
+			public const int txv_reps = 2131230945;
 			
 			// aapt resource value: 0x7F0800E2
-			public const int txv_subtitle = 2131230946;
+			public const int txv_sensors = 2131230946;
 			
 			// aapt resource value: 0x7F0800E3
-			public const int txv_tip = 2131230947;
+			public const int txv_subtitle = 2131230947;
 			
 			// aapt resource value: 0x7F0800E4
-			public const int txv_title = 2131230948;
+			public const int txv_tip = 2131230948;
 			
 			// aapt resource value: 0x7F0800E5
-			public const int uniform = 2131230949;
+			public const int txv_title = 2131230949;
 			
 			// aapt resource value: 0x7F0800E6
-			public const int unlabeled = 2131230950;
+			public const int uniform = 2131230950;
 			
 			// aapt resource value: 0x7F0800E7
-			public const int up = 2131230951;
+			public const int unlabeled = 2131230951;
 			
 			// aapt resource value: 0x7F0800E8
-			public const int useLogo = 2131230952;
+			public const int up = 2131230952;
 			
 			// aapt resource value: 0x7F0800E9
-			public const int view_offset_helper = 2131230953;
+			public const int useLogo = 2131230953;
 			
 			// aapt resource value: 0x7F0800EA
-			public const int view_sensor = 2131230954;
+			public const int view_offset_helper = 2131230954;
 			
 			// aapt resource value: 0x7F0800EB
-			public const int view_stats_list = 2131230955;
+			public const int view_sensor = 2131230955;
 			
 			// aapt resource value: 0x7F0800EC
-			public const int visible = 2131230956;
+			public const int view_stats_list = 2131230956;
 			
 			// aapt resource value: 0x7F0800ED
-			public const int withText = 2131230957;
+			public const int visible = 2131230957;
 			
 			// aapt resource value: 0x7F0800EE
-			public const int wrap_content = 2131230958;
+			public const int withText = 2131230958;
+			
+			// aapt resource value: 0x7F0800EF
+			public const int wrap_content = 2131230959;
 			
 			static Id()
 			{

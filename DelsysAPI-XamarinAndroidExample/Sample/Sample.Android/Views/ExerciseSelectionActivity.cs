@@ -3,6 +3,7 @@ using Android.Content;
 using Android.Content.Res;
 using Android.OS;
 using Android.Widget;
+using System;
 using System.Collections.Generic;
 
 namespace AndroidSample.Views
@@ -15,26 +16,28 @@ namespace AndroidSample.Views
         List<string>[] exerciseInfo;
         string[] gridViewString;
         string[] gridViewImg;
-        int[] imageId;
+        int[] exerciseIds;
+        int[] imageResId;
         List<int> exercisesDone;
 
         public ExerciseSelectionActivity()
         {
             _myModel = MainModel.Instance;
             exerciseInfo = _myModel.getExerciseInfo();
-            gridViewString = exerciseInfo[0].ToArray();
-            gridViewImg = exerciseInfo[1].ToArray();
+            gridViewString = exerciseInfo[0].ToArray(); // names
+            gridViewImg = exerciseInfo[1].ToArray(); // image ids
+            exerciseIds = Array.ConvertAll(exerciseInfo[2].ToArray(), s => int.Parse(s)); ;
             convertImageLocation();
         }
 
         private void convertImageLocation()
         {          
-            imageId = new int[exerciseInfo[1].Count];
+            imageResId = new int[exerciseInfo[1].Count];
             for (int i = 0; i < gridViewImg.Length;i++)
             {
                 string imL = gridViewImg[i];
                 var resourceId = (int)typeof(Resource.Drawable).GetField(imL).GetValue(null);
-                imageId[i] = resourceId;
+                imageResId[i] = resourceId;
             }
         }
         
@@ -51,14 +54,14 @@ namespace AndroidSample.Views
             //TODO display exercises already done differently
             exercisesDone = _myModel.getExercisesDone();
 
-            CustomGridViewAdapter adapter = new CustomGridViewAdapter(this, gridViewString, imageId, exercisesDone);
+            CustomGridViewAdapter adapter = new CustomGridViewAdapter(this, gridViewString, imageResId, exercisesDone);
             gridView = FindViewById<GridView>(Resource.Id.grid_view_image_text);
             gridView.Adapter = adapter;
             gridView.ItemClick += (s, e) =>
             {
                 Intent intent = new Intent(this, typeof(ExerciseActivity));
-                intent.PutExtra("exercise_name", gridViewString[e.Position]);
-                intent.PutExtra("exercise_id", imageId[e.Position].ToString());
+                intent.PutExtra("image_id", imageResId[e.Position].ToString());
+                intent.PutExtra("exercise_id", exerciseIds[e.Position].ToString());
                 StartActivity(intent);
             };
 

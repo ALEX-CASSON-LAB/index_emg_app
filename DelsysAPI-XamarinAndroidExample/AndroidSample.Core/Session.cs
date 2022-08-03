@@ -11,7 +11,7 @@ namespace AndroidSample.Core
     {
         [PrimaryKey, AutoIncrement, Column("_id")]
         public int Id { get; set; }
-        [MaxLength(8)]
+        
         public DateTime date { get; set; } //date of the session
         private string _exerciseIds;
         private string _exerciseStats;

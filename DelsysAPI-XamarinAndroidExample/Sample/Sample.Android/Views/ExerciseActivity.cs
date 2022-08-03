@@ -25,6 +25,7 @@ namespace AndroidSample.Views
 
         TextView TitleText;
         TextView DataText;
+        TextView ExerciseDescriptionText;
 
 
         private MainModel _myModel;
@@ -47,21 +48,24 @@ namespace AndroidSample.Views
             // view set up
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_exercise);
-            string exercise_name = Intent.GetStringExtra("exercise_name");
+
+            int image_id = Int32.Parse(Intent.GetStringExtra("image_id"));
             int exercise_id = Int32.Parse(Intent.GetStringExtra("exercise_id")); //theres a tryparse for it if it fails
+            // make exercise by id TODO using database info
+            _currentExercise = _myModel.GetExercise(exercise_id);
+
             TitleText = FindViewById<TextView>(Resource.Id.txv_title);
-            TitleText.Text = exercise_name;
+            TitleText.Text = _currentExercise.name;
+
+            // Set description of exercise
+            ExerciseDescriptionText = FindViewById<TextView>(Resource.Id.txv_description);
+            ExerciseDescriptionText.Text = _currentExercise.description; //todo process to look prettier
 
             DataText = FindViewById<TextView>(Resource.Id.txv_data);
 
-            // make exercise by id TODO using database info
-            _currentExercise = new Exercise();
-            _currentExercise.name = exercise_name;
-            _currentExercise.reps = 1;
-
             //set up image 
             ExerciseImage = FindViewById<ImageView>(Resource.Id.im_exercise1);
-            ExerciseImage.SetImageResource(exercise_id);
+            ExerciseImage.SetImageResource(image_id);
 
             //todo understand and maybe fix idk
             //RelativeLayout lay = FindViewById<RelativeLayout>(Resource.Id.exercise_layout);

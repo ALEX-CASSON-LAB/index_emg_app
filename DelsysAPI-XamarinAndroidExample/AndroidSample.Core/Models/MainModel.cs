@@ -58,11 +58,11 @@ public class MainModel
     }
 
     #region Session methods
-    public async void startSession()
+    public void startSession()
     {
         currentSession = new Session();
         currentSession.date = System.DateTime.Now.ToLocalTime();
-        await _database.SaveItemAsync(currentSession);
+        _database.SaveItemAsync(currentSession).Wait();
     }
     public async void recordCurrentSession()
     {
@@ -81,7 +81,28 @@ public class MainModel
     #endregion
 
     #region Exercise methods
-    
+    public Exercise GetExercise(int id)
+    {
+        foreach (Exercise e in availableExercises)
+        {
+            if (e.Id == id)
+            {
+                return e;
+            }
+        }
+        return null; //todo ERROR
+    }
+    public Exercise GetExercise(string id)
+    {
+        foreach (Exercise e in availableExercises)
+        {
+            if (e.Id == Int32.Parse(id))
+            {
+                return e;
+            }
+        }
+        return null; //todo ERROR
+    }
     public string getExerciseNameById(string id)
     {
         foreach (Exercise e in availableExercises)
@@ -108,22 +129,27 @@ public class MainModel
         } 
     }
 
+    // Used by the exercise selection activity
+    // TODO there must be a better way to do this
     public List<string>[] getExerciseInfo()
     {
-        List<string>[] returnArr= new List<string>[2];
+        List<string>[] returnArr= new List<string>[3];
 
         List<string> names = new List<string>();
+        List<string> imageIds = new List<string>();
         List<string> ids = new List<string>();
 
         
         foreach (Exercise e in availableExercises)
         {
             names.Add(e.name);
-            ids.Add(e.img_name);
+            imageIds.Add(e.img_name);
+            ids.Add(e.Id.ToString()); 
         }
 
         returnArr[0] = names;
-        returnArr[1] = ids;
+        returnArr[1] = imageIds;
+        returnArr[2] = ids;
 
         return returnArr;
     }
@@ -199,8 +225,9 @@ public class IndexDatabase
 
     public Task<int> SaveItemAsync(Session item)
     {
+        var s = GetItemAsync(item.Id).Result;
         //if (item.Id != 0)
-        if (GetItemAsync(item.Id) != null) //if item already exists
+        if (s != null) //if item already exists
         {
             return Database.UpdateAsync(item);
         }

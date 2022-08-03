@@ -106,6 +106,8 @@ namespace AndroidSample
                                 SensorsText = FindViewById<TextView>(Resource.Id.txv_sensors);
                                 TitleText.Text = "Sensors found: ";
                                 SensorsText.Visibility = ViewStates.Visible;
+                                searchProgBar.Visibility = ViewStates.Gone;
+
                                 foreach (var sensor in del.sensors)
                                 {
                                     SensorsText.Text = SensorsText.Text + "\n" + sensor;
@@ -126,6 +128,7 @@ namespace AndroidSample
             {
                 TitleText.Text = Resources.GetString(Resource.String.scan_txt);
                 RescanButton.Visibility = ViewStates.Gone;
+                searchProgBar.Visibility = ViewStates.Visible;
                
                 scanWorker.DoWork += (s, o) =>
                 {
@@ -173,6 +176,10 @@ namespace AndroidSample
 
             //TODO get rid later
             var all = _model.getAllSessions();
+            foreach(Session s in all)
+            {
+                System.Console.WriteLine("CC: " + s.date);
+            }
             System.Console.WriteLine("CC: " + all.Count);
         }
 
