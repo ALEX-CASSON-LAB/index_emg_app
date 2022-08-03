@@ -47,29 +47,8 @@ namespace AndroidSample
             /***********************/
 
             myModel.readExerciseJSON();
-
-            //Data set up
-            getDatabasePath();
-            //myModel.deleteExerciseTable();
-<<<<<<< Updated upstream
-=======
-            
->>>>>>> Stashed changes
             myModel.setupDatabase();
-            //myModel.accessDatabase();
-            
-        }
 
-        private void getDatabasePath()
-        {
-<<<<<<< Updated upstream
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData),"indexDatabase.db3");
-=======
-            //string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal),"database.db3");
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "database.db3");
->>>>>>> Stashed changes
-            // dbPath contains a valid file path for the database file to be stored
-            //MainModel.Instance.dbPath = dbPath;
         }
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

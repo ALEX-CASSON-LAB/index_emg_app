@@ -19,16 +19,12 @@ public class MainModel
     }
     public static MainModel Instance { get; } = new MainModel();
     #endregion
-    // TODO add user details and sql connections
-    object locker = new object(); // class level private field  // use this locker for all the database work
-
+    
     private Delsys _del;
     private double[][] _data;
     public double mvc { get; set; }
 
-    //public static string dbPath { get; set; }
-    public static string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "database.db3");
-    private SQLiteConnection _database;
+    private IndexDatabase _database;
 
     public Session currentSession;
     public bool realTimeCollection;
@@ -47,93 +43,45 @@ public class MainModel
 
     public async void setupDatabase()
     {
-        IndexDatabase database = await IndexDatabase.Instance;
-        Session s = new Session();
-        await database.SaveItemAsync(s);
-    }
-    public void deleteSessionTable()
-    {
-        lock (locker)
-        {
-            _database = new SQLiteConnection(dbPath);
-            SQLiteCommand cmd = _database.CreateCommand("DROP Table 'Sessions'");
-            cmd.ExecuteNonQuery();
-            _database.Close();
-        }
-    }
-    public void deleteExerciseTable()
-    {
-        lock (locker)
-        {
-            _database = new SQLiteConnection(dbPath);
-            SQLiteCommand cmd = _database.CreateCommand("DROP Table 'Exercises'");
-            cmd.ExecuteNonQuery();
-            _database.Close();
-        }
+        _database = await IndexDatabase.Instance;
     }
 
-    public void addExercise(string exercise_name, int reps)
+    //TODO check if needed
+    public void deleteSessionTable()
     {
-        lock (locker)
-        {
-            _database = new SQLiteConnection(dbPath);
-            var newExercise = new Exercise();
-            newExercise.name = exercise_name;
-            newExercise.reps = reps;
-            _database.Insert(newExercise);
-            _database.Close();
-        }
+        
+        //_database = new SQLiteConnection(dbPath);
+        //SQLiteCommand cmd = _database.CreateCommand("DROP Table 'Sessions'");
+        //cmd.ExecuteNonQuery();
+        //_database.Close();
+        
     }
 
     #region Session methods
-    public void startSession()
+    public async void startSession()
     {
         currentSession = new Session();
         currentSession.date = System.DateTime.Now.ToLocalTime();
+        await _database.SaveItemAsync(currentSession);
     }
-    public void recordCurrentSession()
+    public async void recordCurrentSession()
     {
-        lock (locker)
-        {
-            _database = new SQLiteConnection(dbPath);
-            _database.Insert(currentSession);
-            _database.Close();
-        }
+        await _database.SaveItemAsync(currentSession);
     }
-    public Session getSessionStats()
+    public Session getCurrentSession()
     {
         return currentSession;
+    }
+
+    public List<Session> getAllSessions()
+    {
+        List<Session> allSessions = _database.GetItemsAsync().Result;
+        return allSessions;
     }
     #endregion
 
     #region Exercise methods
-    public List<Exercise> getExercises()
-    {
-
-        List<Exercise> exercises = new List<Exercise>();
-        try
-        {
-            lock (locker)
-            {
-                _database = new SQLiteConnection(dbPath);
-                var table = _database.Table<Exercise>();
-                foreach (var e in table)
-                {
-                    exercises.Add(e);
-                }
-                _database.Close();
-                return exercises;
-                
-            }
-        }
-        catch (Exception e)
-        {
-            System.Console.WriteLine("Error: check that exercises table exists");
-            return exercises;
-        }
-
-    }
-
+    
     public string getExerciseNameById(string id)
     {
         foreach (Exercise e in availableExercises)
@@ -215,6 +163,8 @@ public class MainModel
     #endregion
 }
 
+// Taken from 
+// https://docs.microsoft.com/en-us/xamarin/xamarin-forms/data-cloud/data/databases
 public class IndexDatabase
 {
     static SQLiteAsyncConnection Database;
@@ -236,7 +186,7 @@ public class IndexDatabase
         return Database.Table<Session>().ToListAsync();
     }
 
-    public Task<List<Session>> GetItemsNotDoneAsync()
+    public Task<List<Session>> GetItemsNotDoneAsync() //todo get rid of
     {
         // SQL queries are also possible
         return Database.QueryAsync<Session>("SELECT * FROM [Session] WHERE [Done] = 0");
@@ -249,7 +199,8 @@ public class IndexDatabase
 
     public Task<int> SaveItemAsync(Session item)
     {
-        if (item.Id != 0)
+        //if (item.Id != 0)
+        if (GetItemAsync(item.Id) != null) //if item already exists
         {
             return Database.UpdateAsync(item);
         }

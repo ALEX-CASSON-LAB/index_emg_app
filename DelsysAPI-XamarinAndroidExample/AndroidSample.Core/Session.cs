@@ -46,14 +46,19 @@ namespace AndroidSample.Core
         }
     }
 
-        [Table("Exercises")]
     public class Exercise
     {
-        [PrimaryKey, AutoIncrement, Column("_id")]
-        public int Id { get; set; }
+        static int nextId = 0;
+        public int Id { get; private set; }
         public string name { get; set; } //date of the session
         public int reps { get; set; } //how many reps
         public string img_name {get; set ; } //name of image for the exercise
         public string description { get; set; } // description on how to do the exercise
+
+        public Exercise()
+        {
+            Id = nextId;
+            nextId++;
+        }
     }
 }

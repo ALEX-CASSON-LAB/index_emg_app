@@ -39,7 +39,7 @@ namespace AndroidSample.Views
         {
             _myModel = MainModel.Instance;
             del = _myModel.del;
-            _exerciseList = _myModel.getExercises(); //TODO do something with this, also cant be used whilst not adding exercises properly
+            _exerciseList = _myModel.availableExercises; //TODO do something with this, also cant be used whilst not adding exercises properly
         }
 
         protected override void OnCreate(Bundle savedInstanceState)

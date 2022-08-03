@@ -170,6 +170,10 @@ namespace AndroidSample
             {
                 StartActivity(typeof(ExerciseSelectionActivity));
             };
+
+            //TODO get rid later
+            var all = _model.getAllSessions();
+            System.Console.WriteLine("CC: " + all.Count);
         }
 
         public void displayRescanUI()
