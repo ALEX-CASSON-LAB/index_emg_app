@@ -2,62 +2,74 @@
     {
         "name": "Arm Raise",
         "img_name": "va_armraise",
-        "reps": 2
+        "reps": 10,
+        "description": "Lie on your stomach with your back in a neutral position. Tense the muscles in your lower stomach and raise one arm upwards. Hold this position for five seconds, and then relax your arm. Repeat this exercise 10 times with each arm."
     },
     {
         "name": "Back Stabiliser",
         "img_name": "va_backstabaliser",
-        "reps": 2
+        "reps": 10,
+        "description": "Kneel on all fours with your back straight. Tighten your stomach. Keeping your back in this position, raise one arm in front of you and hold for 10 seconds. Try to keep your pelvis level and don't rotate your body. Repeat 10 times each side. To progress, try lifting one leg behind you instead of raising your arm."
     },
     {
         "name": "Buttock tone",
         "img_name": "va_buttocktone",
-        "reps": 2
+        "reps": 5,
+        "description": "Lie on your front and bend one leg up behind you. Lift your bent knee just off the floor. Hold for up to eight seconds. Repeat five times each side."
     },
     {
         "name": "Deep Lunge",
         "img_name": "va_deeplunge",
-        "reps": 2
+        "reps": 6,
+        "description": "Kneel on one knee, the other foot in front. Lift your back knee up, making sure you keep looking forwards. Push your hips forward. Hold for five seconds and repeat three times each side. Try to keep your upper body upright, avoid bending or leaning your upper body forwards."
     },
     {
         "name": "Deep Stomach Muscle Tone",
         "img_name": "va_deepstomach",
-        "reps": 2
+        "reps": 10,
+        "description": "Kneel on all fours with a small curve in your lower back. Let your stomach relax completely. Pull the lower part of your stomach upwards so that you lift your back (without arching it) away from the floor. Hold for 10 seconds. Keep breathing! Repeat 10 times."
     },
     {
         "name": "Hamstring Stretch",
         "img_name": "va_hamstring",
-        "reps": 2
+        "reps": 6,
+        "description": "Steady yourself, then put one leg up on a chair. Keeping your raised leg straight, bend the supporting knee forward to stretch your hamstrings. Repeat three times each side. Please note: For those with acute sciatica this hamstring stretch may also pull on the sciatic nerve, making it feel worse. If in doubt, ask a physiotherapist if this exercise is suitable for you."
     },
     {
         "name": "Knee rolls",
         "img_name": "va_kneerolls",
-        "reps": 2
+        "reps": 6,
+        "description": "Lie on your back with your knees bent and your feet together. Roll your knees to one side, keeping your shoulders flat on the bed or floor, and hold for 10 seconds. Roll your knees back to the starting position, and then over to the other side and repeat. Do this exercise three times on each side."
     },
     {
         "name": "Knees to chest",
         "img_name": "va_kneestochest",
-        "reps": 2
+        "reps": 5,
+        "description": "Lie on your back, with your knees bent and feet flat on the floor or bed. Bring one knee up and use your hands to pull it gently towards your chest. Hold the leg in position for five seconds, and then relax. Repeat this exercise with the other knee. Do the exercise five times on each side."
     },
     {
         "name": "Leg raise",
         "img_name": "va_legraise",
-        "reps": 2
+        "reps": 3,
+        "description": "Lie face down, though you might want to turn your head to one side if this is more comfortable. Tighten your stomach and buttock muscles to lift one leg slightly off the floor, while keeping your hips flat on the ground. Hold this position for 5 to 10 seconds and repeat 3 times."
     },
     {
         "name": "One-leg stand",
         "img_name": "va_onelegstand",
-        "reps": 2
+        "reps": 6,
+        "description": "Steady yourself with one hand on a wall or work surface for support. Bend one leg up behind you. Hold your foot for 10 seconds and repeat three times each side. Try to keep your knees and thighs level with one another."
     },
     {
         "name": "Pelvic tilt",
         "img_name": "va_pelvic",
-        "reps": 2
+        "reps": 5,
+        "description": "Lie down with your knees bent. Tighten your stomach muscles, flattening your back against the floor. Hold for five seconds. Repeat five times."
     },
     {
         "name": "Stomach tone",
         "img_name": "va_stomach",
-        "reps": 2
+        "reps": 3,
+        "description": "Lie on your front with your arms by your side, head on one side. Pull in your stomach muscles, centred around your belly button. Hold for five seconds. Repeat three times. Build up to 10 seconds and repeat during the day, while walking or standing. Keep breathing during this exercise!"
     }
 ]
     

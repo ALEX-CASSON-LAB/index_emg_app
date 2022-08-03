@@ -26,9 +26,9 @@ public class MainModel
     private double[][] _data;
     public double mvc { get; set; }
 
-    public string dbPath { get; set; }
+    //public static string dbPath { get; set; }
+    public static string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "database.db3");
     private SQLiteConnection _database;
-    public const SQLite.SQLiteOpenFlags Flags = SQLiteOpenFlags.ProtectionComplete | SQLite.SQLiteOpenFlags.ReadWrite | SQLite.SQLiteOpenFlags.SharedCache | SQLite.SQLiteOpenFlags.Create;
 
     public Session currentSession;
     public bool realTimeCollection;
@@ -50,19 +50,6 @@ public class MainModel
         IndexDatabase database = await IndexDatabase.Instance;
         Session s = new Session();
         await database.SaveItemAsync(s);
-        //lock (locker)
-        //{
-        //    _database = new SQLiteConnection(dbPath);
-        //    _database.CreateTable<Session>();
-        //    _database.Close();
-        //    //TODO add try catch or soemthing idk for the sql connection
-        //}
-        //lock (locker)
-        //{
-        //    _database = new SQLiteConnection(dbPath);
-        //    _database.CreateTable<Exercise>();
-        //    _database.Close();
-        //}
     }
     public void deleteSessionTable()
     {
@@ -81,19 +68,6 @@ public class MainModel
             _database = new SQLiteConnection(dbPath);
             SQLiteCommand cmd = _database.CreateCommand("DROP Table 'Exercises'");
             cmd.ExecuteNonQuery();
-            _database.Close();
-        }
-    }
-    public void accessDatabase()
-    {
-        lock (locker)
-        {
-            _database = new SQLiteConnection(dbPath);
-            var table = _database.Table<Session>();
-            foreach (var s in table)
-            {
-                System.Console.WriteLine(s.Id + " " + s.date.ToString());
-            }
             _database.Close();
         }
     }
