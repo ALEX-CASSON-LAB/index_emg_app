@@ -52,9 +52,11 @@
       <HintPath>..\..\packages\DelsysAPI.Android.1.7.1.856\lib\DelsysApi.Android.dll</HintPath>
     </Reference>
     <Reference Include="Java.Interop" />
-    <Reference Include="MathNet.Numerics, Version=4.8.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\MathNet.Numerics.4.8.1\lib\netstandard2.0\MathNet.Numerics.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MathNet.Filtering, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MathNet.Filtering.0.7.0\lib\netstandard2.0\MathNet.Filtering.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MathNet.Numerics.4.9.1\lib\netstandard2.0\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Toolkit.Mvvm, Version=7.1.0.0, Culture=neutral, PublicKeyToken=4aff67a105548ee2, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Toolkit.Mvvm.7.1.2\lib\netstandard2.1\Microsoft.Toolkit.Mvvm.dll</HintPath>
