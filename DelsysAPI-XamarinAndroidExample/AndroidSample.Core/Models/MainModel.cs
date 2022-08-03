@@ -188,15 +188,26 @@ public class MainModel
     {
         List<double> prevMvcs = new List<double>();
 
-        Session prevSession = _database.GetItemsAsync().Result[-1]; // get last one
-        var lst = prevSession.mvcs.Split(',').ToList();
-        foreach (var val in lst)
+        List<Session> allPrevSession = _database.GetItemsAsync().Result; // get last one
+        Session prevSession = allPrevSession.Last();
+
+        if (prevSession.mvcs != null)
         {
-            bool isint = int.TryParse(val, out int mvc);
-            if (isint == true)
-                prevMvcs.Add(mvc);
+            var lst = prevSession.mvcs.Split(',').ToList();
+            foreach (var val in lst)
+            {
+                bool isint = int.TryParse(val, out int mvc);
+                if (isint == true)
+                    prevMvcs.Add(mvc);
+            }
+            currentSession.setMvcs(prevMvcs);
         }
-        currentSession.setMvcs(prevMvcs);
+        else
+        {
+            // TODO set up case for first time using? force mvc collection
+        }
+
+        
     }
     /// <summary>
     /// Update the mvc values to the ones collected in this session
@@ -204,6 +215,9 @@ public class MainModel
     public void UpdateMvcs(List<double> newMvcs)
     {
         currentSession.setMvcs(newMvcs);
+        _database.SaveItemAsync(currentSession);
+        List<Session> allPrevSession = _database.GetItemsAsync().Result; // get last one
+        Session prevSession = allPrevSession.Last();
     }
     #endregion
 }
@@ -244,11 +258,13 @@ public class IndexDatabase
 
     public Task<int> SaveItemAsync(Session item)
     {
-        var s = GetItemAsync(item.Id).Result;
+        Session s = GetItemAsync(item.Id).Result;
         //if (item.Id != 0)
         if (s != null) //if item already exists
         {
-            return Database.UpdateAsync(item);
+            s.mvcs = item.mvcs;
+            //s.update(item);
+            return Database.UpdateAsync(s);
         }
         else
         {

@@ -49,17 +49,25 @@ namespace AndroidSample.Core
         public string mvcs
         {
             get { return _mvcs; }
+            set { _mvcs = value; }
         }
 
         public void setMvcs(List<double> mvcLst)
         {
             _mvcs = "";
-            foreach (int m in mvcLst)
+            foreach (double m in mvcLst)
             {
-                _mvcs += m.ToString() + ",";
+                _mvcs += m.ToString("G17") + ",";
             }
         }
        
+        public void update(Session newVals)
+        {
+             _exerciseIds = newVals.exerciseIds;
+             _exerciseStats = newVals.exerciseStats;
+             _notes = newVals.notes;
+             _mvcs = newVals.mvcs;
+        }
     }
 
     public class Exercise

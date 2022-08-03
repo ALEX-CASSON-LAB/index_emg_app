@@ -54,8 +54,8 @@ namespace AndroidSample
             // View set up
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_info);
-            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            SetSupportActionBar(toolbar);
+            //Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
+            //SetSupportActionBar(toolbar);
 
             // UI set up
             imageFrame = FindViewById<FrameLayout>(Resource.Id.frame_image);
@@ -81,12 +81,8 @@ namespace AndroidSample
                 {
                     _model.del = new Delsys();
                     del = _model.del;
-                    if (del == null)
-                    {
-                        _model.del = new Delsys();
-                        del = _model.del;
-
-                    }
+                   
+                    
                     _model.startSession();
 
                     // Display sensors found

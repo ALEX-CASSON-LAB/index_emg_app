@@ -5,6 +5,7 @@
 	</item>
 	<item
 		android:height="200dp">
-		<color android:color="@color/colorPrimary"></color>
+		<!--<color android:color="@color/colorPrimary"></color>-->
+		<color android:color="@color/colorPrimaryLight"></color>
 	</item>
 </layer-list>
