@@ -27,6 +27,7 @@ namespace AndroidSample.Core
         Pipeline BTPipeline;
         ITransformManager TransformManager;
         public List<List<double>> Data = new List<List<double>>();
+        public TrignoEmgSignal[] processedData;
 
 
         IDelsysDevice DeviceSource = null;
@@ -58,6 +59,8 @@ namespace AndroidSample.Core
         private double[] _baselineStdev;
 
         public double[] mvcs; // addition to openfeasyo
+
+        public bool mvcCollection = false;
         #endregion
 
         public List<string> sensors
@@ -303,7 +306,7 @@ namespace AndroidSample.Core
                 }
             }
 
-            var processedData = Process(data);
+            processedData = Process(data);
 
             double[][] pData = new double[processedData.Length][];
             for(int i = 0;i<processedData.Length; i++)
@@ -312,9 +315,16 @@ namespace AndroidSample.Core
                     pData[i] = sig.AveragedSample;
             }
 
-            double[][] normData = mvcNormalise(pData);
-
-            OnMuscleActive(normData);
+            if (mvcCollection == false)
+            {
+                double[][] normData = mvcNormalise(pData);
+                OnMuscleActive(normData);
+            }
+            else
+            {
+                OnMuscleActive(pData);
+            }
+                
             //OnMuscleActive(pData);
 
             //switch (_calibrationState)
@@ -364,28 +374,29 @@ namespace AndroidSample.Core
 
         }
 
-        //private double[][] Process(double[][] rawData)
+        //public double[][] postProcess(double[][] data)
         //{
-        //    int count = Math.Min(_nChannels, rawData.Length);
-        //    //int count = rawData.Length;
-        //    double[][] signals = new double[count][];
-
-
-        //    for (int index = 0; index < count; index++)
+        //    for (int channel = 0; channel < tData.Length; channel++)
         //    {
-        //        double[] signal = rawData[index];
-
-        //        var bpfsample = _bandPassFilters[index].filterData(rawData[index]);
-        //        //signal.BpfSample = _bandPassFilters[index].filterData(signal.RawSample);
-        //        double[] fullwaveSample = new double[rawData.Length];
-        //        FullWaveRectification(bpfsample, fullwaveSample);
-        //        //signals[index] = MovingWindowAverageFilter(signal, index);
-        //        signals[index] = fullwaveSample;
-
-
+        //        data[channel] = new double[tData[channel].Data.Count]; //make an array inside the data [channel] that is of size of data count
+        //        for (int sample = 0; sample < tData[channel].Data.Count; sample++)
+        //        {
+        //            data[channel][sample] = tData[channel].Data[sample];
+        //        }
         //    }
 
-        //    return signals;
+        //    var processedData = Process(data);
+
+        //    double[][] pData = new double[processedData.Length][];
+        //    for (int i = 0; i < processedData.Length; i++)
+        //        foreach (var sig in processedData)
+        //        {
+        //            pData[i] = sig.AveragedSample;
+        //        }
+
+        //    double[][] normData = mvcNormalise(pData);
+
+        //    OnMuscleActive(normData);
         //}
 
         //myown
@@ -400,12 +411,10 @@ namespace AndroidSample.Core
                 double[] normSig = new double[data[i].Length];
                 for (int j = 0; j < data[i].Length; j++) // for each datapoint
                 {
-                    //Console.WriteLine(data[i][j].ToString() + " /  " + mvcs[i].ToString() + "*100 = " + normData[i][j].ToString());
                     double dp = data[i][j];
-
-                    //normData[i][j] = Math.Truncate((data[i][j]/ mvcs[i]) * 100);
                     
                     normSig[j] = ((dp / mvc) * 100);
+                    Console.WriteLine(dp.ToString() + "/ " + mvc.ToString() + "* 100 = " + normSig[j].ToString());
                 }
                 normData[i] = normSig;
             }
@@ -441,7 +450,7 @@ namespace AndroidSample.Core
             {
                 this._movingWindowData[i] = new List<double>();
                 this._baselineData[i] = new List<double>();
-                this._bandPassFilters[i] = new BandPassFilter(BandPassFilter.BAND_PASS, _samplingRate, new double[] { 5, 25 }, 6);
+                this._bandPassFilters[i] = new BandPassFilter(BandPassFilter.BAND_PASS, _samplingRate, new double[] { 10, 500 }, 6);
 
                 this._baselineDataCounters[i] = 0;
                 this._baselineMean[i] = -1;
@@ -468,6 +477,7 @@ namespace AndroidSample.Core
 
                 signal.AveragedSample[i] = currentMean;
 
+                // not needed in this context
                 if (currentMean > (_baselineMean[index] + (3 * _baselineStdev[index])))
                 {
                     onOff = currentMean;
@@ -488,6 +498,34 @@ namespace AndroidSample.Core
             return signal;
         }
 
+        /// <summary>
+        /// Calculates mvc based on the processData
+        /// Called post collection mvc data
+        /// </summary>
+        /// <returns></returns>
+        public List<double> calculate_MVC()
+        {
+            double mvc = 1; // default 
+            double sum = 0;
+
+            List<double> mvcs = new List<double>();
+
+
+            for (int i = 0; i < processedData.Length; i++) // For each channel/sensor
+            {
+                double[] mvcData = processedData[i].AveragedSample;
+                foreach (var pt in mvcData) // for each data point
+                {
+                    sum = sum + (pt * pt); // Add the squares of all values
+                }
+                mvc = sum /mvcData.Length;
+                mvc = Math.Sqrt(mvc); // square root
+
+                mvcs.Add(mvc);
+            }
+
+            return mvcs;
+        }
         private double Mean(List<double> data)
         {
             Double sum = 0;
