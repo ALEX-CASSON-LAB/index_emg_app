@@ -44,7 +44,10 @@ namespace AndroidSample
             StartButton.Click += (s, e) =>
             {
                 if (del != null)
+                {
+                    del.mvcCollection = true;
                     del.SensorStream();
+                }                    
                 else
                     Console.WriteLine("DELSYS object not initialised"); // TODO add 
                 StopButton.Visibility = ViewStates.Visible;
@@ -58,7 +61,7 @@ namespace AndroidSample
                 StopButton.Visibility = ViewStates.Invisible; //TODO bit dramatic remove
 
                 //Calculate MVC
-                _myModel.UpdateMvcs(calculate_MVC(del.Data));
+                _myModel.UpdateMvcs(del.calculate_MVC());
                 
                 StartButton.Text = "Redo recording";
                 Drawable img = GetDrawable(Resource.Drawable.icon_restart);
@@ -71,6 +74,7 @@ namespace AndroidSample
             NextButton = FindViewById<Button>(Resource.Id.btn_next);
             NextButton.Click += (s, e) =>
             {
+                del.mvcCollection = false;
                 StartActivity(typeof(ExerciseSelectionActivity));
             };
 
@@ -85,28 +89,6 @@ namespace AndroidSample
         {
             await Task.Delay(5000);
             StartButton.Enabled = true;
-        }
-
-        public List<double> calculate_MVC(List<List<double>> data)
-        {
-            double mvc = 1; // default 
-            double sum = 0;
-
-            List<double> mvcs = new List<double>();
-
-            for (int i = 0; i < data.Count; i++) // For each channel/sensor
-            {
-                foreach (var pt in data[i]) // for each data point
-                {
-                    sum = sum + (pt * pt); // Add the squares of all values
-                }
-                mvc = sum / data[i].Count;
-                mvc = Math.Sqrt(mvc); // square root
-
-                mvcs.Add(mvc);
-            }
-
-            return mvcs;
         }
 
     }

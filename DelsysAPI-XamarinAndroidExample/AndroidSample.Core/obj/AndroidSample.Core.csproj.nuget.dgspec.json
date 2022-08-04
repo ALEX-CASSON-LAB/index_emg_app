@@ -52,6 +52,10 @@
               "target": "Package",
               "version": "[1.7.1.876, )"
             },
+            "MathNet.Filtering": {
+              "target": "Package",
+              "version": "[0.7.0, )"
+            },
             "Microsoft.Toolkit.Mvvm": {
               "target": "Package",
               "version": "[7.1.2, )"

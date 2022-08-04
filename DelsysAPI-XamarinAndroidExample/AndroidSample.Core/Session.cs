@@ -74,16 +74,15 @@ namespace AndroidSample.Core
                 if (isdouble == true)
                     mvcLst.Add(mvc);
             }
-
-            return mvcLst.ToArray() ;
+            return mvcLst.ToArray();
         }
-       
+
         public void update(Session newVals)
         {
-             _exerciseIds = newVals.exerciseIds;
-             _exerciseStats = newVals.exerciseStats;
-             _notes = newVals.notes;
-             _mvcs = newVals.mvcs;
+            _exerciseIds = newVals.exerciseIds;
+            _exerciseStats = newVals.exerciseStats;
+            _notes = newVals.notes;
+            _mvcs = newVals.mvcs;
         }
     }
 
