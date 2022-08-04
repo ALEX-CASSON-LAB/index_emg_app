@@ -178,7 +178,7 @@ public class MainModel
             rectData[i] = Math.Abs(data[i]);
         return rectData;
     }
-    
+
     /// <summary>
     /// Retrieves the mvc string from the most recent session
     /// sets it as the current sessions mvc
@@ -189,15 +189,21 @@ public class MainModel
     {
         List<double> prevMvcs = new List<double>();
 
-        Session prevSession = _database.GetItemsAsync().Result[-1]; // get last one
-        var lst = prevSession.mvcs.Split(',').ToList();
-        foreach (var val in lst)
+        List<Session> allPrevSession = _database.GetItemsAsync().Result; // get last one
+        Session prevSession = allPrevSession.Last();
+
+        if (prevSession.mvcs != null)
         {
-            bool isint = int.TryParse(val, out int mvc);
-            if (isint == true)
-                prevMvcs.Add(mvc);
+            currentSession.mvcs = prevSession.mvcs;
+            del.mvcs = currentSession.getMvcs().ToArray();
+
         }
-        currentSession.setMvcs(prevMvcs);
+        else
+        {
+            // TODO set up case for first time using? force mvc collection
+        }
+
+
     }
     /// <summary>
     /// Update the mvc values to the ones collected in this session
@@ -205,6 +211,22 @@ public class MainModel
     public void UpdateMvcs(List<double> newMvcs)
     {
         currentSession.setMvcs(newMvcs);
+        del.mvcs = newMvcs.ToArray();
+        _database.SaveItemAsync(currentSession);
+    }
+
+    public double[] mvcNormalise(double[] data)
+    {
+        double[] mvcs = currentSession.getMvcs();
+        double[] normData = new double[data.Length];
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            normData[i] = Math.Truncate((data[i] / mvcs[i]) * 100);
+
+            Console.WriteLine(data[i].ToString() + " /  " + mvcs[i].ToString() + "*100 = " + normData[i].ToString());
+        }
+        return normData;
     }
     #endregion
 }

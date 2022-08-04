@@ -56,6 +56,8 @@ namespace AndroidSample.Core
 
         private double[] _baselineMean;
         private double[] _baselineStdev;
+
+        public double[] mvcs; // addition to openfeasyo
         #endregion
 
         public List<string> sensors
@@ -310,7 +312,10 @@ namespace AndroidSample.Core
                     pData[i] = sig.AveragedSample;
             }
 
-            OnMuscleActive(pData);
+            double[][] normData = mvcNormalise(pData);
+
+            OnMuscleActive(normData);
+            //OnMuscleActive(pData);
 
             //switch (_calibrationState)
             //{
@@ -382,6 +387,32 @@ namespace AndroidSample.Core
 
         //    return signals;
         //}
+
+        //myown
+        public double[][] mvcNormalise(double[][] data)
+        {
+
+            double[][] normData = new double[data.Length][];
+
+            for (int i = 0; i < data.Length; i++) // for each channel
+            {
+                double mvc = mvcs[i];
+                double[] normSig = new double[data[i].Length];
+                for (int j = 0; j < data[i].Length; j++) // for each datapoint
+                {
+                    //Console.WriteLine(data[i][j].ToString() + " /  " + mvcs[i].ToString() + "*100 = " + normData[i][j].ToString());
+                    double dp = data[i][j];
+
+                    //normData[i][j] = Math.Truncate((data[i][j]/ mvcs[i]) * 100);
+                    
+                    normSig[j] = ((dp / mvc) * 100);
+                }
+                normData[i] = normSig;
+            }
+            return normData;
+        }
+
+
         //from openfeasyo
         private void FullWaveRectification(double[] values, double[] destination)
         {
