@@ -39,6 +39,25 @@ namespace AndroidSample.Core
         private Dictionary<string, int> _sensorToChannel = new Dictionary<string, int>();
         /****************/
 
+        #region EMG signal processing related variables
+        private int _samplingRate = 1000;
+
+        private BandPassFilter[] _bandPassFilters;
+        private int _nChannels = 2;
+
+        private double _movingWindowLength = 1;
+        private List<double>[] _movingWindowData;
+
+        private List<double>[] _baselineData;
+        private int[] _baselineDataCounters;
+
+        private int _baselineDataLength = 100;
+        private int _baselineThrowOut = 20;
+
+        private double[] _baselineMean;
+        private double[] _baselineStdev;
+        #endregion
+
         public List<string> sensors
         {
             get { return _sensors.Keys.ToList(); }
@@ -49,6 +68,7 @@ namespace AndroidSample.Core
                 Console.WriteLine(BTPipeline.CurrentState);
             if (BTPipeline == null || BTPipeline.CurrentState != Pipeline.ProcessState.Off)
             {
+                InitializeSignalProcessing(); //todo mark that this is emg processing
                 InitializeDataSource();
             }
         }
@@ -267,9 +287,9 @@ namespace AndroidSample.Core
             {
                 tData[_sensorToChannel[_guidToSensor[td.Id]]] = td; //for each transform data in api data, add it to tData
             }
-            var data = new double[e.Data.Length][];
+            double[][] data = new double[e.Data.Length][];
 
-            ////if (tData.Length >= 2 && tData[0].Data.Count == tData[1].Data.Count)
+            ////if (tData.Length >= 2 && tData[0].Data.Count == tData[1].Data.Count) // just a check to make sure that both the sensors collected the same amount of data
             ////if (tData.Length >= 2 ) //if its using two sensors and has to use two sensors
             ////{
             for (int channel = 0; channel < tData.Length; channel++)
@@ -281,7 +301,16 @@ namespace AndroidSample.Core
                 }
             }
 
-            OnMuscleActive(data);
+            var processedData = Process(data);
+
+            double[][] pData = new double[processedData.Length][];
+            for(int i = 0;i<processedData.Length; i++)
+            foreach(var sig in processedData)
+            {
+                    pData[i] = sig.AveragedSample;
+            }
+
+            OnMuscleActive(pData);
 
             //switch (_calibrationState)
             //{
@@ -329,45 +358,184 @@ namespace AndroidSample.Core
             TotalDataPoints += dataPoints;
 
         }
-        //private void Train(double[][] rawData)
+
+        //private double[][] Process(double[][] rawData)
         //{
-        //    int count = Math.Min(1, rawData.Length); //this shouldnt be hard coded to one, temp solution
+        //    int count = Math.Min(_nChannels, rawData.Length);
+        //    //int count = rawData.Length;
+        //    double[][] signals = new double[count][];
 
-        //    for (int channel = 0; channel < count; channel++)
+
+        //    for (int index = 0; index < count; index++)
         //    {
-        //        double[] filtered = _bandPassFilters[channel].filterData(rawData[channel]);
+        //        double[] signal = rawData[index];
 
-        //        for (int i = 0; i < rawData[channel].Length; i++)
-        //        {
-        //            double value = FullWaveRectification(filtered[i])[0];
+        //        var bpfsample = _bandPassFilters[index].filterData(rawData[index]);
+        //        //signal.BpfSample = _bandPassFilters[index].filterData(signal.RawSample);
+        //        double[] fullwaveSample = new double[rawData.Length];
+        //        FullWaveRectification(bpfsample, fullwaveSample);
+        //        //signals[index] = MovingWindowAverageFilter(signal, index);
+        //        signals[index] = fullwaveSample;
 
 
-        //            if (_baselineDataCounters[channel] < _baselineThrowOut)
-        //            {
-        //                //throw these first few away
-        //            }
-        //            else if (_baselineDataCounters[channel] < _baselineDataLength + _baselineThrowOut)
-        //            {
-        //                _baselineData[channel].Add(value);
-        //            }
-        //            else if (_baselineDataCounters[channel] == _baselineDataLength + _baselineThrowOut)
-        //            {
-        //                _baselineMean[channel] = Mean(_baselineData[channel]);
-        //                _baselineStdev[channel] = StandardDeviation(_baselineData[channel], _baselineMean[channel]);
-
-        //                OnCalibrationChanged(CalibrationResults.Finished);
-        //                _calibrationState = CalibrationState.Calibrated;
-        //            }
-        //            else
-        //            {
-        //                break;
-        //            }
-
-        //            _baselineDataCounters[channel]++;
-        //        }
         //    }
+
+        //    return signals;
         //}
-        private void CollectionStarted(object sender, DelsysAPI.Events.CollectionStartedEvent e)
+        //from openfeasyo
+        private void FullWaveRectification(double[] values, double[] destination)
+        {
+            //TODO use vector approach
+            for (int i = 0; i < values.Length; i++)
+            {
+                destination[i] = Math.Abs(values[i]);
+            }
+        }
+
+        private void InitializeSignalProcessing()
+        {
+            this._movingWindowLength = Math.Floor((float)_samplingRate / 10);
+            this._baselineDataLength = (int)_samplingRate * 2;
+            this._baselineThrowOut = (int)Math.Floor((float)_baselineDataLength / 5);
+
+            this._movingWindowData = new List<double>[_nChannels];
+            this._baselineData = new List<double>[_nChannels];
+            this._bandPassFilters = new BandPassFilter[_nChannels];
+
+            this._baselineDataCounters = new int[_nChannels];
+            this._baselineMean = new double[_nChannels];
+            this._baselineStdev = new double[_nChannels];
+
+            for (int i = 0; i < _nChannels; i++)
+            {
+                this._movingWindowData[i] = new List<double>();
+                this._baselineData[i] = new List<double>();
+                this._bandPassFilters[i] = new BandPassFilter(BandPassFilter.BAND_PASS, _samplingRate, new double[] { 5, 25 }, 6);
+
+                this._baselineDataCounters[i] = 0;
+                this._baselineMean[i] = -1;
+                this._baselineStdev[i] = -1;
+            }
+        }
+        private TrignoEmgSignal MovingWindowAverageFilter(TrignoEmgSignal signal, int index)
+        {
+            bool activated = false;
+            double onOff = 0;
+            for (int i = 0; i < signal.FullWaveSample.Length; i++)
+            {
+                if (_movingWindowData[index].Count == _movingWindowLength)
+                {
+                    _movingWindowData[index].RemoveAt(0);
+                    _movingWindowData[index].Add(signal.FullWaveSample[i]);
+                }
+                else
+                {
+                    _movingWindowData[index].Add(signal.FullWaveSample[i]);
+                }
+
+                double currentMean = Mean(_movingWindowData[index]);
+
+                signal.AveragedSample[i] = currentMean;
+
+                if (currentMean > (_baselineMean[index] + (3 * _baselineStdev[index])))
+                {
+                    onOff = currentMean;
+                }
+                else
+                {
+                    onOff = 0;
+                }
+
+                signal.OnOff[i] = onOff;
+                activated = activated || !(onOff == 0);
+                signal.RestingMean[i] = _baselineMean[index];
+                signal.RestingStdev[i] = _baselineStdev[index];
+
+            }
+            signal.MuscleActivated = activated;
+
+            return signal;
+        }
+
+        private double Mean(List<double> data)
+        {
+            Double sum = 0;
+            foreach (Double val in data)
+            {
+                sum += val;
+            }
+
+            return sum / data.Count;
+        }
+
+        private double StandardDeviation(List<double> data, double mean)
+        {
+            Double res = 0;
+            foreach (Double value in data)
+            {
+                res += (value - mean) * (value - mean);
+            }
+            return Math.Sqrt(res / data.Count);
+        }
+        //original
+    
+        private TrignoEmgSignal[] Process(double[][] rawData)
+        {
+            int count = Math.Min(_nChannels, rawData.Length);
+            TrignoEmgSignal[] signals = new TrignoEmgSignal[count];
+
+
+            for (int index = 0; index < count; index++)
+            {
+                TrignoEmgSignal signal = new TrignoEmgSignal(rawData[index]);
+
+                signal.BpfSample = _bandPassFilters[index].filterData(signal.RawSample);
+                FullWaveRectification(signal.BpfSample, signal.FullWaveSample);
+                signals[index] = MovingWindowAverageFilter(signal, index);
+
+            }
+
+            return signals;
+        }
+    //private void Train(double[][] rawData)
+    //{
+    //    int count = Math.Min(1, rawData.Length); //this shouldnt be hard coded to one, temp solution
+
+    //    for (int channel = 0; channel < count; channel++)
+    //    {
+    //        double[] filtered = _bandPassFilters[channel].filterData(rawData[channel]);
+
+    //        for (int i = 0; i < rawData[channel].Length; i++)
+    //        {
+    //            double value = FullWaveRectification(filtered[i])[0];
+
+
+    //            if (_baselineDataCounters[channel] < _baselineThrowOut)
+    //            {
+    //                //throw these first few away
+    //            }
+    //            else if (_baselineDataCounters[channel] < _baselineDataLength + _baselineThrowOut)
+    //            {
+    //                _baselineData[channel].Add(value);
+    //            }
+    //            else if (_baselineDataCounters[channel] == _baselineDataLength + _baselineThrowOut)
+    //            {
+    //                _baselineMean[channel] = Mean(_baselineData[channel]);
+    //                _baselineStdev[channel] = StandardDeviation(_baselineData[channel], _baselineMean[channel]);
+
+    //                OnCalibrationChanged(CalibrationResults.Finished);
+    //                _calibrationState = CalibrationState.Calibrated;
+    //            }
+    //            else
+    //            {
+    //                break;
+    //            }
+
+    //            _baselineDataCounters[channel]++;
+    //        }
+    //    }
+    //}
+    private void CollectionStarted(object sender, DelsysAPI.Events.CollectionStartedEvent e)
         {
             var comps = PipelineController.Instance.PipelineIds[0].TrignoBtManager.Components;
 
@@ -594,5 +762,36 @@ namespace AndroidSample.Core
         }
 
         # endregion
+    }
+
+
+    public class TrignoEmgSignal 
+    {
+        public TrignoEmgSignal(double[] rawSample)
+        {
+            RawSample = rawSample;
+            FullWaveSample = new double[rawSample.Length];
+            AveragedSample = new double[rawSample.Length];
+            OnOff = new double[rawSample.Length];
+            RestingMean = new double[rawSample.Length];
+            RestingStdev = new double[rawSample.Length];
+        }
+
+
+        public bool MuscleActivated { get; set; }
+
+        public double[] RawSample { get; set; }
+
+        public double[] BpfSample { get; set; }
+
+        public double[] AveragedSample { get; set; }
+
+        public double[] FullWaveSample { get; set; }
+
+        public double[] OnOff { get; set; }
+
+        public double[] RestingMean { get; set; }
+
+        public double[] RestingStdev { get; set; }
     }
 }

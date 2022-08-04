@@ -49,10 +49,11 @@ public class MainModel
     #region Session methods
     public void startSession()
     {
-        setUpMvcs();
+        
 
         currentSession = new Session();
         currentSession.date = System.DateTime.Now.ToLocalTime();
+        setUpMvcs();
         _database.SaveItemAsync(currentSession).Wait();
     }
     public async void recordCurrentSession()
