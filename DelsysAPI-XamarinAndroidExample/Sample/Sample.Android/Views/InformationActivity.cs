@@ -91,12 +91,18 @@ namespace AndroidSample
 
             ScanButton.Click += (s, e) =>
             {
-                FindViewById<CardView>(Resource.Id.card_sensor).Visibility = ViewStates.Gone;
-                FindViewById<TextView>(Resource.Id.txv_subtitle).Visibility = ViewStates.Gone;
-                TitleText.Text = Resources.GetString(Resource.String.scan_txt);
-                ScanButton.Visibility = ViewStates.Gone;
-                realtimeCheckBox.Visibility = ViewStates.Gone;
-                searchProgBar.Visibility = ViewStates.Visible; //TODO make the bar actually progress
+                RunOnUiThread(() =>
+                {
+                    SetupVideo.StopPlayback();
+                    SetupVideo.Visibility = ViewStates.Gone;
+                    FindViewById<CardView>(Resource.Id.card_sensor).Visibility = ViewStates.Gone;
+                    FindViewById<RelativeLayout>(Resource.Id.frame_howto).Visibility = ViewStates.Gone;
+                    TitleText.Text = Resources.GetString(Resource.String.scan_txt);
+                    ScanButton.Visibility = ViewStates.Gone;
+                    realtimeCheckBox.Visibility = ViewStates.Gone;
+                    searchProgBar.Visibility = ViewStates.Visible; 
+                });
+                
 
                 startWorker.DoWork += (o, e) =>
                 {

@@ -138,10 +138,13 @@ namespace AndroidSample.Views
                         => {
                             double[] d = e.MuscleData[0];
                             d = MainModel.fullWaveRectification(d);
-                            double avg = d.Average(); //avg of the 10 datapoints provided
-                            var normAvg = Math.Truncate((avg / _myModel.mvc) * 100);
-                            Console.WriteLine(avg.ToString() + " /  " + _myModel.mvc.ToString() + "*100 = " + normAvg.ToString());
-                            DataText.Text = normAvg.ToString();
+                            double avg = d.Average(); //avg of the 10 datapoints provided //TODO moving window
+
+                            double[] dd = new double[e.MuscleData.Length];
+                            dd[0] = avg;
+
+                            var normalisedAvg = _myModel.mvcNormalise(dd);
+                            DataText.Text = normalisedAvg[0].ToString();
                         };
             }
 

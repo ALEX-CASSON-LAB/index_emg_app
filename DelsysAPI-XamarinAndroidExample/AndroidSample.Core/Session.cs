@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using SQLite;
 
@@ -59,6 +60,22 @@ namespace AndroidSample.Core
             {
                 _mvcs += m.ToString("G17") + ",";
             }
+        }
+
+        public double[] getMvcs()
+        {
+            List<double> mvcLst = new List<double>();
+
+            var lst = _mvcs.Split(',').ToList();
+            foreach (var val in lst)
+            {
+                double mvc;
+                bool isdouble = double.TryParse(val, out mvc);
+                if (isdouble == true)
+                    mvcLst.Add(mvc);
+            }
+
+            return mvcLst.ToArray() ;
         }
        
         public void update(Session newVals)

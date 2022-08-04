@@ -49,10 +49,9 @@ public class MainModel
     #region Session methods
     public void startSession()
     {
-        setUpMvcs();
-
         currentSession = new Session();
         currentSession.date = System.DateTime.Now.ToLocalTime();
+        setUpMvcs();
         _database.SaveItemAsync(currentSession).Wait();
     }
     public async void recordCurrentSession()
@@ -177,6 +176,20 @@ public class MainModel
             rectData[i] = Math.Abs(data[i]);
         return rectData;
     }
+
+    public double[] mvcNormalise(double[] data)
+    {
+        double[] mvcs = currentSession.getMvcs();
+        double[] normData = new double[data.Length];
+
+        for (int i = 0; i < data.Length; i++)
+        {
+            normData[i] = Math.Truncate((data[i] / mvcs[i]) * 100);
+
+            Console.WriteLine(data[i].ToString() + " /  " + mvcs[i].ToString() + "*100 = " + normData[i].ToString());
+        }
+        return normData;
+    }
     
     /// <summary>
     /// Retrieves the mvc string from the most recent session
@@ -193,14 +206,7 @@ public class MainModel
 
         if (prevSession.mvcs != null)
         {
-            var lst = prevSession.mvcs.Split(',').ToList();
-            foreach (var val in lst)
-            {
-                bool isint = int.TryParse(val, out int mvc);
-                if (isint == true)
-                    prevMvcs.Add(mvc);
-            }
-            currentSession.setMvcs(prevMvcs);
+            currentSession.mvcs = prevSession.mvcs;
         }
         else
         {

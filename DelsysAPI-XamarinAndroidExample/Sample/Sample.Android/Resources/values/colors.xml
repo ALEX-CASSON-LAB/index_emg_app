@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9366af</color>
-    <color name="colorPrimaryLight">#d7c3eb</color>
+    <color name="colorPrimary">#434AD7</color>
+    <color name="colorPrimaryLight">#759ED3</color>
     <color name="colorPrimaryDark">#660099</color> <!--University purple-->
 	<color name="colorAccent">#cce4f5</color>
 	<color name="colorButton">#d8d6ea</color>

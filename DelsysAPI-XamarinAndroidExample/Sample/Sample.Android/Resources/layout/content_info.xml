@@ -81,7 +81,8 @@
     <CheckBox
         android:text="See your results in real-time?"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+            android:background="@drawable/custombuttonborder"
         android:id="@+id/chkb_realtime" 
         android:layout_centerHorizontal="true"
         android:layout_below="@id/card_sensor" />
