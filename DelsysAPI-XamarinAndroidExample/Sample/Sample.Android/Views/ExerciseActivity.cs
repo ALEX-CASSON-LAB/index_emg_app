@@ -28,8 +28,11 @@ namespace AndroidSample.Views
         TextView DataText;
         TextView ExerciseDescriptionText;
 
+        ProgressBar DataProgBar;
+
         BackgroundWorker startWorker;
         BackgroundWorker stopWorker;
+        BackgroundWorker dataWorker;
 
         private MainModel _myModel;
 
@@ -50,7 +53,7 @@ namespace AndroidSample.Views
         {
             startWorker = new BackgroundWorker();
             stopWorker = new BackgroundWorker();
-
+            dataWorker = new BackgroundWorker();
 
             // view set up
             base.OnCreate(savedInstanceState);
@@ -79,9 +82,12 @@ namespace AndroidSample.Views
             //var w = lay.LayoutParameters.Width;
             ////var h = lay.LayoutParameters.Height;
             //var h = ExerciseImage.LayoutParameters.Width;
-            
+
             //ExerciseImage.LayoutParameters.Width = w/4;
             //ExerciseImage.LayoutParameters.Height = h;
+
+
+            DataProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_data);
 
             //set up buttons
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
@@ -138,9 +144,12 @@ namespace AndroidSample.Views
                         => {
                             double[] d = e.MuscleData[0];
                             DataText.Text = d.Last().ToString(); //todo display properly
-                        };
+                            
+                            DataProgBar.SetProgress(Math.Min((int) d.Last(), 100), false);
+                            };
             }
 
+            
 
             del.CollectionStopped += DelStopCollection;
         }
