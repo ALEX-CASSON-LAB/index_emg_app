@@ -12,6 +12,7 @@ using System.Threading;
 using Java.Lang;
 using System.Reflection;
 using Android.Media;
+using Android.Bluetooth;
 
 namespace AndroidSample
 {
@@ -61,6 +62,11 @@ namespace AndroidSample
             SetContentView(Resource.Layout.activity_info);
             //Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
             //SetSupportActionBar(toolbar);
+
+            // Check bluetooth is enabled
+            BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter;
+            if (!bluetoothAdapter.IsEnabled)
+                bluetoothAdapter.Enable();
 
             // UI set up
             imageFrame = FindViewById<FrameLayout>(Resource.Id.frame_image);
