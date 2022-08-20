@@ -62,8 +62,18 @@ namespace AndroidSample.Views
             holder.NotesTxt.Text = sessions[position].notes;
 
             JavaList<Exercise> exercises = getExercises(sessions[position]);
-            if (exercises != null)
-                holder.ExerciseList.Adapter = new CustomListAdapter(this.c,exercises);
+            //if (exercises != null)
+            //    holder.ExerciseList.Adapter = new CustomListAdapter(this.c,exercises);
+            if(exercises != null)
+                holder.ExerTxt.Text = exercises.Count + " Completed";
+           
+                
+            //TODO lead button to display of all data
+            holder.MoreButton.Click += (s, o) => {
+                Intent intent = new Intent(this.c, typeof(DisplayStatsActivity));
+                intent.PutExtra("session_id", sessions[position].Id.ToString());
+                this.c.StartActivity(intent);
+            };
 
             return convertView;
         }
@@ -101,13 +111,17 @@ namespace AndroidSample.Views
         //adapter views to re-use
         public TextView DateTxt;
         public TextView NotesTxt;
-        public ListView ExerciseList;
+        public TextView ExerTxt;
+        public Button MoreButton;
+        //public ListView ExerciseList;
 
         public SessionAdapterViewHolder(View itemView)
         {
             DateTxt = itemView.FindViewById<TextView>(Resource.Id.txv_date);
             NotesTxt = itemView.FindViewById<TextView>(Resource.Id.txv_note);
-            ExerciseList = itemView.FindViewById<ListView>(Resource.Id.view_stats_list);
+            ExerTxt = itemView.FindViewById<TextView>(Resource.Id.txv_exer);
+            MoreButton = itemView.FindViewById<Button>(Resource.Id.btn_more);
+            //ExerciseList = itemView.FindViewById<ListView>(Resource.Id.view_stats_list);
 
         }
     }

@@ -16,6 +16,7 @@ namespace AndroidSample.Views
     public class DisplayStatsActivity : Android.Support.V7.App.AppCompatActivity
     {
         private MainModel _myModel;
+        private Session displaySession;
 
         //UI items
 
@@ -24,7 +25,6 @@ namespace AndroidSample.Views
 
         private ListView lv;
         private CustomListAdapter adapter;
-        private JavaList<Exercise> exercises;
 
         public DisplayStatsActivity()
         {
@@ -39,10 +39,13 @@ namespace AndroidSample.Views
             SetSupportActionBar(toolbar);
             SupportActionBar.Title = "Session statistics";
 
+            int session_id = Int32.Parse(Intent.GetStringExtra("session_id"));
+
+            Session session = _myModel.getSession(session_id);
 
             lv = FindViewById<ListView>(Resource.Id.view_stats_list);
 
-            adapter = new CustomListAdapter(this, getExercises());
+            adapter = new CustomListAdapter(this, getExercises(session));
 
             lv.Adapter = adapter;
 
@@ -61,19 +64,28 @@ namespace AndroidSample.Views
         }
         
 
-        private JavaList<Exercise> getExercises()
+        private JavaList<Exercise> getExercises(Session ses)
         {
-            List<int> exercisesDoneIds = _myModel.getExercisesDone();
-
+            string ids = ses.exerciseIds;
             var exercises = new JavaList<Exercise>();
 
-            foreach ( int id in exercisesDoneIds)
+            if (ids != null)
             {
-                Exercise ex = _myModel.GetExercise(id);
-                exercises.Add(ex);
+                var lst = ids.Split(',').ToList();
+                foreach (var val in lst)
+                {
+                    int id;
+                    bool isint = int.TryParse(val, out id);
+                    if (isint == true)
+                    {
+                        Exercise ex = _myModel.GetExercise(id);
+                        exercises.Add(ex);
+                    }
+                }
+                return exercises;
             }
-            
-            return exercises;
+
+            return null;
         }
 
     }

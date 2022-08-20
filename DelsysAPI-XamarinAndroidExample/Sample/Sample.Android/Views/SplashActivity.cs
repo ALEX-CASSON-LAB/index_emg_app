@@ -17,6 +17,7 @@ namespace AndroidSample.Views
     
     public class SplashActivity : Android.Support.V7.App.AppCompatActivity
     {
+        MainModel myModel;
         static readonly string TAG = "X:" + typeof(SplashActivity).Name;
 
         public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)
@@ -36,6 +37,10 @@ namespace AndroidSample.Views
         // Simulates background work that happens behind the splash screen
         async void SimulateStartup()
         {
+            // Model set up
+            myModel = MainModel.Instance;
+            myModel.readExerciseJSON();
+            myModel.setupDatabase();
             StartActivity(new Intent(Application.Context, typeof(MainActivity)));
         }
         //to prevent the back button from canceling the startup process, you can also override OnBackPressed and have it do nothing:

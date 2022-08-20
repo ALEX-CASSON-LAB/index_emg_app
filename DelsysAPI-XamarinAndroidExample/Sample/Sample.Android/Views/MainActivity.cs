@@ -28,9 +28,7 @@ namespace AndroidSample
             SetSupportActionBar(toolbar);
             CheckAppPermissions();
 
-            // Model set up
-            myModel = MainModel.Instance;
-
+            
             // Button set up
             InfoActivityButton = FindViewById<Button>(Resource.Id.btn_begin);
             InfoActivityButton.Click += delegate
@@ -46,8 +44,7 @@ namespace AndroidSample
             };
             /***********************/
 
-            myModel.readExerciseJSON();
-            myModel.setupDatabase();
+            
         }
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

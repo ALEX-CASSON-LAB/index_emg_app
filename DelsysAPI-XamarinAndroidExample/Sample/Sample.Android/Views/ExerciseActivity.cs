@@ -83,7 +83,8 @@ namespace AndroidSample.Views
             };
             postButton.Click += (s, e) =>
             {
-                realtime = !realtime;
+                if (realtime == true)
+                    realtime = !realtime;
 
                 changeButtonColor();
             };
@@ -195,7 +196,10 @@ namespace AndroidSample.Views
             {
                 storeResult();
                 _myModel.recordCurrentSession();
-                StartActivity(typeof(DisplayStatsActivity));
+
+                Intent intent = new Intent(this, typeof(DisplayStatsActivity));
+                intent.PutExtra("session_id", _myModel.currentSession.Id.ToString());
+                StartActivity(intent);
             };
 
             allowStart();

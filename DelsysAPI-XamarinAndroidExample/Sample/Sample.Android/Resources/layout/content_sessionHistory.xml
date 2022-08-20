@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:paddingTop="?attr/actionBarSize"
+    android:background="@color/background"   
     android:layout_height="match_parent"
     android:gravity="center">
 
@@ -19,16 +20,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold" />
 
-    <ListView
-        android:minWidth="25px"
-        android:minHeight="200dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/view_stats_list"
-        android:layout_below="@+id/txv_title"
-        />
-
-    <Button
+        <Button
         android:id="@+id/btn_home"
         android:text="Home"        
         android:drawableLeft="@drawable/icon_home"
@@ -38,6 +30,17 @@
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/view_stats_list" />
+        android:layout_below="@id/txv_title" />
+
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_stats_list"
+        android:layout_below="@+id/btn_home"
+        />
+
+    
     
 </RelativeLayout>

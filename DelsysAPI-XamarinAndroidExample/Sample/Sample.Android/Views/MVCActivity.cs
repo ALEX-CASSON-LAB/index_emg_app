@@ -50,6 +50,11 @@ namespace AndroidSample
                 }                    
                 else
                     Console.WriteLine("DELSYS object not initialised"); // TODO add 
+
+                StartButton.SetBackgroundColor(Android.Graphics.Color.Green);
+                StartButton.Text = "Recording";
+                StartButton.SetCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+
                 StopButton.Visibility = ViewStates.Visible;
             };
 
@@ -63,10 +68,11 @@ namespace AndroidSample
                 //Calculate MVC
                 _myModel.UpdateMvcs(del.calculate_MVC());
                 
+
                 StartButton.Text = "Redo recording";
                 Drawable img = GetDrawable(Resource.Drawable.icon_restart);
                 StartButton.SetCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
-                
+                StartButton.SetBackgroundResource(Resource.Color.colorButton);
                 NextButton.Text = "Next";
                 allowStart();
             };

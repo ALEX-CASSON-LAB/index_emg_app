@@ -69,6 +69,12 @@ public class MainModel
         List<Session> allSessions = _database.GetItemsAsync().Result;
         return allSessions;
     }
+
+    public Session getSession(int id)
+    {
+        Session s = _database.GetSessionAsync(id).Result;
+        return s;
+    }
     #endregion
 
     #region Exercise methods
@@ -247,14 +253,14 @@ public class IndexDatabase
         return Database.QueryAsync<Session>("DELETE FROM [Sessions]");
     }
 
-    public Task<Session> GetItemAsync(int id)
+    public Task<Session> GetSessionAsync(int id)
     {
         return Database.Table<Session>().Where(i => i.Id == id).FirstOrDefaultAsync();
     }
 
     public Task<int> SaveItemAsync(Session item)
     {
-        Session s = GetItemAsync(item.Id).Result;
+        Session s = GetSessionAsync(item.Id).Result;
         if (s != null) //if item already exists
         {
             s.mvcs = item.mvcs;

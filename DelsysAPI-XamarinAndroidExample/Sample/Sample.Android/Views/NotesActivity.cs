@@ -4,6 +4,7 @@ using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 using System;
 using System.Collections.Generic;
@@ -34,11 +35,15 @@ namespace AndroidSample.Views
             HomeButton = FindViewById<Button>(Resource.Id.btn_end);
             HomeButton.Click += (s, e) =>
             {
+                _myModel.recordCurrentSession();
                 StartActivity(typeof(MainActivity));
             };
             AddButton = FindViewById<Button>(Resource.Id.btn_add);
             AddButton.Click += (s, e) =>
             {
+                InputMethodManager im = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                im.HideSoftInputFromWindow(Window.DecorView.WindowToken, Android.Views.InputMethods.HideSoftInputFlags.None);
+
                 _myModel.currentSession.notes = NotesText.Text;
                 Drawable img = GetDrawable(Resource.Drawable.icon_edit_note);
                 AddButton.SetCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
