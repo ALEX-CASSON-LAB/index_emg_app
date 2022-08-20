@@ -59,48 +59,21 @@ namespace AndroidSample.Views
                 StartActivity(typeof(MainActivity));
             };
 
-            //displayStats();
-
         }
-        //public void displayStats()
-        //{
-        //    Session displaySession = _myModel.getSessionStats();
-
-        //    string names = displaySession.exerciseIds;
-
-        //    string stats = displaySession.exerciseStats;
-
-        //    exerciseName.Text = names;
-        //    exerciseStats.Text = stats;
-        //}
+        
 
         private JavaList<Exercise> getExercises()
         {
+            List<int> exercisesDoneIds = _myModel.getExercisesDone();
+
             var exercises = new JavaList<Exercise>();
 
-            Exercise s;
-
-            s = new Exercise(); // TODO get from the current session
-            s.name = "Pelvic tilt";
-            s.reps = 5;
-            s.img_name = "icon_good_review";
-            // TODO calculate what the performance was
-            exercises.Add(s);
-
-            s = new Exercise(); // TODO get from the current session
-            s.name = "Stomach tone";
-            s.reps = 3;
-            s.img_name = "icon_ranking";
-            // TODO calculate what the performance was
-            exercises.Add(s);
-
-            s = new Exercise(); // TODO get from the current session
-            s.name = "Buttock tone";
-            s.reps = 5;
-            s.img_name = "icon_star_color";
-            // TODO calculate what the performance was
-            exercises.Add(s);
-
+            foreach ( int id in exercisesDoneIds)
+            {
+                Exercise ex = _myModel.GetExercise(id);
+                exercises.Add(ex);
+            }
+            
             return exercises;
         }
 

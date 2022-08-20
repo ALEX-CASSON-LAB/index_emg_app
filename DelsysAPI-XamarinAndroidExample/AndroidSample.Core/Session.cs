@@ -93,6 +93,7 @@ namespace AndroidSample.Core
         public string name { get; set; } //date of the session
         public int reps { get; set; } //how many reps
         public string img_name {get; set ; } //name of image for the exercise
+        public string vid_name {get; set ; } //name of video for the exercise
         public string description { get; set; } // description on how to do the exercise
 
         public Exercise()

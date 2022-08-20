@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:indeterminate="true"/>
 
-        <RelativeLayout
+   <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/customExerciseBorder"
@@ -45,22 +45,7 @@
         android:layout_margin="20dp"
         android:id="@+id/frame_howto">
 
-            <TextView
-        android:id="@+id/txv_subtitle"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lift the sensor from the charging dock
-        \nHold it on the charging icon at the front until it flashes orange and blue.\nDo the same with the other sensor. \n\nIf it stops flashing, re-dock and try again."
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        
-        android:layout_below="@id/txv_title"
-     />
-            </RelativeLayout>
-
-    
-    <android.support.v7.widget.CardView
+<android.support.v7.widget.CardView
         android:layout_width="400dp"
         android:layout_height="400dp"
         app:cardCornerRadius="10dp"
@@ -78,14 +63,24 @@
 
     </android.support.v7.widget.CardView>
 
-    <CheckBox
-        android:text="See your results in real-time?"
+            <TextView
+        android:id="@+id/txv_subtitle"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-            android:background="@drawable/custombuttonborder"
-        android:id="@+id/chkb_realtime" 
+        android:layout_height="wrap_content"
+        android:text="Lift the sensor from the charging dock
+        \nHold it on the charging icon at the front until it flashes orange and blue.\nDo the same with the other sensor. \n\nIf it stops flashing, re-dock and try again."
+        android:layout_margin="20px"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/card_sensor" />
+        
+        android:layout_below="@id/card_sensor"
+     />
+            </RelativeLayout>
+
+    
+    
+
+    
 
     <Button
         android:id="@+id/btn_scan"
@@ -95,7 +90,7 @@
         android:padding="10dp"
         android:background="@color/colorButton"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/chkb_realtime" 
+        android:layout_below="@id/frame_howto" 
         android:layout_gravity="bottom"
         android:drawableLeft="@drawable/icon_bluetooth_searching"/>
     <Button
@@ -106,7 +101,7 @@
         android:padding="10dp"
         android:background="@color/colorButton"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/chkb_realtime" 
+        android:layout_below="@id/txv_title" 
         android:layout_gravity="bottom"
         android:visibility="gone"
         android:drawableLeft="@drawable/icon_bluetooth_searching"/>
@@ -135,20 +130,34 @@
         android:textStyle="bold" />
 
     <!--Images-->
-    <FrameLayout
+    <RelativeLayout
         android:id="@+id/frame_image"
         android:layout_below="@id/txv_title"
-        android:layout_width="360dp"
-        android:layout_height="600dp"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:visibility="gone">
         
+        <Button
+        android:id="@+id/btn_img_or_vid"
+        android:text="Image instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:background="@color/colorButton"
+        android:layout_centerHorizontal="true" />
+
         <android.support.v7.widget.CardView
-            android:layout_width="360dp"
-            android:layout_height="600dp"
+            android:layout_width="400dp"
+            android:layout_height="400dp"
             app:cardCornerRadius="10dp"
-            android:layout_below="@id/txv_title"
+            android:id="@+id/card_images"
+            android:visibility="gone"
+            android:layout_below="@id/btn_img_or_vid"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center">
         <ImageView
@@ -156,7 +165,7 @@
             android:layout_height="match_parent"
             android:scaleType="centerInside"
             android:id="@+id/imageView"
-            android:contentDescription="image of person applying sensor to their back"
+            android:contentDescription=""
             android:src="@drawable/info_stick"
             android:layout_gravity="top|right"/>
             <Button
@@ -170,14 +179,27 @@
             android:layout_gravity="bottom|right" />
         </android.support.v7.widget.CardView>
 
+        <TextView
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"        
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="1. Wipe the area with an alcohol wipe"
+        android:id="@+id/txv_instruction"
+        android:visibility="gone"
+        android:layout_below="@id/card_images"
+            />
+
         <android.support.v7.widget.CardView
         android:layout_width="400dp"
         android:layout_height="400dp"
         app:cardCornerRadius="10dp"
-        android:layout_below="@id/txv_title"
+        android:layout_below="@id/btn_img_or_vid"
         android:layout_centerHorizontal="true"
         android:layout_margin="20px"
-        android:id="@+id/card_apply">
+        android:visibility="gone"
+        android:id="@+id/card_video">
 
         <VideoView
             android:layout_width="match_parent"
@@ -188,19 +210,7 @@
 
     </android.support.v7.widget.CardView>
 
-    </FrameLayout>
-    
-    <TextView
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"        
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="1. Wipe the area with an alcohol wipe"
-        android:id="@+id/txv_instruction"
-        android:visibility="gone"
-        android:layout_below="@id/frame_image"
-            />
+   </RelativeLayout>
 
     <Button
         android:id="@+id/btn_exercise"
@@ -214,7 +224,7 @@
         android:layout_centerHorizontal="true"
         android:visibility="gone"
         android:drawableRight="@drawable/icon_arrow_forward"
-        android:layout_below="@id/txv_instruction" />
+        android:layout_below="@id/frame_image" />
     <Button
         android:id="@+id/btn_mvc"
         android:text="FOR PHYSIOTHERAPIST USE \n\n MVC Recording"

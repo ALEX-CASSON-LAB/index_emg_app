@@ -12,6 +12,7 @@ using AndroidSample.Core;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Android.Support.V4.Content;
+using Android.Media;
 
 namespace AndroidSample.Views
 {
@@ -29,12 +30,21 @@ namespace AndroidSample.Views
         TextView ExerciseDescriptionText;
 
         ProgressBar DataProgBar;
+        ProgressBar DataProgBar2;
 
         BackgroundWorker startWorker;
         BackgroundWorker stopWorker;
         BackgroundWorker dataWorker;
 
         private MainModel _myModel;
+
+        private VideoView ExerciseVideo;
+        private string exercise_path;
+
+        Button realtimeButton;
+        Button postButton;
+        Button selectButton;
+        bool realtime;
 
         Delsys del;
 
@@ -59,6 +69,56 @@ namespace AndroidSample.Views
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_exercise);
 
+            //Realtime vs post exercise selection
+            realtimeButton = FindViewById<Button>(Resource.Id.btn_realtime);
+            postButton = FindViewById<Button>(Resource.Id.btn_post);
+            selectButton = FindViewById<Button>(Resource.Id.btn_select);
+
+
+            realtimeButton.Click += (s, e) =>
+            {
+                realtime = !realtime;
+
+                changeButtonColor();
+            };
+            postButton.Click += (s, e) =>
+            {
+                realtime = !realtime;
+
+                changeButtonColor();
+            };
+
+            selectButton.Click += (s, e) =>
+            {
+                if (realtime == true)
+                    _myModel.realTimeCollection = true;
+                FindViewById<RelativeLayout>(Resource.Id.layout_realtime).Visibility=ViewStates.Gone;
+                FindViewById<RelativeLayout>(Resource.Id.layout_exercise).Visibility=ViewStates.Visible;
+
+                if (_myModel.realTimeCollection == false)
+                    FindViewById<LinearLayout>(Resource.Id.layout_progress_bars).Visibility = ViewStates.Invisible;
+                else
+                {
+                    //TODO depending on how many chanels
+                    DataProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_data);
+                    DataProgBar2 = FindViewById<ProgressBar>(Resource.Id.progBar_data2);
+                    if (del.sensors.Count == 2)
+                        DataProgBar2.Visibility = ViewStates.Visible;
+                }
+
+                if (_myModel.realTimeCollection == true)
+                {
+                    del.MuscleActive += (object sender, Delsys.MuscleActiveEventArgs e)
+                            => {
+                                double[] d = e.MuscleData[0];
+                                DataText.Text = d.Last().ToString(); //todo display properly
+
+                            DataProgBar.SetProgress(Math.Min((int)d.Last(), 100), false);
+                            };
+                }
+            };
+
+
             int image_id = Int32.Parse(Intent.GetStringExtra("image_id"));
             int exercise_id = Int32.Parse(Intent.GetStringExtra("exercise_id")); //theres a tryparse for it if it fails
             // make exercise by id TODO using database info
@@ -69,25 +129,29 @@ namespace AndroidSample.Views
 
             // Set description of exercise
             ExerciseDescriptionText = FindViewById<TextView>(Resource.Id.txv_description);
-            ExerciseDescriptionText.Text = _currentExercise.description; //todo process to look prettier
+            ExerciseDescriptionText.Text = _currentExercise.description;
 
             DataText = FindViewById<TextView>(Resource.Id.txv_data);
 
             //set up image 
             ExerciseImage = FindViewById<ImageView>(Resource.Id.im_exercise1);
             ExerciseImage.SetImageResource(image_id);
+            ExerciseVideo = FindViewById<VideoView>(Resource.Id.video_exercise);
 
-            //todo understand and maybe fix idk
-            //RelativeLayout lay = FindViewById<RelativeLayout>(Resource.Id.exercise_layout);
-            //var w = lay.LayoutParameters.Width;
-            ////var h = lay.LayoutParameters.Height;
-            //var h = ExerciseImage.LayoutParameters.Width;
+            MediaController mController = new Android.Widget.MediaController(this);
+            mController.SetAnchorView(ExerciseVideo);
 
-            //ExerciseImage.LayoutParameters.Width = w/4;
-            //ExerciseImage.LayoutParameters.Height = h;
+            var videoId = (int)Resources.GetIdentifier("vid_one_leg_stand", null, PackageName);
+            exercise_path = string.Format("android.resource://{0}/{1}", PackageName, Resource.Raw.vid_one_leg_stand);
+            //exercise_path = string.Format("android.resource://{0}/{1}", PackageName, videoId);
 
+            ExerciseVideo.SetVideoPath(exercise_path); // Path of your saved video file.
+            ExerciseVideo.SetMediaController(mController);
+            ExerciseVideo.Start();
+            ExerciseVideo.SetOnPreparedListener(new VideoLoop());
 
-            DataProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_data);
+           
+            
 
             //set up buttons
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
@@ -136,23 +200,25 @@ namespace AndroidSample.Views
 
             if (del != null)
                 del.ClearData();// clear the previous data to get only this exercises data
-            //TODO do this when you finish a set?
-
-            if (_myModel.realTimeCollection == true)
-            {
-                del.MuscleActive += (object sender, Delsys.MuscleActiveEventArgs e)
-                        => {
-                            double[] d = e.MuscleData[0];
-                            DataText.Text = d.Last().ToString(); //todo display properly
-                            
-                            DataProgBar.SetProgress(Math.Min((int) d.Last(), 100), false);
-                            };
-            }
-
-            
 
             del.CollectionStopped += DelStopCollection;
         }
+
+        private void changeButtonColor()
+        {
+            if (realtime == true)
+            {
+                realtimeButton.SetBackgroundColor(Android.Graphics.Color.Gray);
+                postButton.SetBackgroundColor(Android.Graphics.Color.White);
+            }
+            else
+            {
+                realtimeButton.SetBackgroundColor(Android.Graphics.Color.White);
+                postButton.SetBackgroundColor(Android.Graphics.Color.Gray);
+            }
+            selectButton.Enabled = true;
+        }
+
         public async void allowStart()
         {
             await Task.Delay(5000); // Wait 5 seconds before enabling button - this is necessary to ensure that the sensors are ready
@@ -217,6 +283,13 @@ namespace AndroidSample.Views
             //DISPLAY ERROR ON PAGE AS PLS WAIT
 
 
+        }
+        public class VideoLoop : Java.Lang.Object, MediaPlayer.IOnPreparedListener
+        {
+            public void OnPrepared(MediaPlayer mp)
+            {
+                mp.Looping = true;
+            }
         }
     }
 }

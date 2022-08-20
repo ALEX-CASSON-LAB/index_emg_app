@@ -29,10 +29,10 @@ namespace AndroidSample
         private Button MVCButton;
 
         private Button NextImageButton;
+        private Button ImageVideoButton;
         private TextView SensorsText;
-        private FrameLayout imageFrame;
+        private RelativeLayout imageFrame;
         private TextView instrucText;
-        private CheckBox realtimeCheckBox;
 
         private ProgressBar searchProgBar;
 
@@ -60,8 +60,6 @@ namespace AndroidSample
             // View set up
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_info);
-            //Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            //SetSupportActionBar(toolbar);
 
             // Check bluetooth is enabled
             BluetoothAdapter bluetoothAdapter = BluetoothAdapter.DefaultAdapter;
@@ -69,7 +67,7 @@ namespace AndroidSample
                 bluetoothAdapter.Enable();
 
             // UI set up
-            imageFrame = FindViewById<FrameLayout>(Resource.Id.frame_image);
+            imageFrame = FindViewById<RelativeLayout>(Resource.Id.frame_image);
             TitleText = FindViewById<TextView>(Resource.Id.txv_title);
             MVCButton = FindViewById<Button>(Resource.Id.btn_mvc);
             ExerciseButton = FindViewById<Button>(Resource.Id.btn_exercise);
@@ -77,6 +75,7 @@ namespace AndroidSample
             ArmButton = FindViewById<Button>(Resource.Id.btn_arm);
             searchProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_search);
             ScanButton = FindViewById<Button>(Resource.Id.btn_scan);
+            ImageVideoButton = FindViewById<Button>(Resource.Id.btn_img_or_vid);
 
             // Video setup
             SetupVideo = FindViewById<VideoView>(Resource.Id.video_sensor);
@@ -86,8 +85,8 @@ namespace AndroidSample
 
             mController.SetAnchorView(SetupVideo);
 
-            setup_path = string.Format("android.resource://{0}/{1}", PackageName, Resource.Raw.avideo);
-            apply_path = string.Format("android.resource://{0}/{1}", PackageName, Resource.Raw.avideo);
+            setup_path = string.Format("android.resource://{0}/{1}", PackageName, Resource.Raw.vid_connect);
+            apply_path = string.Format("android.resource://{0}/{1}", PackageName, Resource.Raw.vid_apply);
             
             SetupVideo.SetVideoPath(setup_path); // Path of your saved video file.
             SetupVideo.SetMediaController(mController);
@@ -105,7 +104,6 @@ namespace AndroidSample
                     FindViewById<RelativeLayout>(Resource.Id.frame_howto).Visibility = ViewStates.Gone;
                     TitleText.Text = Resources.GetString(Resource.String.scan_txt);
                     ScanButton.Visibility = ViewStates.Gone;
-                    realtimeCheckBox.Visibility = ViewStates.Gone;
                     searchProgBar.Visibility = ViewStates.Visible; 
                 });
                 
@@ -170,7 +168,12 @@ namespace AndroidSample
                 del.SensorArm();
 
                 ArmButton.Visibility = ViewStates.Gone;
-                showInstructions();
+                ImageVideoButton.Visibility = ViewStates.Visible;
+                imageFrame.Visibility = ViewStates.Visible;
+                
+                showApplyVideo();
+
+                TitleText.Text = "Follow these instructions";
             };
 
             NextImageButton = FindViewById<Button>(Resource.Id.btn_next);
@@ -180,16 +183,6 @@ namespace AndroidSample
                 
             };
 
-            realtimeCheckBox = FindViewById<CheckBox>(Resource.Id.chkb_realtime);
-            realtimeCheckBox.Click += (s, e) =>
-            {
-                if (realtimeCheckBox.Checked)
-                    _model.realTimeCollection = true;
-                else
-                    _model.realTimeCollection = false;
-            };
-
-            
             MVCButton.Click += (s, e) =>
             {
                 StartActivity(typeof(MVCActivity));
@@ -199,6 +192,29 @@ namespace AndroidSample
             ExerciseButton.Click += (s, e) =>
             {
                 StartActivity(typeof(ExerciseSelectionActivity));
+            };
+
+            ImageVideoButton.Click += (s, e) =>
+            {
+                if (FindViewById<CardView>(Resource.Id.card_video).Visibility == ViewStates.Visible)
+                {
+                    FindViewById<CardView>(Resource.Id.card_video).Visibility = ViewStates.Invisible;
+                    counter = 0;
+                    ApplyVideo.StopPlayback();
+                    ExerciseButton.Visibility = ViewStates.Invisible;
+                    MVCButton.Visibility = ViewStates.Invisible;
+                    FindViewById<CardView>(Resource.Id.card_images).Visibility = ViewStates.Visible;
+                    showInstructions();
+                    ImageVideoButton.Text = "Video Instructions";
+                }
+                else
+                {
+                    FindViewById<CardView>(Resource.Id.card_images).Visibility = ViewStates.Invisible;
+                    instrucText.Visibility = ViewStates.Invisible;
+                    FindViewById<CardView>(Resource.Id.card_video).Visibility = ViewStates.Visible;
+                    showApplyVideo();
+                    ImageVideoButton.Text = "Image Instructions";
+                }
             };
 
             //TODO get rid later
@@ -229,29 +245,34 @@ namespace AndroidSample
 
         public void showInstructions()
         {
-            
-            imageFrame.Visibility = ViewStates.Visible;
-            TitleText.Text = "Follow these instructions";
             instrucText = FindViewById<TextView>(Resource.Id.txv_instruction);
             instrucText.Visibility = ViewStates.Visible;
             getImageLocations();
             updateInstruction();
+        }
+
+        public void showApplyVideo()
+        {
+            FindViewById<CardView>(Resource.Id.card_video).Visibility = ViewStates.Visible;
 
             MediaController mController = new Android.Widget.MediaController(this);
 
             mController.SetAnchorView(ApplyVideo);
 
-            ApplyVideo.SetVideoPath(setup_path); // Path of your saved video file.
+            ApplyVideo.SetVideoPath(apply_path); // Path of your saved video file.
             ApplyVideo.SetMediaController(mController);
             ApplyVideo.Start();
             ApplyVideo.SetOnPreparedListener(new VideoLoop());
+
+            ExerciseButton.Visibility = ViewStates.Visible;
+            MVCButton.Visibility = ViewStates.Visible;
         }
 
         public string[] imageNames =  {"info_wipe","info_stick","info_peel","info_apply"};
         public string[] imageDescriptions = { "1. Wipe the area with an alcohol wipe and let dry", "2. Add a sticker to each sensor", "3. Peel the backing off the stickers", "4. Apply firmly to the skin" };
         public int[] imageIds;
         public int counter = 0;
-        private void getImageLocations() //todo move this to model
+        private void getImageLocations()
         {
             imageIds = new int[imageNames.Length];
             for (int i = 0; i < imageNames.Length; i++)
@@ -266,6 +287,8 @@ namespace AndroidSample
         {
             ImageView image = FindViewById<ImageView>(Resource.Id.imageView);
             TextView description = FindViewById<TextView>(Resource.Id.txv_instruction);
+
+            NextImageButton.Visibility = ViewStates.Visible;
             if (counter == imageIds.Length - 1)
             {
                 NextImageButton.Visibility = ViewStates.Gone;
@@ -278,7 +301,6 @@ namespace AndroidSample
                 image.SetImageResource(imageIds[counter]);
                 description.Text = imageDescriptions[counter];
                 counter++;
-                //todo add imagedescription for each one?
             }
         }
 

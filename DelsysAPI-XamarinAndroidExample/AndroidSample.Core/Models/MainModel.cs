@@ -209,20 +209,6 @@ public class MainModel
         del.mvcs = newMvcs.ToArray();
         _database.SaveItemAsync(currentSession);
     }
-
-    public double[] mvcNormalise(double[] data)
-    {
-        double[] mvcs = currentSession.getMvcs();
-        double[] normData = new double[data.Length];
-
-        for (int i = 0; i < data.Length; i++)
-        {
-            normData[i] = Math.Truncate((data[i] / mvcs[i]) * 100);
-
-            Console.WriteLine(data[i].ToString() + " /  " + mvcs[i].ToString() + "*100 = " + normData[i].ToString());
-        }
-        return normData;
-    }
     #endregion
 }
 
