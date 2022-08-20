@@ -212,10 +212,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Views\CustomGridViewAdapter.cs" />
+    <Compile Include="Views\SessionListAdapter.cs" />
     <Compile Include="Views\CustomListAdapter.cs" />
     <Compile Include="Views\DisplayStatsActivity.cs" />
     <Compile Include="Views\ExerciseActivity.cs" />
     <Compile Include="Views\ExerciseSelectionActivity.cs" />
+    <Compile Include="Views\SessionHistoryActivity.cs" />
     <Compile Include="Views\SettingsActivity.cs" />
     <Compile Include="Views\MainActivity.cs" />
     <Compile Include="Views\MVCActivity.cs" />
@@ -583,6 +585,24 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\raw\vid_arm_raise.mp4" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_sessionHistory.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\content_sessionHistory.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\session_item.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

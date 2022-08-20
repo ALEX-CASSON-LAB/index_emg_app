@@ -42,13 +42,12 @@ namespace AndroidSample
             Button shortcutButton = FindViewById<Button>(Resource.Id.btn_data);
             shortcutButton.Click += delegate
             {
-                StartActivity(typeof(Views.ExerciseSelectionActivity));
+                StartActivity(typeof(Views.SessionHistoryActivity));
             };
             /***********************/
 
             myModel.readExerciseJSON();
             myModel.setupDatabase();
-
         }
         public override bool OnCreateOptionsMenu(IMenu menu)
         {

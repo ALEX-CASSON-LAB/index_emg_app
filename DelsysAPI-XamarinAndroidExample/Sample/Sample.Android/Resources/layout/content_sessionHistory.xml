@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingTop="?attr/actionBarSize"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/txv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Session History"
+        android:layout_margin="20px"
+        android:paddingTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:paddingBottom="20px"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
+
+    <ListView
+        android:minWidth="25px"
+        android:minHeight="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view_stats_list"
+        android:layout_below="@+id/txv_title"
+        />
+
+    <Button
+        android:id="@+id/btn_home"
+        android:text="Home"        
+        android:drawableLeft="@drawable/icon_home"
+        android:layout_width="200dp"
+         android:padding="10dp"
+        android:background="@color/colorButton"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/view_stats_list" />
+    
+</RelativeLayout>

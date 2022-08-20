@@ -44,6 +44,7 @@ public class MainModel
     public async void setupDatabase()
     {
         _database = await IndexDatabase.Instance;
+        //await _database.ClearSessionTableAsync();
     }
 
     #region Session methods
@@ -188,17 +189,22 @@ public class MainModel
         List<double> prevMvcs = new List<double>();
 
         List<Session> allPrevSession = _database.GetItemsAsync().Result; // get last one
-        Session prevSession = allPrevSession.Last();
+        if (allPrevSession.Count != 0)
+        {
+            Session prevSession = allPrevSession.Last();
 
-        if (prevSession.mvcs != null)
-        {
-            currentSession.mvcs = prevSession.mvcs;
-            del.mvcs = currentSession.getMvcs().ToArray();
+            if (prevSession.mvcs != null)
+            {
+                currentSession.mvcs = prevSession.mvcs;
+                del.mvcs = currentSession.getMvcs().ToArray();
+            }
+            
         }
-        else
-        {
-            // TODO set up case for first time using? force mvc collection
-        }
+        //First session
+        currentSession.mvcs = "1,1"; //default to 1
+        del.mvcs = currentSession.getMvcs().ToArray();
+        //TODO add a force to record MVC collection before exercising
+
     }
     /// <summary>
     /// Update the mvc values to the ones collected in this session
@@ -235,10 +241,10 @@ public class IndexDatabase
         return Database.Table<Session>().ToListAsync();
     }
 
-    public Task<List<Session>> GetItemsNotDoneAsync() //todo get rid of
+    public Task<List<Session>> ClearSessionTableAsync() //todo get rid of
     {
         // SQL queries are also possible
-        return Database.QueryAsync<Session>("SELECT * FROM [Session] WHERE [Done] = 0");
+        return Database.QueryAsync<Session>("DELETE FROM [Sessions]");
     }
 
     public Task<Session> GetItemAsync(int id)

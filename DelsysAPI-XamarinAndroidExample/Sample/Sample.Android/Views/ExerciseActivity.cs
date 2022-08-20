@@ -92,6 +92,8 @@ namespace AndroidSample.Views
             {
                 if (realtime == true)
                     _myModel.realTimeCollection = true;
+                else
+                    _myModel.realTimeCollection = false;
                 FindViewById<RelativeLayout>(Resource.Id.layout_realtime).Visibility=ViewStates.Gone;
                 FindViewById<RelativeLayout>(Resource.Id.layout_exercise).Visibility=ViewStates.Visible;
 

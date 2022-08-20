@@ -30,34 +30,25 @@ namespace AndroidSample.Views
             this.exercises = exercises;
         }
 
-        /*
-         * RETURN SPACECRAFT
-         */
         public override Object GetItem(int position)
         {
             return exercises.Get(position);
         }
 
-        /*
-         * SPACECRAFT ID
-         */
+
         public override long GetItemId(int position)
         {
             return position;
         }
 
-        /*
-         * RETURN INFLATED VIEW
-         */
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            //INITIALIZE INFLATER
+   
             if (inflater == null)
             {
                 inflater = (LayoutInflater)c.GetSystemService(Context.LayoutInflaterService);
             }
 
-            //INFLATE OUR MODEL LAYOUT
             if (convertView == null)
             {
                 convertView = inflater.Inflate(Resource.Layout.stats_item, parent, false);
@@ -74,10 +65,6 @@ namespace AndroidSample.Views
 
             return convertView;
         }
-
-        /*
-         * TOTAL NUM OF SPACECRAFTS
-         */
         public override int Count
         {
             get { return exercises.Size(); }

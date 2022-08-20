@@ -18,8 +18,7 @@ namespace AndroidSample.Views
         private MainModel _myModel;
 
         //UI items
-        TextView exerciseName;
-        TextView exerciseStats;
+
         Button NotesButton;
         Button HomeButton;
 
