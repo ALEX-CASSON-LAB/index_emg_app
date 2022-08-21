@@ -374,31 +374,6 @@ namespace AndroidSample.Core
 
         }
 
-        //public double[][] postProcess(double[][] data)
-        //{
-        //    for (int channel = 0; channel < tData.Length; channel++)
-        //    {
-        //        data[channel] = new double[tData[channel].Data.Count]; //make an array inside the data [channel] that is of size of data count
-        //        for (int sample = 0; sample < tData[channel].Data.Count; sample++)
-        //        {
-        //            data[channel][sample] = tData[channel].Data[sample];
-        //        }
-        //    }
-
-        //    var processedData = Process(data);
-
-        //    double[][] pData = new double[processedData.Length][];
-        //    for (int i = 0; i < processedData.Length; i++)
-        //        foreach (var sig in processedData)
-        //        {
-        //            pData[i] = sig.AveragedSample;
-        //        }
-
-        //    double[][] normData = mvcNormalise(pData);
-
-        //    OnMuscleActive(normData);
-        //}
-
         //myown
         public double[][] mvcNormalise(double[][] data)
         {
@@ -566,44 +541,7 @@ namespace AndroidSample.Core
 
             return signals;
         }
-    //private void Train(double[][] rawData)
-    //{
-    //    int count = Math.Min(1, rawData.Length); //this shouldnt be hard coded to one, temp solution
 
-    //    for (int channel = 0; channel < count; channel++)
-    //    {
-    //        double[] filtered = _bandPassFilters[channel].filterData(rawData[channel]);
-
-    //        for (int i = 0; i < rawData[channel].Length; i++)
-    //        {
-    //            double value = FullWaveRectification(filtered[i])[0];
-
-
-    //            if (_baselineDataCounters[channel] < _baselineThrowOut)
-    //            {
-    //                //throw these first few away
-    //            }
-    //            else if (_baselineDataCounters[channel] < _baselineDataLength + _baselineThrowOut)
-    //            {
-    //                _baselineData[channel].Add(value);
-    //            }
-    //            else if (_baselineDataCounters[channel] == _baselineDataLength + _baselineThrowOut)
-    //            {
-    //                _baselineMean[channel] = Mean(_baselineData[channel]);
-    //                _baselineStdev[channel] = StandardDeviation(_baselineData[channel], _baselineMean[channel]);
-
-    //                OnCalibrationChanged(CalibrationResults.Finished);
-    //                _calibrationState = CalibrationState.Calibrated;
-    //            }
-    //            else
-    //            {
-    //                break;
-    //            }
-
-    //            _baselineDataCounters[channel]++;
-    //        }
-    //    }
-    //}
     private void CollectionStarted(object sender, DelsysAPI.Events.CollectionStartedEvent e)
         {
             var comps = PipelineController.Instance.PipelineIds[0].TrignoBtManager.Components;

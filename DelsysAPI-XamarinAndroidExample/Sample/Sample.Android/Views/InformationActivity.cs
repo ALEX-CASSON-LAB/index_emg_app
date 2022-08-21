@@ -29,6 +29,7 @@ namespace AndroidSample
         private Button MVCButton;
 
         private Button NextImageButton;
+        private Button BackImageButton;
         private Button ImageVideoButton;
         private TextView SensorsText;
         private RelativeLayout imageFrame;
@@ -181,6 +182,14 @@ namespace AndroidSample
             {
                updateInstruction();
                 
+            };
+
+            BackImageButton = FindViewById<Button>(Resource.Id.btn_back);
+            BackImageButton.Click += (s, e) =>
+            {
+                counter= Math.Max(0,counter -2);
+                updateInstruction();
+
             };
 
             MVCButton.Click += (s, e) =>

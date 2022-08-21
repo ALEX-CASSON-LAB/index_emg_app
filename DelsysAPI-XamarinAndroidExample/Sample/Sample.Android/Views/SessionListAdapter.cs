@@ -62,13 +62,9 @@ namespace AndroidSample.Views
             holder.NotesTxt.Text = sessions[position].notes;
 
             JavaList<Exercise> exercises = getExercises(sessions[position]);
-            //if (exercises != null)
-            //    holder.ExerciseList.Adapter = new CustomListAdapter(this.c,exercises);
             if(exercises != null)
                 holder.ExerTxt.Text = exercises.Count + " Completed";
            
-                
-            //TODO lead button to display of all data
             holder.MoreButton.Click += (s, o) => {
                 Intent intent = new Intent(this.c, typeof(DisplayStatsActivity));
                 intent.PutExtra("session_id", sessions[position].Id.ToString());
@@ -108,12 +104,10 @@ namespace AndroidSample.Views
 
     class SessionAdapterViewHolder : Java.Lang.Object
     {
-        //adapter views to re-use
         public TextView DateTxt;
         public TextView NotesTxt;
         public TextView ExerTxt;
         public Button MoreButton;
-        //public ListView ExerciseList;
 
         public SessionAdapterViewHolder(View itemView)
         {
@@ -121,8 +115,6 @@ namespace AndroidSample.Views
             NotesTxt = itemView.FindViewById<TextView>(Resource.Id.txv_note);
             ExerTxt = itemView.FindViewById<TextView>(Resource.Id.txv_exer);
             MoreButton = itemView.FindViewById<Button>(Resource.Id.btn_more);
-            //ExerciseList = itemView.FindViewById<ListView>(Resource.Id.view_stats_list);
-
         }
     }
 

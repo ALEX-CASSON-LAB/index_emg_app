@@ -127,8 +127,8 @@
     <RelativeLayout
         android:id="@+id/frame_image"
         android:layout_below="@id/txv_title"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_centerHorizontal="true"
         android:visibility="gone">
@@ -146,12 +146,12 @@
         android:layout_centerHorizontal="true" />
 
         <android.support.v7.widget.CardView
-            android:layout_width="400dp"
-            android:layout_height="400dp"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
             app:cardCornerRadius="10dp"
             android:id="@+id/card_images"
             android:visibility="gone"
-            android:layout_below="@id/btn_img_or_vid"
+            android:layout_below="@id/txv_help"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center">
         <ImageView
@@ -171,10 +171,19 @@
             android:drawableRight="@drawable/icon_arrow_forward"
             android:id="@+id/btn_next"
             android:layout_gravity="bottom|right" />
+                 <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Back"
+            android:padding="10dp"
+            android:background="@color/colorButton"
+            android:drawableRight="@drawable/icon_arrow_backward"
+            android:id="@+id/btn_back"
+            android:layout_gravity="bottom|left" />
         </android.support.v7.widget.CardView>
 
         <TextView
-        android:layout_width="360dp"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:padding="10dp"        
@@ -186,10 +195,10 @@
             />
 
         <android.support.v7.widget.CardView
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         app:cardCornerRadius="10dp"
-        android:layout_below="@id/btn_img_or_vid"
+        android:layout_below="@id/txv_help"
         android:layout_centerHorizontal="true"
         android:layout_margin="20px"
         android:visibility="gone"
@@ -203,7 +212,15 @@
             android:id="@+id/video_apply" />
 
     </android.support.v7.widget.CardView>
-
+            <TextView
+        android:id="@+id/txv_help"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="It is okay to ask for help from a second person if needed. \nApply sensors to the locations recommended by your physiotherapist."
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btn_img_or_vid" />
    </RelativeLayout>
 
     <Button

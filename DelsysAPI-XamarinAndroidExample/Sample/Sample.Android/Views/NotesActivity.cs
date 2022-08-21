@@ -36,6 +36,7 @@ namespace AndroidSample.Views
             HomeButton.Click += (s, e) =>
             {
                 _myModel.recordCurrentSession();
+                _myModel.endSession();
                 StartActivity(typeof(MainActivity));
             };
             AddButton = FindViewById<Button>(Resource.Id.btn_add);

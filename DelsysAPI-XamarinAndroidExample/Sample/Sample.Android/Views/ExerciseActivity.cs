@@ -48,7 +48,6 @@ namespace AndroidSample.Views
 
         Delsys del;
 
-        private List<Exercise> _exerciseList; //holds all the exercises available in the exercise database
         private Exercise _currentExercise;
         List<List<double>> exerciseData = new List<List<double>>();
 
@@ -56,7 +55,6 @@ namespace AndroidSample.Views
         {
             _myModel = MainModel.Instance;
             del = _myModel.del;
-            _exerciseList = _myModel.availableExercises; //TODO do something with this, also cant be used whilst not adding exercises properly
         }
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -114,7 +112,7 @@ namespace AndroidSample.Views
                     del.MuscleActive += (object sender, Delsys.MuscleActiveEventArgs e)
                             => {
                                 double[] d = e.MuscleData[0];
-                                DataText.Text = d.Last().ToString(); //todo display properly
+                                DataText.Text = d.Last().ToString() + " %"; //todo display properly
 
                             DataProgBar.SetProgress(Math.Min((int)d.Last(), 100), false);
                             };
@@ -123,8 +121,8 @@ namespace AndroidSample.Views
 
 
             int image_id = Int32.Parse(Intent.GetStringExtra("image_id"));
-            int exercise_id = Int32.Parse(Intent.GetStringExtra("exercise_id")); //theres a tryparse for it if it fails
-            // make exercise by id TODO using database info
+            int exercise_id = Int32.Parse(Intent.GetStringExtra("exercise_id"));
+            
             _currentExercise = _myModel.GetExercise(exercise_id);
 
             TitleText = FindViewById<TextView>(Resource.Id.txv_title);
@@ -144,8 +142,8 @@ namespace AndroidSample.Views
             MediaController mController = new Android.Widget.MediaController(this);
             mController.SetAnchorView(ExerciseVideo);
 
-            var videoId = (int)Resources.GetIdentifier("vid_one_leg_stand", null, PackageName);
-            exercise_path = string.Format("android.resource://{0}/{1}", PackageName, Resource.Raw.vid_one_leg_stand);
+            var videoId = (int)Resources.GetIdentifier(_currentExercise.vid_name,"raw", PackageName);
+            exercise_path = string.Format("android.resource://{0}/{1}", PackageName, videoId);
             //exercise_path = string.Format("android.resource://{0}/{1}", PackageName, videoId);
 
             ExerciseVideo.SetVideoPath(exercise_path); // Path of your saved video file.
@@ -154,8 +152,6 @@ namespace AndroidSample.Views
             ExerciseVideo.SetOnPreparedListener(new VideoLoop());
 
            
-            
-
             //set up buttons
             StartButton = FindViewById<Button>(Resource.Id.btn_start);
             StartButton.Click += (s, e) =>
@@ -251,7 +247,7 @@ namespace AndroidSample.Views
         {
             stopWorker.RunWorkerAsync();
             StartButton.Enabled = true;
-            StartButton.SetBackgroundResource(Resource.Drawable.customButtonBorder);
+            StartButton.SetBackgroundResource(Resource.Color.colorButton);
             StartButton.Text = "Start Recording";
             var draw = ContextCompat.GetDrawable(this, Resource.Drawable.icon_play_arrow);
             StartButton.SetCompoundDrawablesWithIntrinsicBounds(draw, null, null, null);
@@ -274,7 +270,6 @@ namespace AndroidSample.Views
             Task.Delay(3000).Wait();
             Console.WriteLine("CC: Count of data - " + e.DataCount.ToString());
 
-            //todo check how many count and automatically restart
             if (e.DataCount < 10)
             {
                 Console.WriteLine("ERROR: Start didnt work. Try again");
@@ -285,9 +280,7 @@ namespace AndroidSample.Views
             {
                 stopCollection();
             }
-
-            //DISPLAY ERROR ON PAGE AS PLS WAIT
-
+            //TODO DISPLAY ERROR ON PAGE AS PLS WAIT
 
         }
         public class VideoLoop : Java.Lang.Object, MediaPlayer.IOnPreparedListener
@@ -295,6 +288,7 @@ namespace AndroidSample.Views
             public void OnPrepared(MediaPlayer mp)
             {
                 mp.Looping = true;
+                mp.SetVolume(0f, 0f);
             }
         }
     }

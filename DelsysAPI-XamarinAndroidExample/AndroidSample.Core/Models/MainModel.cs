@@ -75,6 +75,11 @@ public class MainModel
         Session s = _database.GetSessionAsync(id).Result;
         return s;
     }
+
+    public void endSession()
+    {
+        del.PipelineDisarm();
+    }
     #endregion
 
     #region Exercise methods
