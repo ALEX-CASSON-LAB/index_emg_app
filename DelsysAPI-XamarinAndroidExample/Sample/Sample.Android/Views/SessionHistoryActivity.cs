@@ -50,7 +50,7 @@ namespace AndroidSample.Views
         }
         private JavaList<Session> getAllSessions()
         {
-            List<Session> allSessions = _myModel.getAllSessions();
+            List<Session> allSessions = _myModel.GetAllSessions();
             allSessions.Reverse();// In order to have the most recent session first
 
             var sessions = new JavaList<Session>();

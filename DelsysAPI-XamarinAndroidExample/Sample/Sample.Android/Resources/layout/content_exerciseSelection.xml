@@ -12,14 +12,14 @@
     android:background="@drawable/customExerciseBorder">
 
     <FrameLayout
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
         android:gravity="center"
         android:layout_centerHorizontal="true"
         >
         <ImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:scaleType="centerInside"
             android:id="@+id/imageView"
             android:contentDescription="description"
@@ -27,8 +27,8 @@
             android:layout_gravity="top|right"
             android:layout_centerHorizontal="true"/>
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:contentDescription="done or not done icon"
             android:src="@drawable/icon_check"
             android:visibility="invisible"
@@ -40,7 +40,7 @@
         
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="match_parent"
-        android:layout_height="44sp"
+        android:layout_height="40sp"
         android:id="@+id/textView"
         android:layout_centerHorizontal="true"
         android:gravity="center"

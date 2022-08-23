@@ -5,47 +5,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"   
+    android:background="@color/background"
     >
-<RelativeLayout 
-    
-    android:paddingTop="?attr/actionBarSize"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
+    <RelativeLayout
+        android:paddingTop="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:background="@drawable/third_background">
 
-    <TextView
-        android:id="@+id/txv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Connect your sensors"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:textStyle="bold" 
+        <TextView
+            android:id="@+id/txv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect your sensors"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="20px"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold" 
      />
-    
-    <ProgressBar
-        android:id="@+id/progBar_search"
-        style="@android:style/Widget.Material.ProgressBar.Large"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:progress="100"
-        android:visibility="gone"
-        android:layout_below="@id/txv_title"
-        android:layout_centerHorizontal="true"
-        android:indeterminate="true"/>
 
-   <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/customExerciseBorder"
-        android:layout_below="@id/txv_title"
-        android:layout_margin="20dp"
-        android:id="@+id/frame_howto">
+        <ProgressBar
+            android:id="@+id/progBar_search"
+            style="@android:style/Widget.Material.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:progress="100"
+            android:visibility="gone"
+            android:layout_below="@id/txv_title"
+            android:layout_centerHorizontal="true"
+            android:indeterminate="true"/>
 
-           <android.support.v7.widget.CardView
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/customExerciseBorder"
+            android:layout_below="@id/txv_title"
+            android:layout_margin="20dp"
+            android:id="@+id/frame_howto">
+
+            <android.support.v7.widget.CardView
                 android:layout_width="350dp"
                 android:layout_height="350dp"
                 android:layout_below="@id/frame_howto"
@@ -60,9 +59,9 @@
                     android:minHeight="25px"
                     android:id="@+id/video_sensor" />
 
-           </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
-           <TextView
+            <TextView
                 android:id="@+id/txv_subtitle"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
@@ -73,182 +72,182 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/card_sensor"
            />
-   </RelativeLayout>
+        </RelativeLayout>
 
 
-    <Button
-        android:id="@+id/btn_scan"
-        android:text="Search for sensors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/colorButton"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/frame_howto" 
-        android:layout_gravity="bottom"
-        android:drawableLeft="@drawable/icon_bluetooth_searching"/>
-    <Button
-        android:id="@+id/btn_rescan"
-        android:text="Search again for sensors"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/colorButton"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/txv_title" 
-        android:layout_gravity="bottom"
-        android:visibility="gone"
-        android:drawableLeft="@drawable/icon_bluetooth_searching"/>
-
-    <Button
-        android:id="@+id/btn_arm"
-        android:text="Connect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px" 
-        android:padding="10dp"
-        android:background="@color/colorButton"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        android:layout_below="@id/txv_sensors" />
-
-    <TextView
-        android:id="@+id/txv_sensors"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        android:layout_below="@id/progBar_search"
-        android:textStyle="bold" />
-
-    <!--Images-->
-    <RelativeLayout
-        android:id="@+id/frame_image"
-        android:layout_below="@id/txv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone">
-        
         <Button
-        android:id="@+id/btn_img_or_vid"
-        android:text="Image instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:padding="10dp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:background="@color/colorButton"
-        android:layout_centerHorizontal="true" />
-
-        <android.support.v7.widget.CardView
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            app:cardCornerRadius="10dp"
-            android:id="@+id/card_images"
-            android:visibility="gone"
-            android:layout_below="@id/txv_help"
+            android:id="@+id/btn_scan"
+            android:text="Search for sensors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="@color/colorButton"
             android:layout_centerHorizontal="true"
-            android:layout_gravity="center">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerInside"
-            android:id="@+id/imageView"
-            android:contentDescription=""
-            android:src="@drawable/info_stick"
-            android:layout_gravity="top|right"/>
-            <Button
+            android:layout_below="@id/frame_howto"
+            android:layout_gravity="bottom"
+            android:drawableLeft="@drawable/icon_bluetooth_searching"/>
+        <Button
+            android:id="@+id/btn_rescan"
+            android:text="Search again for sensors"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="Next"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:background="@color/colorButton"
-            android:drawableRight="@drawable/icon_arrow_forward"
-            android:id="@+id/btn_next"
-            android:layout_gravity="bottom|right" />
-                 <Button
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/txv_title"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            android:drawableLeft="@drawable/icon_bluetooth_searching"/>
+
+        <Button
+            android:id="@+id/btn_arm"
+            android:text="Connect"
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="Back"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
             android:padding="10dp"
             android:background="@color/colorButton"
-            android:drawableRight="@drawable/icon_arrow_backward"
-            android:id="@+id/btn_back"
-            android:layout_gravity="bottom|left" />
-        </android.support.v7.widget.CardView>
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:layout_below="@id/txv_sensors" />
 
         <TextView
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"        
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="1. Wipe the area with an alcohol wipe"
-        android:id="@+id/txv_instruction"
-        android:visibility="gone"
-        android:layout_below="@id/card_images"
+            android:id="@+id/txv_sensors"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:layout_below="@id/progBar_search"
+            android:textStyle="bold" />
+
+        <!--Images-->
+        <RelativeLayout
+            android:id="@+id/frame_image"
+            android:layout_below="@id/txv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/btn_img_or_vid"
+                android:text="Image instructions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20px"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:background="@color/colorButton"
+                android:layout_centerHorizontal="true" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/card_images"
+                android:visibility="gone"
+                android:layout_below="@id/txv_help"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerInside"
+                    android:id="@+id/imageView"
+                    android:contentDescription=""
+                    android:src="@drawable/info_stick"
+                    android:layout_gravity="top|right"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Next"
+                    android:padding="10dp"
+                    android:background="@color/colorButton"
+                    android:drawableRight="@drawable/icon_arrow_forward"
+                    android:id="@+id/btn_next"
+                    android:layout_gravity="bottom|right" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Back"
+                    android:padding="10dp"
+                    android:background="@color/colorButton"
+                    android:drawableRight="@drawable/icon_arrow_backward"
+                    android:id="@+id/btn_back"
+                    android:layout_gravity="bottom|left" />
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="1. Wipe the area with an alcohol wipe"
+                android:id="@+id/txv_instruction"
+                android:visibility="gone"
+                android:layout_below="@id/card_images"
             />
 
-        <android.support.v7.widget.CardView
-        android:layout_width="350dp"
-        android:layout_height="350dp"
-        app:cardCornerRadius="10dp"
-        android:layout_below="@id/txv_help"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20px"
-        android:visibility="gone"
-        android:id="@+id/card_video">
+            <android.support.v7.widget.CardView
+                android:layout_width="350dp"
+                android:layout_height="350dp"
+                app:cardCornerRadius="10dp"
+                android:layout_below="@id/txv_help"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20px"
+                android:visibility="gone"
+                android:id="@+id/card_video">
 
-        <VideoView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minWidth="25px"
-            android:minHeight="25px"      
-            android:id="@+id/video_apply" />
+                <VideoView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:id="@+id/video_apply" />
 
-    </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
             <TextView
-        android:id="@+id/txv_help"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="It is okay to ask for help from a second person if needed. \nApply sensors to the locations recommended by your physiotherapist."
-        android:padding="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/btn_img_or_vid" />
-   </RelativeLayout>
+                android:id="@+id/txv_help"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="It is okay to ask for help from a second person if needed. \nApply sensors to the locations recommended by your physiotherapist."
+                android:padding="10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/btn_img_or_vid" />
+        </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_exercise"
-        android:text="Start your exercise session"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:padding="10dp"
-        android:layout_gravity="center"
-        android:background="@color/colorButton"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone"
-        android:drawableRight="@drawable/icon_arrow_forward"
-        android:layout_below="@id/frame_image" />
-    <Button
-        android:id="@+id/btn_mvc"
-        android:text="FOR PHYSIOTHERAPIST USE \n\n MVC Recording"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:padding="10dp"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:background="@color/colorButtonPhysio"
-        android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/icon_arrow_forward"
-        android:layout_below="@id/btn_exercise" />
+        <Button
+            android:id="@+id/btn_exercise"
+            android:text="Start your exercise session"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:background="@color/colorButton"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:drawableRight="@drawable/icon_arrow_forward"
+            android:layout_below="@id/frame_image" />
+        <Button
+            android:id="@+id/btn_mvc"
+            android:text="FOR PHYSIOTHERAPIST USE \n\n MVC Recording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:background="@color/colorButtonPhysio"
+            android:layout_centerHorizontal="true"
+            android:drawableRight="@drawable/icon_arrow_forward"
+            android:layout_below="@id/btn_exercise" />
 
-</RelativeLayout>
+    </RelativeLayout>
 </ScrollView>

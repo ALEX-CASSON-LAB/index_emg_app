@@ -41,13 +41,16 @@ namespace AndroidSample.Views
 
             int session_id = Int32.Parse(Intent.GetStringExtra("session_id"));
 
-            Session session = _myModel.getSession(session_id);
+            Session session = _myModel.GetSession(session_id);
 
-            lv = FindViewById<ListView>(Resource.Id.view_stats_list);
-
-            adapter = new CustomListAdapter(this, getExercises(session));
-
-            lv.Adapter = adapter;
+            var exercises = getExercises(session);
+            if (exercises != null)
+            {
+                var stats = GetStats(session);
+                lv = FindViewById<ListView>(Resource.Id.view_stats_list);
+                adapter = new CustomListAdapter(this,exercises,stats);
+                lv.Adapter = adapter;
+            }
 
 
             NotesButton = FindViewById<Button>(Resource.Id.btn_notes);
@@ -58,7 +61,7 @@ namespace AndroidSample.Views
             HomeButton = FindViewById<Button>(Resource.Id.btn_home);
             HomeButton.Click += (s, e) =>
             {
-                _myModel.endSession();
+                _myModel.EndSession();
                 StartActivity(typeof(MainActivity));
             };
 
@@ -87,6 +90,25 @@ namespace AndroidSample.Views
             }
 
             return null;
+        }
+
+        private List<int> GetStats(Session ses)
+        {
+            List<int> retStats = new List<int>();
+            string stats = ses.exerciseStats;
+
+            var lst = stats.Split(',').ToList();
+
+            foreach (var val in lst)
+            {
+                int stat;
+                bool isint = int.TryParse(val, out stat);
+                if (isint == true)
+                {
+                    retStats.Add(stat);
+                }
+            }
+            return retStats;
         }
 
     }

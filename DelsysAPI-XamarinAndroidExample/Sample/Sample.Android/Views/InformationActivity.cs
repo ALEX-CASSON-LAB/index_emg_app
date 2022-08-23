@@ -175,6 +175,7 @@ namespace AndroidSample
                 showApplyVideo();
 
                 TitleText.Text = "Follow these instructions";
+                SensorsText.Visibility = ViewStates.Invisible;
             };
 
             NextImageButton = FindViewById<Button>(Resource.Id.btn_next);
@@ -227,7 +228,7 @@ namespace AndroidSample
             };
 
             //TODO get rid later
-            var all = _model.getAllSessions();
+            var all = _model.GetAllSessions();
             foreach(Session s in all)
             {
                 System.Console.WriteLine("CC: " + s.date);

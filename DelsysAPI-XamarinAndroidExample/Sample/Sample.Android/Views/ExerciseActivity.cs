@@ -26,11 +26,13 @@ namespace AndroidSample.Views
         ImageView ExerciseImage;
 
         TextView TitleText;
-        TextView DataText;
         TextView ExerciseDescriptionText;
 
         ProgressBar DataProgBar;
         ProgressBar DataProgBar2;
+
+        TextView DataText;
+        TextView DataText2;
 
         BackgroundWorker startWorker;
         BackgroundWorker stopWorker;
@@ -49,7 +51,6 @@ namespace AndroidSample.Views
         Delsys del;
 
         private Exercise _currentExercise;
-        List<List<double>> exerciseData = new List<List<double>>();
 
         public ExerciseActivity()
         {
@@ -59,6 +60,8 @@ namespace AndroidSample.Views
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            _myModel.SetUpExerciseValues(); //TODO move this to a more appropriate place
+
             startWorker = new BackgroundWorker();
             stopWorker = new BackgroundWorker();
             dataWorker = new BackgroundWorker();
@@ -100,23 +103,19 @@ namespace AndroidSample.Views
                     FindViewById<LinearLayout>(Resource.Id.layout_progress_bars).Visibility = ViewStates.Invisible;
                 else
                 {
+                    FindViewById<LinearLayout>(Resource.Id.layout_progress_bars).Visibility = ViewStates.Visible;
                     //TODO depending on how many chanels
                     DataProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_data);
-                    DataProgBar2 = FindViewById<ProgressBar>(Resource.Id.progBar_data2);
+                    
                     if (del.sensors.Count == 2)
-                        DataProgBar2.Visibility = ViewStates.Visible;
+                    {
+                        DataProgBar2 = FindViewById<ProgressBar>(Resource.Id.progBar_data2);
+                        FindViewById<LinearLayout>(Resource.Id.layout_progress2).Visibility = ViewStates.Visible;
+                    }
+                        
                 }
 
-                if (_myModel.realTimeCollection == true)
-                {
-                    del.MuscleActive += (object sender, Delsys.MuscleActiveEventArgs e)
-                            => {
-                                double[] d = e.MuscleData[0];
-                                DataText.Text = d.Last().ToString() + " %"; //todo display properly
-
-                            DataProgBar.SetProgress(Math.Min((int)d.Last(), 100), false);
-                            };
-                }
+               
             };
 
 
@@ -133,6 +132,7 @@ namespace AndroidSample.Views
             ExerciseDescriptionText.Text = _currentExercise.description;
 
             DataText = FindViewById<TextView>(Resource.Id.txv_data);
+            DataText2 = FindViewById<TextView>(Resource.Id.txv_data2);
 
             //set up image 
             ExerciseImage = FindViewById<ImageView>(Resource.Id.im_exercise1);
@@ -144,7 +144,6 @@ namespace AndroidSample.Views
 
             var videoId = (int)Resources.GetIdentifier(_currentExercise.vid_name,"raw", PackageName);
             exercise_path = string.Format("android.resource://{0}/{1}", PackageName, videoId);
-            //exercise_path = string.Format("android.resource://{0}/{1}", PackageName, videoId);
 
             ExerciseVideo.SetVideoPath(exercise_path); // Path of your saved video file.
             ExerciseVideo.SetMediaController(mController);
@@ -177,21 +176,22 @@ namespace AndroidSample.Views
             stopWorker.DoWork += (o, e) =>
             {
                 Task.Delay(3000).Wait();
-                exerciseData = del.Normalise(_myModel.mvc); //TODO add to list 
+                //exerciseData = del.Normalise(_myModel.mvc); //TODO add to list 
             };
 
             NextButton = FindViewById<Button>(Resource.Id.btn_next);
             NextButton.Click += (s, e) =>
             {
-                storeResult();
+                StoreResult();
+                _myModel.ClearExerciseStats();
                 StartActivity(typeof(ExerciseSelectionActivity));
             };
 
             EndSessionButton = FindViewById<Button>(Resource.Id.btn_end);
             EndSessionButton.Click += (s, e) =>
             {
-                storeResult();
-                _myModel.recordCurrentSession();
+                StoreResult();
+                _myModel.RecordCurrentSession();
 
                 Intent intent = new Intent(this, typeof(DisplayStatsActivity));
                 intent.PutExtra("session_id", _myModel.currentSession.Id.ToString());
@@ -204,6 +204,37 @@ namespace AndroidSample.Views
                 del.ClearData();// clear the previous data to get only this exercises data
 
             del.CollectionStopped += DelStopCollection;
+
+
+            del.MuscleActive += (object sender, Delsys.MuscleActiveEventArgs e)
+                    =>
+            {
+                if (_myModel.realTimeCollection == true)
+                {
+                    RunOnUiThread(() =>
+                    {
+                        
+                        double[] sensor1_data = e.MuscleData[0]; //data from first channel
+                        var data1_mean = sensor1_data.Average();
+
+                        _myModel.AddExerciseValue(0,data1_mean);
+
+                        DataText.Text = Math.Round(data1_mean,2).ToString() + " %";
+
+                        DataProgBar.SetProgress(Math.Min((int)data1_mean, 100), false);
+
+                        if (del.sensors.Count == 2)
+                        {
+                            double[] sensor2_data = e.MuscleData[1]; // data from second channel
+                            var data2_mean = sensor2_data.Average();
+                            _myModel.AddExerciseValue(1,data2_mean);
+                            DataText2.Text = Math.Round(data2_mean,2).ToString() + " %";
+                            DataProgBar2.SetProgress(Math.Min((int)data2_mean, 100), false);
+                        }
+                    });
+                    
+                }
+            };
         }
 
         private void changeButtonColor()
@@ -246,23 +277,20 @@ namespace AndroidSample.Views
         public void stopCollection()
         {
             stopWorker.RunWorkerAsync();
-            StartButton.Enabled = true;
-            StartButton.SetBackgroundResource(Resource.Color.colorButton);
-            StartButton.Text = "Start Recording";
-            var draw = ContextCompat.GetDrawable(this, Resource.Drawable.icon_play_arrow);
-            StartButton.SetCompoundDrawablesWithIntrinsicBounds(draw, null, null, null);
-        }
-        public void storeResult()
-        {
-            double maxValue = 0; //store the highest value in the exercise data
-            foreach (List<double> channel in exerciseData)
+            RunOnUiThread(() =>
             {
-                maxValue = channel.Max(z=>z);
-                //TODO make this work with more than one channel
-                // list of max percents?
-            }
+                StartButton.Enabled = true;
+                StartButton.SetBackgroundResource(Resource.Color.colorButton);
+                StartButton.Text = "Start Recording";
+                var draw = ContextCompat.GetDrawable(this, Resource.Drawable.icon_play_arrow);
+                StartButton.SetCompoundDrawablesWithIntrinsicBounds(draw, null, null, null);
+            });
+        }
+        public void StoreResult()
+        {
+            var perform = _myModel.CalculatePerformace();
 
-            _myModel.currentSession.addExerciseStat(_currentExercise, maxValue);
+            _myModel.currentSession.addExerciseStat(_currentExercise, perform);
         }
         public void DelStopCollection(object sender, Delsys.CollectionStoppedEventArgs e)
         {

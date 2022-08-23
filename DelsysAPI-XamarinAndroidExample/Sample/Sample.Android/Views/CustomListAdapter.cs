@@ -19,15 +19,17 @@ namespace AndroidSample.Views
     {
         private readonly Context c;
         private readonly JavaList<Exercise> exercises;
+        private List<int> stats;
         private LayoutInflater inflater;
 
         /*
          * CONSTRUCTOR
          */
-        public CustomListAdapter(Context c, JavaList<Exercise> exercises)
+        public CustomListAdapter(Context c, JavaList<Exercise> exercises, List<int> stats)
         {
             this.c = c;
             this.exercises = exercises;
+            this.stats = stats;
         }
 
         public override Object GetItem(int position)
@@ -60,8 +62,18 @@ namespace AndroidSample.Views
                 NameTxt = { Text = exercises[position].name }
             };
            
-            holder.Img.SetImageResource((int)typeof(Resource.Drawable).GetField(exercises[position].img_name).GetValue(null));
-            holder.RepsTxt.Text = exercises[position].reps + " / " + exercises[position].reps + " reps";
+            if (stats[position] == 5)
+                holder.Img.SetImageResource(Resource.Drawable.stars_five);
+            else if(stats[position] == 4)
+                holder.Img.SetImageResource(Resource.Drawable.stars_four);
+            else if (stats[position] == 3)
+                holder.Img.SetImageResource(Resource.Drawable.stars_three);
+            else if (stats[position] == 2)
+                holder.Img.SetImageResource(Resource.Drawable.stars_two);
+            else if (stats[position] == 1)
+                holder.Img.SetImageResource(Resource.Drawable.stars_one);
+
+            holder.RepsTxt.Text = stats[position] + "/5 stars";
 
             return convertView;
         }

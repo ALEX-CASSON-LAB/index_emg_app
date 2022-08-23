@@ -6,293 +6,299 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/third_background">
-       
-<RelativeLayout
-    android:gravity="center"
-    android:paddingTop="?attr/actionBarSize"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
 
     <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-            android:gravity="center"
-        android:id="@+id/layout_realtime">
-    
-         <Button
-        android:id="@+id/btn_realtime"
-        android:text="Real-time display \nSee the muscle movement results as you complete the exercise"
         android:gravity="center"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-                android:state_pressed="false"
-        android:padding="10dp"
-        android:background="@android:color/white"/>
-        <Button
-        android:id="@+id/btn_post"
-        android:text="Post exercise display \nSee the muscle movement results after you complete the exercise"
-        android:gravity="center"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-                                android:state_pressed="false"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/btn_realtime"
-        android:padding="10dp"
-        android:background="@android:color/white"/>
-
-         <Button
-        android:id="@+id/btn_select"
-        android:text="    Select display method and start session ...    "
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"
-                android:enabled="false"
-        android:drawableRight="@drawable/icon_arrow_forward"
-        android:background="@color/colorButton"
-        android:layout_below="@id/btn_post"/>
- </RelativeLayout>
+        android:paddingTop="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-        android:id="@+id/layout_exercise"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:id="@+id/layout_realtime">
+
+            <Button
+                android:id="@+id/btn_realtime"
+                android:text="Real-time display \nSee the muscle movement results as you complete the exercise"
+                android:gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20px"
+                android:layout_centerHorizontal="true"
+                android:state_pressed="false"
+                android:padding="10dp"
+                android:background="@android:color/white"/>
+            <Button
+                android:id="@+id/btn_post"
+                android:text="Post exercise display \nSee the muscle movement results after you complete the exercise"
+                android:gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20px"
+                android:state_pressed="false"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/btn_realtime"
+                android:padding="10dp"
+                android:background="@android:color/white"/>
+
+            <Button
+                android:id="@+id/btn_select"
+                android:text="    Select display method and start session ...    "
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20px"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:enabled="false"
+                android:drawableRight="@drawable/icon_arrow_forward"
+                android:background="@color/colorButton"
+                android:layout_below="@id/btn_post"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_exercise"
             android:visibility="gone">
 
-            
 
 
-    <LinearLayout
-            android:orientation="horizontal"
-            android:id="@+id/layout_vid_img"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-        <android.support.v7.widget.CardView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:cardCornerRadius="10dp"
-        android:layout_below="@id/txv_title"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20px"
-        android:id="@+id/card_apply">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/layout_vid_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <VideoView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_gravity="center"
-            android:id="@+id/video_exercise" />
+                <android.support.v7.widget.CardView
+                    android:layout_width="225dp"
+                    android:layout_height="225dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_below="@id/txv_title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="20px"
+                    android:id="@+id/card_apply">
 
-    </android.support.v7.widget.CardView>
+                    <VideoView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_gravity="center"
+                        android:id="@+id/video_exercise" />
 
-    <android.support.v7.widget.CardView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:cardCornerRadius="10dp"
-        android:layout_below="@id/txv_title"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="20px"
-        android:id="@+id/card_image">
+                </android.support.v7.widget.CardView>
 
-        <ImageView
-        android:id="@+id/im_exercise1"
-        android:layout_width="250dp"
-        android:contentDescription="description"
-        android:layout_height="250dp"
-        android:layout_centerHorizontal="true"/>
+                <android.support.v7.widget.CardView
+                    android:layout_width="225dp"
+                    android:layout_height="225dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_below="@id/txv_title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="20px"
+                    android:id="@+id/card_image">
 
-    </android.support.v7.widget.CardView>
-    
+                    <ImageView
+                        android:id="@+id/im_exercise1"
+                        android:layout_width="225dp"
+                        android:contentDescription="description"
+                        android:layout_height="225dp"
+                        android:layout_centerHorizontal="true"/>
 
-    </LinearLayout>
-    <TextView
-        android:id="@+id/txv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Exercise"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/layout_vid_img"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"/>
+                </android.support.v7.widget.CardView>
 
-    <LinearLayout
-            android:orientation="horizontal"
-            android:id="@+id/layout_progress_bars"
-            android:layout_width="match_parent"
-            android:layout_below="@id/txv_title"
-            android:layout_height="wrap_content">
 
-        <ProgressBar
-        android:id="@+id/progBar_data"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
-        android:indeterminateTint="@android:color/white"
-        android:progressTint="@android:color/holo_green_light"
-        android:minHeight="80dp"
-        android:progress="0"
-        android:max="100"
-        android:scaleY="10"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:indeterminate="false"/>
-        
-                <TextView
-        android:id="@+id/txv_data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/progBar_data"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/txv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exercise"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/layout_vid_img"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold"/>
 
-        <ProgressBar
-        android:id="@+id/progBar_data2"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="200dp"
-        android:layout_height="80dp"
-        android:indeterminateTint="@android:color/white"
-        android:progressTint="@android:color/holo_green_light"
-        android:minHeight="80dp"        
-        android:layout_margin="20px"
-        android:progress="0"
-        android:max="100"
-        android:scaleY="10"
-        android:layout_centerHorizontal="true"
-        android:indeterminate="false"
-        android:visibility="gone"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/layout_progress_bars"
+                android:layout_width="match_parent"
+                android:layout_below="@id/txv_title"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@id/txv_title"
+                    android:layout_height="wrap_content"
+                    android:gravity="left">
+
+                    <ProgressBar
+                        android:id="@+id/progBar_data"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="200dp"
+                        android:layout_height="80dp"
+                        android:indeterminateTint="@android:color/white"
+                        android:progressTint="@android:color/holo_green_light"
+                        android:minHeight="80dp"
+                        android:progress="0"
+                        android:max="100"
+                        android:scaleY="10"
+                        android:layout_margin="20px"
+                        android:layout_centerHorizontal="true"
+                        android:indeterminate="false"/>
+
+                    <TextView
+                        android:id="@+id/txv_data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:gravity="center"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/progBar_data"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@id/txv_title"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:id="@+id/layout_progress2"
+                    android:visibility="invisible">
+                    <ProgressBar
+                        android:id="@+id/progBar_data2"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="200dp"
+                        android:layout_height="80dp"
+                        android:indeterminateTint="@android:color/white"
+                        android:progressTint="@android:color/holo_green_light"
+                        android:minHeight="80dp"
+                        android:layout_margin="20px"
+                        android:progress="0"
+                        android:max="100"
+                        android:scaleY="10"
+                        android:layout_centerHorizontal="true"
+                        android:indeterminate="false"/>
+
+                    <TextView
+                        android:id="@+id/txv_data2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:gravity="center"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/progBar_data2"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:id="@+id/layout_startstop"
+                android:layout_below="@id/layout_progress_bars">
+                <Button
+                    android:id="@+id/btn_start"
+                    android:text="    Setting up ...    "
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:layout_margin="20px"
+                    android:padding="10dp"
+                    android:background="@color/colorButton"
+                    android:layout_below="@id/txv_tip"
+                    android:enabled="false"/>
+
+                <Button
+                    android:id="@+id/btn_stop"
+                    android:text="Stop"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:layout_margin="20px"
+                    android:visibility="invisible"
+                    android:drawableLeft="@drawable/icon_stop"
+                    android:background="@color/colorButton"/>
+            </LinearLayout>
+
 
             <TextView
-        android:id="@+id/txv_data2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/progBar_data2"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold"/>
-
-    </LinearLayout>
-       
-
-    
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:layout_below="@id/layout_progress_bars"
-        android:id="@+id/txv_description"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:drawableLeft="@drawable/icon_info"
-        android:padding="10dp"    
-        android:background="#CCCC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_below="@id/layout_startstop"
+                android:id="@+id/txv_description"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:drawableLeft="@drawable/icon_info"
+                android:padding="10dp"
+                android:background="#CCCC"
         />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remember not to push yourself more than you feel you can."
-        android:layout_below="@id/txv_description"
-        android:id="@+id/txv_tip"
-        android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:drawableLeft="@drawable/icon_tips"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:padding="10dp"    
-        android:background="#ffff"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Remember not to push yourself more than you feel you can."
+                android:layout_below="@id/txv_description"
+                android:id="@+id/txv_tip"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:drawableLeft="@drawable/icon_tips"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:padding="10dp"
+                android:background="#ffff"
         />
 
-    <Button
-        android:id="@+id/btn_start"
-        android:text="    Setting up ...    "
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:padding="10dp"
-        android:background="@color/colorButton"
-        android:layout_below="@id/txv_tip"
-        android:enabled="false"/>
 
-     <TextView
-        android:id="@+id/txv_reps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0/5 reps completed"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:layout_toRightOf="@id/btn_start"
-        android:layout_below="@id/txv_tip"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold"/>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60sp"
+                android:layout_below="@+id/txv_tip">
 
-    <Button
-        android:id="@+id/btn_stop"
-        android:text="Stop"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/icon_stop"
-        android:background="@color/colorButton"
-        android:padding="10dp"
-        android:layout_margin="20px"
-        android:visibility="invisible"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/btn_start"  />
+                <Button
+                    android:id="@+id/btn_next"
+                    android:text="Skip exercise"
+                    android:gravity="center"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:drawableRight="@drawable/icon_arrow_forward"
+                    android:background="@color/colorButton"
+                    android:layout_margin="20px"
+                    android:layout_centerHorizontal="true"/>
 
-    <LinearLayout 
-        android:orientation="horizontal"
-        android:background="#ffffff"
-        android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:layout_below="@+id/btn_stop">
-                
-         <Button
-        android:id="@+id/btn_next"
-        android:text="Skip exercise"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:drawableRight="@drawable/icon_arrow_forward"
-        android:background="@color/colorButton"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"/>
-                 
-                
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" OR "
-            android:textAppearance="?android:attr/textAppearanceMedium"
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" OR "
+                    android:textAppearance="?android:attr/textAppearanceMedium"
         />
 
-        <Button
-            android:id="@+id/btn_end"
-            android:text="End session"
-            android:gravity="center"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:padding="10dp"
-            android:background="@color/colorButton"
-            android:layout_margin="20px"
-            android:layout_centerHorizontal="true" />
-    </LinearLayout>
-    
-</RelativeLayout>
-</RelativeLayout>
+                <Button
+                    android:id="@+id/btn_end"
+                    android:text="End session"
+                    android:gravity="center"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:background="@color/colorButton"
+                    android:layout_margin="20px"
+                    android:layout_centerHorizontal="true" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
 </ScrollView>
 

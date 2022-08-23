@@ -6,74 +6,74 @@
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:background="@color/background">
-    
 
-<RelativeLayout 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/third_background"
-    android:paddingTop="?attr/actionBarSize">
-    <FrameLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/frameLayout1">
-    <TextView
-        android:id="@+id/txv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="The Index App"
+        android:layout_height="match_parent"
+        android:background="@drawable/third_background"
+        android:paddingTop="?attr/actionBarSize">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:id="@+id/frameLayout1">
+            <TextView
+                android:id="@+id/txv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="The Index App"
                 android:textStyle="bold"
-        android:textSize="@dimen/large_text"
-        android:layout_gravity="top|center"
-        android:layout_margin="20px"
-    android:layout_centerHorizontal="true"
-        />
-    
-    </FrameLayout>
-    
-    
-    <TextView
-        android:id="@+id/txv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome_msg"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_margin="20px"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/frameLayout1"
+                android:textSize="@dimen/large_text"
+                android:layout_gravity="top|center"
+                android:layout_margin="20px"
+                android:layout_centerHorizontal="true"
         />
 
-    <Button
-        android:id="@+id/btn_begin"
-        android:text="Begin session"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:padding="10dp"
-        android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/icon_arrow_forward"
-        android:layout_below="@id/txv_name"
-        android:background="@drawable/customButtonBorder"/>
+        </FrameLayout>
 
-    <Button
-        android:id="@+id/btn_data"
-        android:text="See previous sessions data"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20px"
-        android:padding="10dp"
-        android:layout_gravity="center"
-        android:background="@drawable/customButtonBorder"
-        android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/icon_arrow_forward"
-        android:layout_below="@id/btn_begin" />
-    
-            <Space
+
+        <TextView
+            android:id="@+id/txv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_msg"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_margin="20px"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/frameLayout1"
+        />
+
+        <Button
+            android:id="@+id/btn_begin"
+            android:text="Begin session"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:drawableRight="@drawable/icon_arrow_forward"
+            android:layout_below="@id/txv_name"
+            android:background="@color/colorButton"/>
+
+        <Button
+            android:id="@+id/btn_data"
+            android:text="See previous sessions data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20px"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:background="@color/colorButton"
+            android:layout_centerHorizontal="true"
+            android:drawableRight="@drawable/icon_arrow_forward"
+            android:layout_below="@id/btn_begin" />
+
+        <Space
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_below="@id/btn_data"
             android:id="@+id/space1" />
-    
-</RelativeLayout>
+
+    </RelativeLayout>
 </ScrollView>

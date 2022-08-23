@@ -19,7 +19,7 @@ public class MainModel
     }
     public static MainModel Instance { get; } = new MainModel();
     #endregion
-    
+
     private Delsys _del;
     private double[][] _data;
     public double mvc { get; set; }
@@ -30,6 +30,9 @@ public class MainModel
     public bool realTimeCollection;
 
     public List<Exercise> availableExercises;
+
+    private List<List<double>> exerciseMeans = new List<List<double>>(); 
+
     public Delsys del
     {
         get { return _del; }
@@ -52,33 +55,33 @@ public class MainModel
     {
         currentSession = new Session();
         currentSession.date = System.DateTime.Now.ToLocalTime();
-        setUpMvcs();
+        SetUpMvcs();
         _database.SaveItemAsync(currentSession).Wait();
     }
-    public async void recordCurrentSession()
+    public async void RecordCurrentSession()
     {
         await _database.SaveItemAsync(currentSession);
     }
-    public Session getCurrentSession()
-    {
-        return currentSession;
-    }
 
-    public List<Session> getAllSessions()
+    public List<Session> GetAllSessions()
     {
         List<Session> allSessions = _database.GetItemsAsync().Result;
         return allSessions;
     }
 
-    public Session getSession(int id)
+    public Session GetSession(int id)
     {
         Session s = _database.GetSessionAsync(id).Result;
         return s;
     }
 
-    public void endSession()
+    public void EndSession()
     {
-        del.PipelineDisarm();
+        if (del != null & del.BTPipeline != null)
+        {
+            del.PipelineDisarm();
+            del.BTPipeline = null;
+        }
     }
     #endregion
 
@@ -128,25 +131,25 @@ public class MainModel
             StreamReader sr = new StreamReader(stream);
             string json = sr.ReadToEnd();
             availableExercises = JsonConvert.DeserializeObject<List<Exercise>>(json);
-        } 
+        }
     }
 
     // Used by the exercise selection activity
     // TODO there must be a better way to do this
     public List<string>[] getExerciseInfo()
     {
-        List<string>[] returnArr= new List<string>[3];
+        List<string>[] returnArr = new List<string>[3];
 
         List<string> names = new List<string>();
         List<string> imageIds = new List<string>();
         List<string> ids = new List<string>();
 
-        
+
         foreach (Exercise e in availableExercises)
         {
             names.Add(e.name);
             imageIds.Add(e.img_name);
-            ids.Add(e.Id.ToString()); 
+            ids.Add(e.Id.ToString());
         }
 
         returnArr[0] = names;
@@ -175,19 +178,12 @@ public class MainModel
                 }
             }
         }
-        
-        return exercisesDone;   
+
+        return exercisesDone;
     }
     #endregion
 
     #region helper methods
-    public static double[] fullWaveRectification(double[] data)
-    {
-        double[] rectData = new double[data.Length];
-        for (int i = 0; i < data.Length; i++)
-            rectData[i] = Math.Abs(data[i]);
-        return rectData;
-    }
 
     /// <summary>
     /// Retrieves the mvc string from the most recent session
@@ -195,10 +191,8 @@ public class MainModel
     /// this becomes the default. The user can update the mvc values 
     /// in the MVC activity
     /// </summary>
-    private void setUpMvcs()
+    private void SetUpMvcs()
     {
-        List<double> prevMvcs = new List<double>();
-
         List<Session> allPrevSession = _database.GetItemsAsync().Result; // get last one
         if (allPrevSession.Count != 0)
         {
@@ -209,13 +203,15 @@ public class MainModel
                 currentSession.mvcs = prevSession.mvcs;
                 del.mvcs = currentSession.getMvcs().ToArray();
             }
-            
-        }
-        //First session
-        currentSession.mvcs = "1,1"; //default to 1
-        del.mvcs = currentSession.getMvcs().ToArray();
-        //TODO add a force to record MVC collection before exercising
 
+        }
+        else
+        {
+            //First session
+            currentSession.mvcs = "1,1"; //default to 1
+            del.mvcs = currentSession.getMvcs().ToArray();
+            //TODO add a force to record MVC collection before exercising
+        }
     }
     /// <summary>
     /// Update the mvc values to the ones collected in this session
@@ -225,6 +221,51 @@ public class MainModel
         currentSession.setMvcs(newMvcs);
         del.mvcs = newMvcs.ToArray();
         _database.SaveItemAsync(currentSession);
+    }
+
+    public void SetUpExerciseValues()
+    {
+        for (int i = 0; i < del.sensors.Count; i++)
+        {
+            exerciseMeans.Add(new List<double>());
+        }
+    }
+
+    /// <summary>
+    /// </summary>
+    public void AddExerciseValue(int channel, double val)
+    {
+        exerciseMeans[channel].Add(val);
+    }
+
+    public int CalculatePerformace()
+    {
+        List<int> performances = new List<int>();
+        foreach (var channelMeans in exerciseMeans)
+        {
+            int eighty = channelMeans.Where(p => p > 80).Count();
+            int sixty = channelMeans.Where(p => (p > 60)).Count();
+            int fourty = channelMeans.Where(p => (p > 40)).Count();
+            int twenty = channelMeans.Where(p => (p > 20)).Count();
+
+
+            if (eighty > (channelMeans.Count / 2)) // if more than 50 % of value are above 80
+                performances.Add(5);
+            else if (sixty > (channelMeans.Count / 2))
+                performances.Add(4);
+            else if (fourty > (channelMeans.Count / 2))
+                performances.Add(3);
+            else if (twenty > (channelMeans.Count / 2))
+                performances.Add(2);
+            else
+                performances.Add(1);
+        }
+       return (int)Math.Round(performances.Average());
+    }
+
+    public void ClearExerciseStats()
+    {
+        exerciseMeans = new List<List<double>>();
     }
     #endregion
 }
@@ -239,7 +280,7 @@ public class IndexDatabase
     {
         var instance = new IndexDatabase();
         CreateTableResult result = await Database.CreateTableAsync<Session>();
-        
+
         return instance;
     });
 

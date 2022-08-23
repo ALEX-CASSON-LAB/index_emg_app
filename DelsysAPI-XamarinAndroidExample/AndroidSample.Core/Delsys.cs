@@ -24,7 +24,7 @@ namespace AndroidSample.Core
 {
     public class Delsys
     {
-        Pipeline BTPipeline;
+        public Pipeline BTPipeline;
         ITransformManager TransformManager;
         public List<List<double>> Data = new List<List<double>>();
         public TrignoEmgSignal[] processedData;
@@ -116,8 +116,6 @@ namespace AndroidSample.Core
         #region Initialisation
         private void InitializeDataSource()
         {
-            
-
             // Load your license and key files
             // This tutorial assumes you have them contained in embedded resources named PublicKey.lic and License.lic, as part of
             // a solution with an output executable called AndroidSample.
@@ -310,14 +308,14 @@ namespace AndroidSample.Core
 
             double[][] pData = new double[processedData.Length][];
             for(int i = 0;i<processedData.Length; i++)
-            foreach(var sig in processedData)
             {
-                    pData[i] = sig.AveragedSample;
+                pData[i] = processedData[i].AveragedSample;
             }
+            
 
             if (mvcCollection == false)
             {
-                double[][] normData = mvcNormalise(pData);
+                double[][] normData = MvcNormalise(pData);
                 OnMuscleActive(normData);
             }
             else
@@ -375,7 +373,7 @@ namespace AndroidSample.Core
         }
 
         //myown
-        public double[][] mvcNormalise(double[][] data)
+        public double[][] MvcNormalise(double[][] data)
         {
 
             double[][] normData = new double[data.Length][];
