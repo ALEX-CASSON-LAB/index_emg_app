@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/colorAccent"
+    android:padding="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Session date"
+        android:id="@+id/txv_date"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:layout_alignParentLeft="true" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="No exercises completed"
+        android:id="@+id/txv_exer"
+        android:layout_below="@+id/txv_date"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="No notes"
+        android:id="@+id/txv_note"
+        android:layout_below="@+id/txv_exer"
+        android:padding="10dp"/>
+    <Button
+        android:id="@+id/btn_more"
+        android:text="See more info"        
+        android:layout_width="200dp"
+         android:padding="10dp"
+        android:background="@color/colorButton"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/txv_note" />
+</LinearLayout>

@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">INDEX App</string>
+	<string name="settings_title">Settings</string>
+    <string name="action_settings">Settings</string>
+    <string name="exercise_title">Exercise page</string>
+	<string name="action_profile">Profile</string>
+	<string name="app_info">
+		Version 0.0
+		\n\nLast date updated 24.08.2022
+		\n\nDeveloped as part of the masters\' project at The University of Manchester for the degree of Master of Science in Advanced Computer Science: Digital Biology in the Faculty of Science and Engineering.
+		\n\nCreated by Carolina Costa Lopes
+		\n\nSupervised by Dr Alex Casson
+		\n\nAdvisor team: Dr Janet Deane
+	</string>
+	<string name="image_info">
+		Exercise images taken from the Versus Arthritis website with permission. These images have been altered in colour.
+	</string>
+
+	<string name="logo_description">The University of Manchester Logo</string>
+	
+	<!--Main page-->
+	<string name="welcome_msg">Welcome back John! \nGet ready to have a great session!</string>
+	<!--Information page-->
+	<string name="scan_txt">Searching for your sensors ... \nThis may take up to 20 seconds</string>
+	<string name="rescan_txt">No sensors found. Please check you have undocked your sensors and activated them correctly.</string>
+	
+	<!--MVC-->
+	<string name="mvc_msg">Complete this with your physiotherapist</string>
+	
+</resources>

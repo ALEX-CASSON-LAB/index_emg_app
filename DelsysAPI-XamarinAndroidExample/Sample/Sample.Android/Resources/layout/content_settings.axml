@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+<RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?attr/actionBarSize"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/logo_description"
+        android:src="@drawable/uom_logo"
+        android:layout_marginRight="200dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/img_uomlogo"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customExerciseBorder"
+        android:layout_below="@+id/img_uomlogo"
+        android:layout_margin="20dp"
+        android:id="@+id/frame_about">
+       
+            <TextView
+        android:id="@+id/txv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="About the app"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/img_uomlogo"/>
+
+            <TextView
+        android:id="@+id/txv_info"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_info"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txv_title" />
+    </RelativeLayout>
+    
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customExerciseBorder"
+        android:layout_below="@+id/frame_about"
+        android:layout_margin="20dp">
+
+        <TextView
+        android:id="@+id/txv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Copyright and image use information"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/img_uomlogo"/>
+
+        <TextView
+        android:id="@+id/txv_image_info"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/image_info"
+        android:layout_margin="20px"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/txv_title" />
+    </RelativeLayout>
+       
+</RelativeLayout>
+</ScrollView>

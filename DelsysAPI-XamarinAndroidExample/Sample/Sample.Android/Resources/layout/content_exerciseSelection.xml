@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="?attr/actionBarSize"
+    android:gravity="center"
+    android:background="@drawable/customExerciseBorder">
+
+    <FrameLayout
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        >
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerInside"
+            android:id="@+id/imageView"
+            android:contentDescription="description"
+            android:src="@drawable/va_armraise"
+            android:layout_gravity="top|right"
+            android:layout_centerHorizontal="true"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:contentDescription="done or not done icon"
+            android:src="@drawable/icon_check"
+            android:visibility="invisible"
+            android:id="@+id/img_checkbox"
+            android:layout_gravity="top|right" />
+    </FrameLayout>
+
+    <TextView
+        
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:id="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        />
+
+</LinearLayout>

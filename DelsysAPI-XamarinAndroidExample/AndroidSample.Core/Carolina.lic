@@ -1,0 +1,18 @@
+﻿<License>
+  <Id>cbb3f370-ac7b-415d-b493-01c6cb84acb7</Id>
+  <Type>Standard</Type>
+  <Quantity>10</Quantity>
+  <LicenseAttributes>
+    <Attribute name="Software">VS2012</Attribute>
+  </LicenseAttributes>
+  <ProductFeatures>
+    <Feature name="Sales">True</Feature>
+    <Feature name="Billing">False</Feature>
+  </ProductFeatures>
+  <Customer>
+    <Name>University of Manchester</Name>
+    <Email>carolina.costalopes@postgrad.manchester.ac.uk</Email>
+  </Customer>
+  <Expiration>Wed, 10 Mar 2032 00:00:00 GMT</Expiration>
+  <Signature>MEUCIQC9ONoBzoieLTJuC8KropPXZOi9fqyneU2HoeBgjb9daAIgB7Rm+BuW0FmXpaba+3LjXKeSox7rL6stkgyI4PtxI9c=</Signature>
+</License>

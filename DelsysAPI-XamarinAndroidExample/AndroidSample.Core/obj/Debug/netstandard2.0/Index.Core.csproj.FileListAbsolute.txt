@@ -1,0 +1,10 @@
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\bin\Debug\netstandard2.0\Index.Core.deps.json
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\bin\Debug\netstandard2.0\Index.Core.dll
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\bin\Debug\netstandard2.0\Index.Core.pdb
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\Index.Core.csproj.AssemblyReference.cache
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\Index.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\Index.Core.AssemblyInfoInputs.cache
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\Index.Core.AssemblyInfo.cs
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\Index.Core.csproj.CoreCompileInputs.cache
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\Index.Core.dll
+C:\Users\carol\source\repos\DelsysAPI-XamarinAndroidExample\AndroidSample.Core\obj\Debug\netstandard2.0\Index.Core.pdb
