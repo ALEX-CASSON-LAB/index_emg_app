@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:background="@drawable/third_background">
 
     <RelativeLayout
@@ -63,9 +63,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/layout_exercise"
             android:visibility="gone">
-
-
-
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -145,9 +142,9 @@
                         android:progressTint="@android:color/holo_green_light"
                         android:minHeight="80dp"
                         android:progress="0"
+                        android:layout_margin="20px"
                         android:max="100"
                         android:scaleY="10"
-                        android:layout_margin="20px"
                         android:layout_centerHorizontal="true"
                         android:indeterminate="false"/>
 
@@ -178,10 +175,10 @@
                         android:indeterminateTint="@android:color/white"
                         android:progressTint="@android:color/holo_green_light"
                         android:minHeight="80dp"
-                        android:layout_margin="20px"
                         android:progress="0"
                         android:max="100"
-                        android:scaleY="10"
+                        android:scaleY="10"                        
+                        android:layout_margin="20px"
                         android:layout_centerHorizontal="true"
                         android:indeterminate="false"/>
 
@@ -239,9 +236,9 @@
                 android:id="@+id/txv_description"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:drawableLeft="@drawable/icon_info"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:background="#CCCC"
         />
             <TextView
@@ -253,8 +250,8 @@
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
                 android:drawableLeft="@drawable/icon_tips"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:padding="10dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:padding="5dp"
                 android:background="#ffff"
         />
 

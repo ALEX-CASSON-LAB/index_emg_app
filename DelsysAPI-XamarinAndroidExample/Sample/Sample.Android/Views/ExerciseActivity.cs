@@ -98,6 +98,8 @@ namespace AndroidSample.Views
                     _myModel.realTimeCollection = false;
                 FindViewById<RelativeLayout>(Resource.Id.layout_realtime).Visibility=ViewStates.Gone;
                 FindViewById<RelativeLayout>(Resource.Id.layout_exercise).Visibility=ViewStates.Visible;
+                DataProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_data);
+                DataProgBar2 = FindViewById<ProgressBar>(Resource.Id.progBar_data2);
 
                 if (_myModel.realTimeCollection == false)
                     FindViewById<LinearLayout>(Resource.Id.layout_progress_bars).Visibility = ViewStates.Invisible;
@@ -105,17 +107,12 @@ namespace AndroidSample.Views
                 {
                     FindViewById<LinearLayout>(Resource.Id.layout_progress_bars).Visibility = ViewStates.Visible;
                     //TODO depending on how many chanels
-                    DataProgBar = FindViewById<ProgressBar>(Resource.Id.progBar_data);
                     
                     if (del.sensors.Count == 2)
                     {
-                        DataProgBar2 = FindViewById<ProgressBar>(Resource.Id.progBar_data2);
                         FindViewById<LinearLayout>(Resource.Id.layout_progress2).Visibility = ViewStates.Visible;
-                    }
-                        
-                }
-
-               
+                    }  
+                }  
             };
 
 
@@ -209,25 +206,27 @@ namespace AndroidSample.Views
             del.MuscleActive += (object sender, Delsys.MuscleActiveEventArgs e)
                     =>
             {
+                double[] sensor1_data = e.MuscleData[0]; //data from first channel
+                var data1_mean = sensor1_data.Average();
+                double data2_mean = double.NaN;
+                if (del.sensors.Count == 2)
+                {
+                    double[] sensor2_data = e.MuscleData[1]; // data from second channel
+                    data2_mean = sensor2_data.Average();
+                    _myModel.AddExerciseValue(1, data2_mean);
+                }
+
+                    _myModel.AddExerciseValue(0,data1_mean);
                 if (_myModel.realTimeCollection == true)
                 {
                     RunOnUiThread(() =>
                     {
-                        
-                        double[] sensor1_data = e.MuscleData[0]; //data from first channel
-                        var data1_mean = sensor1_data.Average();
-
-                        _myModel.AddExerciseValue(0,data1_mean);
-
                         DataText.Text = Math.Round(data1_mean,2).ToString() + " %";
 
                         DataProgBar.SetProgress(Math.Min((int)data1_mean, 100), false);
 
                         if (del.sensors.Count == 2)
                         {
-                            double[] sensor2_data = e.MuscleData[1]; // data from second channel
-                            var data2_mean = sensor2_data.Average();
-                            _myModel.AddExerciseValue(1,data2_mean);
                             DataText2.Text = Math.Round(data2_mean,2).ToString() + " %";
                             DataProgBar2.SetProgress(Math.Min((int)data2_mean, 100), false);
                         }

@@ -58,12 +58,13 @@ namespace AndroidSample.Views
             {
                 DateTxt = { Text = sessions[position].date.ToString() }
             };
-          
-            holder.NotesTxt.Text = sessions[position].notes;
+            
+            if (sessions[position].notes != null)
+                holder.NotesTxt.Text = sessions[position].notes;
 
             JavaList<Exercise> exercises = getExercises(sessions[position]);
             if(exercises != null)
-                holder.ExerTxt.Text = exercises.Count + " Completed";
+                holder.ExerTxt.Text = exercises.Count + " Exercises completed";
            
             holder.MoreButton.Click += (s, o) => {
                 Intent intent = new Intent(this.c, typeof(DisplayStatsActivity));

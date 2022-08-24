@@ -20,7 +20,7 @@
 	<string name="logo_description">The University of Manchester Logo</string>
 	
 	<!--Main page-->
-	<string name="welcome_msg">Welcome back</string>
+	<string name="welcome_msg">Welcome back! \nGet ready to have a great session!</string>
 	<!--Information page-->
 	<string name="scan_txt">Searching for your sensors ... \nThis may take up to 20 seconds</string>
 	<string name="rescan_txt">No sensors found. Please check you have undocked your sensors and activated them correctly.</string>

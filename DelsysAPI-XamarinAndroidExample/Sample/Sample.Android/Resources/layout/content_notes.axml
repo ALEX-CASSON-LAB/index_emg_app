@@ -18,10 +18,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Add any notes for this session"
+        android:text="Add any notes for this session. \nThese notes are important to understand how you felt the session went."
         android:layout_margin="20px"
+            android:padding="20dp"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"
         android:layout_below="@+id/im_uomlogo"/>
 
 
@@ -33,7 +33,7 @@
         android:id="@+id/edt_notes"
         android:layout_below="@id/txv_title"
         android:background="@drawable/textinputborder"
-        android:hint="Write any notes about this exercise session here."
+        android:hint="Here are some ideas on what you might want to write: \n\nHow did you feel before the session? \n\nHow are you feeling after the session? \n\nDid you find any particular exercise more difficult than usual?"
         />
 
     <Button

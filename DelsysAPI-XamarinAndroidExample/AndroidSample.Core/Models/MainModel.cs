@@ -77,10 +77,13 @@ public class MainModel
 
     public void EndSession()
     {
-        if (del != null & del.BTPipeline != null)
+        if (del != null)
         {
-            del.PipelineDisarm();
-            del.BTPipeline = null;
+            if(del.BTPipeline != null)
+            {
+                del.PipelineDisarm();
+                del.BTPipeline = null;
+            }
         }
     }
     #endregion
