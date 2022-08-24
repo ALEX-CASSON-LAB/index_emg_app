@@ -24,9 +24,10 @@
                 android:text="The Index App"
                 android:textStyle="bold"
                 android:textSize="@dimen/large_text"
-                android:layout_gravity="top|center"
+                android:layout_gravity="center"
                 android:layout_margin="20px"
                 android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
         />
 
         </FrameLayout>

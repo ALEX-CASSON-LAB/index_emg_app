@@ -6,21 +6,20 @@
 	<string name="action_profile">Profile</string>
 	<string name="app_info">
 		Version 0.0
-		\n\nLast date updated 15.07.2022
+		\n\nLast date updated 24.08.2022
 		\n\nDeveloped as part of the masters\' project at The University of Manchester for the degree of Master of Science in Advanced Computer Science: Digital Biology in the Faculty of Science and Engineering.
 		\n\nCreated by Carolina Costa Lopes
 		\n\nSupervised by Dr Alex Casson
 		\n\nAdvisor team: Dr Janet Deane
 	</string>
 	<string name="image_info">
-		Exercise images taken from versus arthritis website.
-		\nThis app has been designed using resources from Flaticon.com
+		Exercise images taken from the Versus Arthritis website with permission. These images have been altered in colour.
 	</string>
 
 	<string name="logo_description">The University of Manchester Logo</string>
 	
 	<!--Main page-->
-	<string name="welcome_msg">Welcome back! \nGet ready to have a great session!</string>
+	<string name="welcome_msg">Welcome back John! \nGet ready to have a great session!</string>
 	<!--Information page-->
 	<string name="scan_txt">Searching for your sensors ... \nThis may take up to 20 seconds</string>
 	<string name="rescan_txt">No sensors found. Please check you have undocked your sensors and activated them correctly.</string>
