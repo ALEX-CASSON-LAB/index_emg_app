@@ -189,6 +189,33 @@ public class MainModel
     #region helper methods
 
     /// <summary>
+    /// Calculates mvc based on the processData
+    /// Called post collection mvc data
+    /// </summary>
+    /// <returns></returns>
+    public List<double> Calculate_MVC(double[][] data)
+    {
+        double mvc = 1; // default 
+
+        List<double> mvcs = new List<double>();
+
+        for (int i = 0; i < data.Length; i++) // For each channel/sensor
+        {
+            double sum = 0;
+            double[] mvcData = data[i];
+            foreach (var pt in mvcData) // for each data point
+            {
+                sum = sum + (pt * pt); // Add the squares of all values
+            }
+            mvc = sum / mvcData.Length;
+            mvc = Math.Sqrt(mvc); // square root
+            mvcs.Add(mvc);
+        }
+
+        return mvcs;
+    }
+
+    /// <summary>
     /// Retrieves the mvc string from the most recent session
     /// sets it as the current sessions mvc
     /// this becomes the default. The user can update the mvc values 

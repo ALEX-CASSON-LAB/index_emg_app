@@ -478,26 +478,14 @@ namespace AndroidSample.Core
         /// <returns></returns>
         public List<double> calculate_MVC()
         {
-            double mvc = 1; // default 
-            double sum = 0;
-
-            List<double> mvcs = new List<double>();
-
-
-            for (int i = 0; i < processedData.Length; i++) // For each channel/sensor
+            double[][] mvcData = new double[processedData.Length][];
+            for(int i = 0; i < processedData.Length; i++)
             {
-                double[] mvcData = processedData[i].AveragedSample;
-                foreach (var pt in mvcData) // for each data point
-                {
-                    sum = sum + (pt * pt); // Add the squares of all values
-                }
-                mvc = sum /mvcData.Length;
-                mvc = Math.Sqrt(mvc); // square root
-
-                mvcs.Add(mvc);
+                var channelData = processedData[i];
+                mvcData[i] = channelData.AveragedSample;
             }
 
-            return mvcs;
+            return MainModel.Instance.Calculate_MVC(mvcData); ;
         }
         private double Mean(List<double> data)
         {
