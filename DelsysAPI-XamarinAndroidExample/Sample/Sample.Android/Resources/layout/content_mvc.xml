@@ -42,7 +42,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Start"        
+        android:text="Start recording"        
         android:padding="10dp"
         android:layout_margin="25dp"
         android:background="@color/colorButton"

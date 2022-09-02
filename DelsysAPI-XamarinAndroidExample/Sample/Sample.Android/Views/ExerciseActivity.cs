@@ -300,6 +300,13 @@ namespace AndroidSample.Views
             if (e.DataCount < 10)
             {
                 Console.WriteLine("ERROR: Start didnt work. Try again");
+                RunOnUiThread(() =>
+                {
+                    ToastLength duration = ToastLength.Short;
+
+                    var toast = Toast.MakeText(this, "Recording did not start. Try again ...", duration);
+                    toast.Show();
+                });
                 Task.Delay(15000).Wait();
                 startCollection();
             }
@@ -307,7 +314,7 @@ namespace AndroidSample.Views
             {
                 stopCollection();
             }
-            //TODO DISPLAY ERROR ON PAGE AS PLS WAIT
+            
 
         }
         public class VideoLoop : Java.Lang.Object, MediaPlayer.IOnPreparedListener

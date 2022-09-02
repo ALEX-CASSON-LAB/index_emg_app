@@ -49,7 +49,7 @@
                 android:layout_height="350dp"
                 android:layout_below="@id/frame_howto"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="10dp"
+                android:layout_margin="8dp"
                 android:id="@+id/card_sensor">
 
                 <VideoView
@@ -67,8 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lift the sensor from the charging dock
-                \nHold it on the charging icon at the front until it flashes orange and blue.\nDo the same with the other sensor. \n\nIf it stops flashing, re-dock and try again."
-                android:layout_margin="10dp"
+                \nHold it on the charging icon at the front until it flashes orange and blue.\nDo the same with the other sensor. \n\nIf it stops flashing, re-dock and try again.\nWhen you are ready, start the search."
+                android:layout_margin="8dp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/card_sensor"
            />
