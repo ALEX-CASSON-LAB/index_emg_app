@@ -35,6 +35,9 @@ namespace AndroidSample.Views
             HomeButton = FindViewById<Button>(Resource.Id.btn_end);
             HomeButton.Click += (s, e) =>
             {
+                if (NotesText.Text !=null )
+                    _myModel.currentSession.notes = NotesText.Text;
+
                 _myModel.RecordCurrentSession();
                 _myModel.EndSession();
                 StartActivity(typeof(MainActivity));
@@ -46,7 +49,7 @@ namespace AndroidSample.Views
                 im.HideSoftInputFromWindow(Window.DecorView.WindowToken, Android.Views.InputMethods.HideSoftInputFlags.None);
 
                 _myModel.currentSession.notes = NotesText.Text;
-                Drawable img = GetDrawable(Resource.Drawable.icon_edit_note);
+                Drawable img = GetDrawable(Resource.Drawable.icon_edit_note); //TODO make the edit button do something
                 AddButton.SetCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
                 AddButton.Text = "Edit notes";
                 
